@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using FileHelpers;
 
 namespace DSS_WPF
 {
@@ -22,7 +24,21 @@ namespace DSS_WPF
 	{
 		public MainWindow()
 		{
-			InitializeComponent();
+			var engine = new FileHelperEngine<DataPoint>();
+
+			// To Read Use:
+			Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
+			var result = engine.ReadFile("\\\\Mac\\Home\\Desktop\\proef_1.csv");
+			stopwatch.Stop();
+			Console.WriteLine("took " + stopwatch.ElapsedMilliseconds + " milliseconds");
+			
+			// result is now an array of Customer
+			int i = 0;
+			foreach (var dataPoint in result)
+			{
+				//Debug.WriteLine("dataPoint " + i);
+				i++;
+			}
 		}
 	}
 }
