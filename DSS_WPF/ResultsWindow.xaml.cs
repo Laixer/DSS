@@ -21,18 +21,20 @@ using LiveCharts.Wpf;
 namespace DSS_WPF
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for ResultsWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class ResultsWindow : Window
 	{
 
-		public MainWindow()
+		Stopwatch stopwatch;
+
+		public ResultsWindow()
 		{
 			var engine = new FileHelperEngine<DataPoint>();
 
 			// To Read Use:
 			Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-			var result = engine.ReadFile("\\\\Mac\\Home\\Desktop\\proef_1.csv");
+			var result = engine.ReadFile("\\\\Mac\\Home\\Downloads\\results_DSS\\proef_1.csv");
 			stopwatch.Stop();
 			Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 
@@ -48,7 +50,6 @@ namespace DSS_WPF
 					X = result[j].horizontal_strain,
 					Y = result[j].horizontal_stress
 				});
-				Debug.WriteLine(j + " added");
 			
 			}
 			points.AddRange(pointsToAdd);
@@ -69,5 +70,18 @@ namespace DSS_WPF
 		}
 
 		public SeriesCollection SeriesCollection { get; set; }
+
+		private void Window_ContentRendered(object sender, EventArgs e)
+		{
+			Debug.WriteLine("finished");
+			stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
+		}
+
+		private void CartesianChart_UpdaterTick(object sender)
+		{
+			Debug.WriteLine("finished");
+			stopwatch.Stop();
+			Console.WriteLine("rendering chart took " + stopwatch.Elapsed + " milliseconds");
+		}
 	}
 }
