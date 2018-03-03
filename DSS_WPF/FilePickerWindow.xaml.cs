@@ -43,8 +43,8 @@ namespace DSS_WPF
 			if (picker.ShowDialog() == true)
 			{
 				TextBlock.Text = "Aan het lezen: " + picker.FileName;
-				
-				ResultsWindow window = new ResultsWindow();
+
+				ResultsWindow window = new ResultsWindow(picker.FileName);
 				window.Show();
 				this.Close();
 			}

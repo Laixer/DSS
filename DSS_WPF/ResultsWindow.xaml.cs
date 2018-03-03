@@ -28,7 +28,7 @@ namespace DSS_WPF
 
 		Stopwatch stopwatch;
 
-		public ResultsWindow()
+		public ResultsWindow(string fileName)
 		{
 			InitializeComponent();
 
@@ -36,7 +36,7 @@ namespace DSS_WPF
 
 			// To Read Use:
 			Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-			var result = engine.ReadFile("\\\\Mac\\Home\\Downloads\\results_DSS\\proef_1.csv");
+			var result = engine.ReadFile(fileName);
 			stopwatch.Stop();
 			Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 
