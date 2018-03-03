@@ -81,7 +81,7 @@ namespace DSS_WPF
 		{
 			Debug.WriteLine("finished");
 			stopwatch.Stop();
-			Console.WriteLine("rendering chart took " + stopwatch.Elapsed + " milliseconds");
+			Console.WriteLine("rendering chart took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 		}
 	}
 }
