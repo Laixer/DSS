@@ -77,9 +77,7 @@
     <Compile Include="FilePickerWindow.xaml.cs">
       <DependentUpon>FilePickerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FloatConverter.cs" />
     <Compile Include="DataPoint.cs" />
-    <Compile Include="IntConverter.cs" />
     <Compile Include="ResultsWindow.xaml.cs">
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
