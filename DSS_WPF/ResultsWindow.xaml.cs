@@ -30,6 +30,8 @@ namespace DSS_WPF
 
 		public ResultsWindow()
 		{
+			InitializeComponent();
+
 			var engine = new FileHelperEngine<DataPoint>();
 
 			// To Read Use:
