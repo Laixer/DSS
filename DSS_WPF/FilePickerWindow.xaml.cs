@@ -45,9 +45,8 @@ namespace DSS_WPF
 				TextBlock.Text = "Aan het lezen: " + picker.FileName;
 				
 				ResultsWindow window = new ResultsWindow();
-				window.ShowDialog();
-				window.Activate();
-				//this.Close();
+				window.Show();
+				this.Close();
 			}
 			else
 			{
