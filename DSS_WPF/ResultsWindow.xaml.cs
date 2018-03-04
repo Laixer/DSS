@@ -35,38 +35,12 @@ namespace DSS_WPF
 			var engine = new FileHelperEngine<DataPoint>();
 
 			// To Read Use:
-			Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
+			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
 			var result = engine.ReadFile(fileName);
-			stopwatch.Stop();
-			Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
+			//stopwatch.Stop();
+			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 
-			int length = result.Length;
-
-			ChartValues<ObservablePoint> points = new ChartValues<ObservablePoint>();
-
-			ObservablePoint[] pointsToAdd = new ObservablePoint[length];
-			for (int j = 0; j < length; j++)
-			{
-				pointsToAdd[j] = (new ObservablePoint
-				{
-					X = result[j].horizontal_strain,
-					Y = result[j].horizontal_stress
-				});
-			
-			}
-			points.AddRange(pointsToAdd);
-
-			SeriesCollection = new SeriesCollection
-			{
-				new LineSeries
-				{
-					Values = points,
-					StrokeThickness = 1,
-					PointGeometrySize = 1
-				},
-			};
-
-			
+			SeriesCollection = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result);
 
 			DataContext = this;
 		}
