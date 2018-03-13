@@ -40,12 +40,14 @@ namespace DSS_WPF
 			//stopwatch.Stop();
 			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 
-			SeriesCollection = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result);
+			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result);
+			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result);
 
 			DataContext = this;
 		}
 
-		public SeriesCollection SeriesCollection { get; set; }
+		public SeriesCollection SeriesCollection1 { get; set; }
+		public SeriesCollection SeriesCollection2 { get; set; }
 
 		private void Window_ContentRendered(object sender, EventArgs e)
 		{
