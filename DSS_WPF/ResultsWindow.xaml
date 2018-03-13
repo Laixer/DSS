@@ -18,7 +18,22 @@
 
         <lvc:CartesianChart Grid.Row="0" Grid.Column="0" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection1}" />
         <lvc:CartesianChart Grid.Row="0" Grid.Column="1" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection2}" />
-        <lvc:CartesianChart Grid.Row="1" Grid.Column="1" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection3}" />
+        <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Height="300" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection3}">
+            <lvc:CartesianChart.Resources>
+                <Style TargetType="lvc:Separator">
+                    <Setter Property="Stroke" Value="LightGray"></Setter>
+                </Style>
+            </lvc:CartesianChart.Resources>
+            <lvc:CartesianChart.AxisX>
+                <lvc:LogarithmicAxis LabelFormatter="{Binding Formatter}" 
+                                     Base="10" >
+                    <lvc:LogarithmicAxis.Separator>
+                        <lvc:Separator StrokeThickness="1" IsEnabled="True"></lvc:Separator>
+                    </lvc:LogarithmicAxis.Separator>
+                </lvc:LogarithmicAxis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+            
     </Grid>
 
 </Window>
