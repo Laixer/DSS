@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" ContentRendered="Window_ContentRendered">
-    <lvc:CartesianChart UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection}" />
-    
-    
-    
+        Title="MainWindow" Height="800" Width="1000" ContentRendered="Window_ContentRendered">
+    <StackPanel Orientation="Horizontal">
+        <lvc:CartesianChart Height="400" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection1}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" />
+        <lvc:CartesianChart Height="400" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection2}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="500" />
+    </StackPanel>
 </Window>
