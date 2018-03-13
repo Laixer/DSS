@@ -77,8 +77,8 @@ namespace DSS_WPF
 		public int cell_volume; // in mm^3
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
 		public int pore_air_volume; // in mm^3
-		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int axial_strain; // as a percentage
+		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
+		public float axial_strain; // as a percentage
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
 		public float normal_stress; // in kPa
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
