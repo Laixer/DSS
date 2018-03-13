@@ -6,8 +6,19 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000" ContentRendered="Window_ContentRendered">
-    <StackPanel Orientation="Horizontal">
-        <lvc:CartesianChart Height="400" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection1}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" />
-        <lvc:CartesianChart Height="400" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection2}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="500" />
-    </StackPanel>
+    <Grid Width="1000" Height="800">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500" />
+            <ColumnDefinition Width="500" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400" />
+            <RowDefinition Height="400" />
+        </Grid.RowDefinitions>
+
+        <lvc:CartesianChart Grid.Row="0" Grid.Column="0" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection1}" />
+        <lvc:CartesianChart Grid.Row="0" Grid.Column="1" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection2}" />
+        <lvc:CartesianChart Grid.Row="1" Grid.Column="1" UpdaterTick="CartesianChart_UpdaterTick" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection3}" />
+    </Grid>
+
 </Window>
