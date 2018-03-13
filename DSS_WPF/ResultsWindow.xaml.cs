@@ -40,26 +40,31 @@ namespace DSS_WPF
 			//stopwatch.Stop();
 			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 
-			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result);
-			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result);
+			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result, false);
+			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result, false);
+			SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.TimeAxialStrain, result, false);
+			Formatter = value => Math.Pow(10, value).ToString("N");
+
 
 			DataContext = this;
 		}
 
 		public SeriesCollection SeriesCollection1 { get; set; }
 		public SeriesCollection SeriesCollection2 { get; set; }
+		public SeriesCollection SeriesCollection3 { get; set; }
+		public Func<double, string> Formatter { get; set; }
 
 		private void Window_ContentRendered(object sender, EventArgs e)
 		{
-			Debug.WriteLine("finished");
-			stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
+			//Debug.WriteLine("finished");
+			//stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
 		}
 
 		private void CartesianChart_UpdaterTick(object sender)
 		{
-			Debug.WriteLine("finished");
-			stopwatch.Stop();
-			Console.WriteLine("rendering chart took " + stopwatch.ElapsedMilliseconds + " milliseconds");
+			//Debug.WriteLine("finished");
+			//stopwatch.Stop();
+			//Console.WriteLine("rendering chart took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 		}
 	}
 }

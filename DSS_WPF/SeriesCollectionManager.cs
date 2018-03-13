@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using LiveCharts.Configurations;
+using System.Diagnostics;
 
 namespace DSS_WPF
 {
@@ -14,12 +16,26 @@ namespace DSS_WPF
 
 	static class SeriesCollectionManager
 	{
-		static public SeriesCollection SeriesCollectionForType(SeriesCollectionType type, DataPoint[] result)
+		static public SeriesCollection SeriesCollectionForType(SeriesCollectionType type, DataPoint[] result, Boolean logarithmic)
 		{
-			SeriesCollection Collection;
-
 			ChartValues<ObservablePoint> Points = new ChartValues<ObservablePoint>();
 			int Length;
+			int Stage1Length = 0;
+			int StartOfStage2Index = 0;
+			for (int i = 0; i < result.Length; i++)
+			{
+				if (result[i].stage_number == 2)
+				{
+					Stage1Length = i - 1;
+					StartOfStage2Index = i;
+					break;
+				}
+			}
+
+			if (Stage1Length == 0 || StartOfStage2Index == 0)
+			{
+				throw new Exception("There must be two stages in the input file");
+			}
 
 			Func<DataPoint, ObservablePoint> PointGenerationFunc;
 
@@ -34,46 +50,84 @@ namespace DSS_WPF
 					});
 					break;
 				case SeriesCollectionType.NormalStressShearStress:
-					Length = result.Length - 5757;
+					Length = result.Length - StartOfStage2Index;
 					PointGenerationFunc = dataPoint => (new ObservablePoint
 					{
 						X = dataPoint.normal_stress,
 						Y = dataPoint.horizontal_stress
 					});
 					break;
+				case SeriesCollectionType.TimeAxialStrain:
+					Length = Stage1Length;
+					PointGenerationFunc = dataPoint => (new ObservablePoint
+					{
+						X = dataPoint.time_since_start_test,
+						Y = dataPoint.axial_strain
+					});
+					break;
+
 				default:
 					throw new System.ArgumentException("Unsupported type");
 			}
 
 			ObservablePoint[] PointsToAdd = new ObservablePoint[Length];
 
-
-			if (type == SeriesCollectionType.ShearStrainHorizontalStress)
+			switch (type)
 			{
-				for (int i = 0; i < result.Length; i++)
-				{
-					PointsToAdd[i] = PointGenerationFunc(result[i]);
-				}
-			} else if (type == SeriesCollectionType.NormalStressShearStress)
-			{
-				for (int i = 5757; i < result.Length; i++)
-				{
-					PointsToAdd[i-5757] = PointGenerationFunc(result[i]);
-				}
+				case SeriesCollectionType.ShearStrainHorizontalStress:
+					for (int i = 0; i < result.Length; i++)
+					{
+						PointsToAdd[i] = PointGenerationFunc(result[i]);
+					}
+					break;
+				case SeriesCollectionType.NormalStressShearStress:
+					for (int i = StartOfStage2Index; i < result.Length; i++)
+					{
+						PointsToAdd[i - StartOfStage2Index] = PointGenerationFunc(result[i]);
+					}
+					break;
+				case SeriesCollectionType.TimeAxialStrain:
+					for (int i = 0; i < Stage1Length; i++)
+					{
+						PointsToAdd[i] = PointGenerationFunc(result[i]);
+					}
+					break;
+				default:
+					throw new Exception("incomplete switch");
+					
 			}
-			
 
 			Points.AddRange(PointsToAdd);
 
-			Collection = new SeriesCollection
+			SeriesCollection Collection;
+			if (!logarithmic)
 			{
-				new LineSeries
+				Collection = new SeriesCollection
 				{
-					Values = Points,
-					StrokeThickness = 1,
-					PointGeometrySize = 1
-				},
-			};
+				new LineSeries
+					{
+						Values = Points,
+						StrokeThickness = 1,
+						PointGeometrySize = 1
+					},
+				};
+			} else
+			{
+				var mapper = Mappers.Xy<ObservablePoint>()
+					.X(point => Math.Log(point.X, 10)) // a 10 base log scale in the X axis
+					.Y(point => point.Y);
+
+				Collection = new SeriesCollection(mapper)
+				{
+				new LineSeries
+					{
+						Values = Points,
+						StrokeThickness = 1,
+						PointGeometrySize = 1
+					},
+				};
+			}
+			
 
 			return Collection;
 		}
