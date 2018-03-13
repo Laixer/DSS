@@ -114,7 +114,7 @@ namespace DSS_WPF
 			} else
 			{
 				var mapper = Mappers.Xy<ObservablePoint>()
-					.X(point => Math.Log(point.X, 10)) // a 10 base log scale in the X axis
+					.X(point => Math.Log(point.X + .0001, 10)) // a 10 base log scale in the X axis
 					.Y(point => point.Y);
 
 				Collection = new SeriesCollection(mapper)
