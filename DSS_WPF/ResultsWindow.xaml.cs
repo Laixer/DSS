@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Globalization;
 using FileHelpers;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -42,8 +43,9 @@ namespace DSS_WPF
 
 			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result, false);
 			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result, false);
-			SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.TimeAxialStrain, result, false);
-			Formatter = value => Math.Pow(10, value).ToString("N");
+			SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.TimeAxialStrain, result, true);
+			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
+			Base = 10;
 
 
 			DataContext = this;
@@ -53,6 +55,7 @@ namespace DSS_WPF
 		public SeriesCollection SeriesCollection2 { get; set; }
 		public SeriesCollection SeriesCollection3 { get; set; }
 		public Func<double, string> Formatter { get; set; }
+		public double Base { get; set; }
 
 		private void Window_ContentRendered(object sender, EventArgs e)
 		{
