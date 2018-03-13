@@ -19,13 +19,14 @@ namespace DSS_WPF
 			SeriesCollection Collection;
 
 			ChartValues<ObservablePoint> Points = new ChartValues<ObservablePoint>();
-			ObservablePoint[] PointsToAdd = new ObservablePoint[result.Length];
+			int Length;
 
 			Func<DataPoint, ObservablePoint> PointGenerationFunc;
 
 			switch (type)
 			{
 				case SeriesCollectionType.ShearStrainHorizontalStress:
+					Length = result.Length;
 					PointGenerationFunc = dataPoint => (new ObservablePoint
 					{
 						X = dataPoint.horizontal_strain,
@@ -33,6 +34,7 @@ namespace DSS_WPF
 					});
 					break;
 				case SeriesCollectionType.NormalStressShearStress:
+					Length = result.Length - 5757;
 					PointGenerationFunc = dataPoint => (new ObservablePoint
 					{
 						X = dataPoint.normal_stress,
@@ -43,10 +45,23 @@ namespace DSS_WPF
 					throw new System.ArgumentException("Unsupported type");
 			}
 
-			for (int i = 0; i < result.Length; i++)
+			ObservablePoint[] PointsToAdd = new ObservablePoint[Length];
+
+
+			if (type == SeriesCollectionType.ShearStrainHorizontalStress)
 			{
-				PointsToAdd[i] = PointGenerationFunc(result[i]);
+				for (int i = 0; i < result.Length; i++)
+				{
+					PointsToAdd[i] = PointGenerationFunc(result[i]);
+				}
+			} else if (type == SeriesCollectionType.NormalStressShearStress)
+			{
+				for (int i = 5757; i < result.Length; i++)
+				{
+					PointsToAdd[i-5757] = PointGenerationFunc(result[i]);
+				}
 			}
+			
 
 			Points.AddRange(PointsToAdd);
 
