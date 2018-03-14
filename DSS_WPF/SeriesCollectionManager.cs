@@ -8,10 +8,11 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using LiveCharts.Configurations;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace DSS_WPF
 {
-	public enum SeriesCollectionType { ShearStrainHorizontalStress, NormalStressShearStress, HorizontalStrainSecantGModulus, ShearStrainPorePressureNormalStress, TimeAxialStrain }
+	public enum SeriesCollectionType { ShearStrainHorizontalStress, NormalStressShearStress, HorizontalStrainSecantGModulus, ShearStrainPorePressure, ShearStrainNormalStress, TimeAxialStrain }
 
 
 	static class SeriesCollectionManager
@@ -97,6 +98,22 @@ namespace DSS_WPF
 						Y = dataPoint.axial_strain
 					});
 					break;
+				case SeriesCollectionType.ShearStrainNormalStress:
+					Length = result.Length;
+					PointGenerationFunc = dataPoint => (new ObservablePoint
+					{
+						X = dataPoint.horizontal_strain,
+						Y = dataPoint.normal_stress
+					});
+					break;
+				case SeriesCollectionType.ShearStrainPorePressure:
+					Length = result.Length;
+					PointGenerationFunc = dataPoint => (new ObservablePoint
+					{
+						X = dataPoint.horizontal_strain,
+						Y = 100.0 - dataPoint.normal_stress
+					});
+					break;
 
 				default:
 					throw new System.ArgumentException("Unsupported type");
@@ -124,6 +141,19 @@ namespace DSS_WPF
 						PointsToAdd[i] = PointGenerationFunc(result[i]);
 					}
 					break;
+				case SeriesCollectionType.ShearStrainNormalStress:
+					for (int i = 0; i < result.Length; i++)
+					{
+						PointsToAdd[i] = PointGenerationFunc(result[i]);
+					}
+					break;
+				case SeriesCollectionType.ShearStrainPorePressure:
+					for (int i = 0; i < result.Length; i++)
+					{
+						PointsToAdd[i] = PointGenerationFunc(result[i]);
+					}
+					break;
+
 				default:
 					throw new Exception("incomplete switch");
 
@@ -135,7 +165,8 @@ namespace DSS_WPF
 			{
 				Values = Points,
 				StrokeThickness = 1,
-				PointGeometrySize = 1
+				PointGeometrySize = 1,
+				Fill = Brushes.Transparent
 			};
 		}
 	}
