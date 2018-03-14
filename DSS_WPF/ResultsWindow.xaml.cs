@@ -44,6 +44,7 @@ namespace DSS_WPF
 			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result, false);
 			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result, false);
 			SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.TimeAxialStrain, result, true);
+			SeriesCollection4 = SeriesCollectionManager.SeriesCollectionForTypes(new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure }, result, false);
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
@@ -54,6 +55,7 @@ namespace DSS_WPF
 		public SeriesCollection SeriesCollection1 { get; set; }
 		public SeriesCollection SeriesCollection2 { get; set; }
 		public SeriesCollection SeriesCollection3 { get; set; }
+		public SeriesCollection SeriesCollection4 { get; set; }
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
 
