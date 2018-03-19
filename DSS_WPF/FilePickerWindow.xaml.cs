@@ -37,14 +37,16 @@ namespace DSS_WPF
 
 		private void OpenFilePicker()
 		{
-			var picker = new OpenFileDialog();
-			picker.Filter = "CSV files (*.csv)|*.csv";
+			var picker = new OpenFileDialog
+			{
+				Filter = "CSV files (*.csv)|*.csv"
+			};
+			picker.Multiselect = true;
 
 			if (picker.ShowDialog() == true)
 			{
-				TextBlock.Text = "Aan het lezen: " + picker.FileName;
-
-				ResultsWindow window = new ResultsWindow(picker.FileName);
+				TestInformationWindow window = new TestInformationWindow();
+				//ResultsWindow window = new ResultsWindow(picker.FileName);
 				window.Show();
 				this.Close();
 			}
