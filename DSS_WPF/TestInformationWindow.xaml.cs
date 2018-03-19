@@ -24,6 +24,9 @@ namespace DSS_WPF
 			InitializeComponent();
 		}
 
-		
+		private void Continue_Button_Click(object sender, RoutedEventArgs e)
+		{
+			
+		}
 	}
 }
