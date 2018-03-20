@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="GenericTestInformation.cs" />
     <Compile Include="SeriesCollectionManager.cs" />
+    <Compile Include="SpecificTestInformation.cs" />
     <Compile Include="TestInformationWindow.xaml.cs">
       <DependentUpon>TestInformationWindow.xaml</DependentUpon>
     </Compile>
