@@ -26,7 +26,64 @@ namespace DSS_WPF
 
 		private void Continue_Button_Click(object sender, RoutedEventArgs e)
 		{
+			GenericTestInformation genericTestInformation = GenerateGenericTestInformation();
 			
+		}
+
+		private GenericTestInformation GenerateGenericTestInformation()
+		{
+			GenericTestInformation information = new GenericTestInformation();
+
+			information.Project = ProjectField.Text;
+			information.Projectnummer = ProjectnummerField.Text;
+			information.Laborant = LaborantField.Text;
+			information.Adviseur = AdviseurField.Text;
+			information.Teamleider = TeamleiderField.Text;
+			try
+			{
+				information.InitieleHoogte = Convert.ToDouble(InitieleHoogteField.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Waarde Initiele hoogte (" + InitieleHoogteField.Text + ") is geen decimale waarde");
+				return null;
+			}
+
+			try
+			{
+				information.Diameter = Convert.ToDouble(DiameterField.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Waarde diameter (" + DiameterField.Text + ") is geen decimale waarde");
+				return null;
+			}
+
+			information.GrondSoort = GrondsoortField.Text;
+			information.SoortMonster = SoortMonsterField.Text;
+			information.Correctie = CorrectieField.Text;
+
+			try
+			{
+				information.CorrectieWaardeA = Convert.ToDouble(CorrectieAField.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Correctiewaarde a (" + CorrectieAField.Text + ") is geen decimale waarde");
+				return null;
+			}
+
+			try
+			{
+				information.CorrectieWaardeB = Convert.ToDouble(CorrectieBField.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Correctiewaarde b (" + CorrectieBField.Text + ") is geen decimale waarde");
+				return null;
+			}
+
+			return information;
 		}
 	}
 }
