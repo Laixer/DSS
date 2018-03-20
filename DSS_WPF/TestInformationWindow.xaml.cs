@@ -27,6 +27,7 @@ namespace DSS_WPF
 		private void Continue_Button_Click(object sender, RoutedEventArgs e)
 		{
 			GenericTestInformation genericTestInformation = GenerateGenericTestInformation();
+			SpecificTestInformation specificTestInformation1 = GenerateSpecificTestInformation1();
 			
 		}
 
@@ -84,6 +85,11 @@ namespace DSS_WPF
 			}
 
 			return information;
+		}
+
+		private SpecificTestInformation GenerateSpecificTestInformation1()
+		{
+			
 		}
 	}
 }
