@@ -14,7 +14,7 @@ namespace DSS_WPF
 		public double DiepteMaaiveld;
 		public double MonsterDiepteMaaiveld;
 		public double MonsterDiepteNAP;
-
+		public int MonsterKlasse;
 		public String DatumProef;
 		public double InitieelVolumegewicht;
 		public double DroogVolumegewicht;
