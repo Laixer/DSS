@@ -20,7 +20,7 @@ namespace DSS_WPF
 		public String SoortMonster;
 		public String Correctie;
 
-		public double correctieWaardeA;
-		public double correctieWaardeB;
+		public double CorrectieWaardeA;
+		public double CorrectieWaardeB;
 	}
 }

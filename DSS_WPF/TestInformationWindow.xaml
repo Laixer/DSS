@@ -56,14 +56,14 @@
                     <TextBox x:Name="AdviseurField" Text=""  Height="auto" Margin="10,8,0,0"/>
                     <TextBox x:Name="TeamleiderField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-                    <TextBox x:Name="InitielehoogteField" Text=""  Height="auto" Margin="10,28,0,0"/>
+                    <TextBox x:Name="InitieleHoogteField" Text=""  Height="auto" Margin="10,28,0,0"/>
                     <TextBox x:Name="DiameterField" Text=""  Height="auto" Margin="10,8,0,0"/>
                     <TextBox x:Name="GrondsoortField" Text=""  Height="auto" Margin="10,8,0,0"/>
                     <TextBox x:Name="SoortMonsterField" Text=""  Height="auto" Margin="10,8,0,0"/>
                     <TextBox x:Name="CorrectieField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-                    <TextBox x:Name="CorrectionAField" Text=""  Height="auto" Margin="10,53,0,0"/>
-                    <TextBox x:Name="CorrectionBField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="CorrectieAField" Text=""  Height="auto" Margin="10,53,0,0"/>
+                    <TextBox x:Name="CorrectieBField" Text=""  Height="auto" Margin="10,8,0,0"/>
                 </StackPanel>
             </Grid>
             <Grid Margin="10,0,0,0">
