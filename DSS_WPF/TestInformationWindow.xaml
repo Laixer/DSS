@@ -50,20 +50,20 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Left" Margin="0,51,0,0" Grid.Row="0" Grid.Column="1">
-                    <TextBox AcceptsReturn="True" Height="34" Width="190" MaxLines="2"  TextWrapping="Wrap"  Margin="10,10,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,12,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="ProjectField" AcceptsReturn="True" Height="34" Width="190" MaxLines="2"  TextWrapping="Wrap"  Margin="10,10,0,0"/>
+                    <TextBox x:Name="ProjectnummerField" Text=""  Height="auto" Margin="10,12,0,0"/>
+                    <TextBox x:Name="LaborantField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="AdviseurField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="TeamleiderField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-                    <TextBox Text=""  Height="auto" Margin="10,28,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="InitielehoogteField" Text=""  Height="auto" Margin="10,28,0,0"/>
+                    <TextBox x:Name="DiameterField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="GrondsoortField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="SoortMonsterField" Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="CorrectieField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-                    <TextBox Text=""  Height="auto" Margin="10,53,0,0"/>
-                    <TextBox Text=""  Height="auto" Margin="10,8,0,0"/>
+                    <TextBox x:Name="CorrectionAField" Text=""  Height="auto" Margin="10,53,0,0"/>
+                    <TextBox x:Name="CorrectionBField" Text=""  Height="auto" Margin="10,8,0,0"/>
                 </StackPanel>
             </Grid>
             <Grid Margin="10,0,0,0">
