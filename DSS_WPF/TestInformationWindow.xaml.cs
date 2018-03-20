@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace DSS_WPF
 {
@@ -28,7 +29,7 @@ namespace DSS_WPF
 		{
 			GenericTestInformation genericTestInformation = GenerateGenericTestInformation();
 			SpecificTestInformation specificTestInformation1 = GenerateSpecificTestInformation1();
-			
+			Debug.Write(specificTestInformation1);
 		}
 
 		private GenericTestInformation GenerateGenericTestInformation()
@@ -156,21 +157,21 @@ namespace DSS_WPF
 
 			try
 			{
-				information.InitieelVolumegewicht = Convert.ToInt32(InitieelVolumeGewichtField1.Text);
+				information.InitieelVolumegewicht = Convert.ToDouble(InitieelVolumeGewichtField1.Text);
 			}
 			catch
 			{
-				MessageBox.Show("Waarde Initieel volumegewicht (" + InitieelVolumeGewichtField1.Text + ") is geen geheel getal");
+				MessageBox.Show("Waarde Initieel volumegewicht (" + InitieelVolumeGewichtField1.Text + ") is geen decimaal getal");
 				return null;
 			}
 
 			try
 			{
-				information.DroogVolumegewicht = Convert.ToInt32(DroogVolumeGewichtField1.Text);
+				information.DroogVolumegewicht = Convert.ToDouble(DroogVolumeGewichtField1.Text);
 			}
 			catch
 			{
-				MessageBox.Show("Waarde Droog volumegewicht (" + DroogVolumeGewichtField1.Text + ") is geen geheel getal");
+				MessageBox.Show("Waarde Droog volumegewicht (" + DroogVolumeGewichtField1.Text + ") is geen decimaal getal");
 				return null;
 			}
 
