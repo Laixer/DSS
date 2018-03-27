@@ -27,7 +27,7 @@ namespace DSS_WPF
 	public partial class ResultsWindow : Window
 	{
 
-		Stopwatch stopwatch;
+		// Stopwatch stopwatch;
 
 		public ResultsWindow(string fileName)
 		{
