@@ -65,6 +65,8 @@
     <Compile Include="GenericTestInformation.cs" />
     <Compile Include="SeriesCollectionManager.cs" />
     <Compile Include="SpecificTestInformation.cs" />
+    <Compile Include="SpecificTestInformationComponent.xaml.cs">
+    </Compile>
     <Compile Include="TestInformationWindow.xaml.cs">
       <DependentUpon>TestInformationWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +90,10 @@
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SpecificTestInformationComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TestInformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
