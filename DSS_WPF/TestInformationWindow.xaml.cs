@@ -35,7 +35,7 @@ namespace DSS_WPF
 		private GenericTestInformation GenerateGenericTestInformation()
 		{
 			GenericTestInformation information = new GenericTestInformation();
-
+			/*
 			information.Project = ProjectField.Text;
 			information.Projectnummer = ProjectnummerField.Text;
 			information.Laborant = LaborantField.Text;
@@ -83,7 +83,7 @@ namespace DSS_WPF
 			{
 				MessageBox.Show("Correctiewaarde b (" + CorrectieBField.Text + ") is geen decimale waarde");
 				return null;
-			}
+			}*/
 
 			return information;
 		}
@@ -91,7 +91,7 @@ namespace DSS_WPF
 		private SpecificTestInformation GenerateSpecificTestInformation1()
 		{
 			SpecificTestInformation information = new SpecificTestInformation();
-
+			/*
 			information.Boring = BoringField1.Text;
 			try
 			{
@@ -109,7 +109,7 @@ namespace DSS_WPF
 			}
 			catch
 			{
-				MessageBox.Show("Waarde Bus (" + BusField1.Text + ") is geen gheel getal");
+				MessageBox.Show("Waarde Bus (" + BusField1.Text + ") is geen geheel getal");
 				return null;
 			}
 
@@ -193,7 +193,7 @@ namespace DSS_WPF
 			{
 				MessageBox.Show("Waarde Watergehalte (na) (" + WatergehalteNaField1.Text + ") is geen geheel getal");
 				return null;
-			}
+			}*/
 
 			return information;
 		}
