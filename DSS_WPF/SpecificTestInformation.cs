@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSS_WPF
 {
-	class SpecificTestInformation
+	public class SpecificTestInformation
 	{
 		public String Boring;
 		public int Monster;
