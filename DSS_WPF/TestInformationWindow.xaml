@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="TestInformationWindow" Height="600" Width="1300">
     <StackPanel Orientation="Horizontal">
-        <local:GenericTestInformationComponent/>
-        <local:SpecificTestInformationComponent/>
-        <local:SpecificTestInformationComponent/>
-        <local:SpecificTestInformationComponent/>
+        <local:GenericTestInformationComponent x:Name="GenericInformationComponent"/>
+        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent1"/>
+        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent2"/>
+        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent3"/>
     </StackPanel>
 
 
