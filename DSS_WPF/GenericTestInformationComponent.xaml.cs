@@ -40,7 +40,7 @@ namespace DSS_WPF
 			}
 			catch
 			{
-				MessageBox.Show("Waarde Initiele hoogte (" + .nitieleHoogteField.Text + ") is geen decimale waarde");
+				MessageBox.Show("Waarde Initiele hoogte (" + InitieleHoogteField.Text + ") is geen decimale waarde");
 				return null;
 			}
 
@@ -81,6 +81,4 @@ namespace DSS_WPF
 			return information;
 		}
 	}
-
-}
 }
