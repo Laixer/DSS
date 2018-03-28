@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DSS_WPF
 {
-	class GenericTestInformation
+	public class GenericTestInformation
 	{
 		public String Project;
 		public String Projectnummer;
