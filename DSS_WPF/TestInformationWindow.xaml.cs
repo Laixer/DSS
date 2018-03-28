@@ -35,55 +35,55 @@ namespace DSS_WPF
 		private GenericTestInformation GenerateGenericTestInformation()
 		{
 			GenericTestInformation information = new GenericTestInformation();
-			/*
-			information.Project = ProjectField.Text;
-			information.Projectnummer = ProjectnummerField.Text;
-			information.Laborant = LaborantField.Text;
-			information.Adviseur = AdviseurField.Text;
-			information.Teamleider = TeamleiderField.Text;
+			
+			information.Project = GenericInformationComponent.ProjectField.Text;
+			information.Projectnummer = GenericInformationComponent.ProjectnummerField.Text;
+			information.Laborant = GenericInformationComponent.LaborantField.Text;
+			information.Adviseur = GenericInformationComponent.AdviseurField.Text;
+			information.Teamleider = GenericInformationComponent.TeamleiderField.Text;
 			try
 			{
-				information.InitieleHoogte = Convert.ToDouble(InitieleHoogteField.Text);
+				information.InitieleHoogte = Convert.ToDouble(GenericInformationComponent.InitieleHoogteField.Text);
 			}
 			catch
 			{
-				MessageBox.Show("Waarde Initiele hoogte (" + InitieleHoogteField.Text + ") is geen decimale waarde");
+				MessageBox.Show("Waarde Initiele hoogte (" + GenericInformationComponent.InitieleHoogteField.Text + ") is geen decimale waarde");
 				return null;
 			}
 
 			try
 			{
-				information.Diameter = Convert.ToDouble(DiameterField.Text);
+				information.Diameter = Convert.ToDouble(GenericInformationComponent.DiameterField.Text);
 			}
 			catch
 			{
-				MessageBox.Show("Waarde diameter (" + DiameterField.Text + ") is geen decimale waarde");
+				MessageBox.Show("Waarde diameter (" + GenericInformationComponent.DiameterField.Text + ") is geen decimale waarde");
 				return null;
 			}
 
-			information.GrondSoort = GrondsoortField.Text;
-			information.SoortMonster = SoortMonsterField.Text;
-			information.Correctie = CorrectieField.Text;
-
-			try
-			{
-				information.CorrectieWaardeA = Convert.ToDouble(CorrectieAField.Text);
-			}
-			catch
-			{
-				MessageBox.Show("Correctiewaarde a (" + CorrectieAField.Text + ") is geen decimale waarde");
-				return null;
-			}
+			information.GrondSoort = GenericInformationComponent.GrondsoortField.Text;
+			information.SoortMonster = GenericInformationComponent.SoortMonsterField.Text;
+			information.Correctie = GenericInformationComponent.CorrectieField.Text;
 
 			try
 			{
-				information.CorrectieWaardeB = Convert.ToDouble(CorrectieBField.Text);
+				information.CorrectieWaardeA = Convert.ToDouble(GenericInformationComponent.CorrectieAField.Text);
 			}
 			catch
 			{
-				MessageBox.Show("Correctiewaarde b (" + CorrectieBField.Text + ") is geen decimale waarde");
+				MessageBox.Show("Correctiewaarde a (" + GenericInformationComponent.CorrectieAField.Text + ") is geen decimale waarde");
 				return null;
-			}*/
+			}
+
+			try
+			{
+				information.CorrectieWaardeB = Convert.ToDouble(GenericInformationComponent.CorrectieBField.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Correctiewaarde b (" + GenericInformationComponent.CorrectieBField.Text + ") is geen decimale waarde");
+				return null;
+			}
 
 			return information;
 		}
