@@ -45,19 +45,19 @@
 
         <StackPanel Margin="0,72,0,598" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
 
-            <TextBox x:Name="BoringField1" Text=""  Height="auto" Margin="10,35,0,0"/>
-            <TextBox x:Name="MonsterField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="BusField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="DiepteMaaiveldField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="MonsterdiepteMaaiveldField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="MonsterDiepteNAPField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="MonsterklasseField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="DatumProefField1" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="BoringField" Text=""  Height="auto" Margin="10,35,0,0"/>
+            <TextBox x:Name="MonsterField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="BusField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="DiepteMaaiveldField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterdiepteMaaiveldField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterDiepteNAPField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterklasseField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="DatumProefField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-            <TextBox x:Name="InitieelVolumeGewichtField1" Text=""  Height="auto" Margin="10,54,0,0"/>
-            <TextBox x:Name="DroogVolumeGewichtField1" Text=""  Height="auto" Margin="10,8,0,0"/>
-            <TextBox x:Name="WatergehalteVoorField1" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="InitieelVolumeGewichtField" Text=""  Height="auto" Margin="10,54,0,0"/>
+            <TextBox x:Name="DroogVolumeGewichtField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="WatergehalteVoorField" Text=""  Height="auto" Margin="10,8,0,0"/>
 
-            <TextBox x:Name="WatergehalteNaField1" Text=""  Height="auto" Margin="10,54,0,0"/>
+            <TextBox x:Name="WatergehalteNaField" Text=""  Height="auto" Margin="10,54,0,0"/>
         </StackPanel>
     </Grid>
