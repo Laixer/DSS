@@ -31,7 +31,6 @@ namespace DSS_WPF
 
 		private void Pick_File_Click(object sender, RoutedEventArgs e)
 		{
-			Debug.WriteLine("swag");
 			OpenFilePicker();
 		}
 
