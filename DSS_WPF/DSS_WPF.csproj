@@ -81,6 +81,7 @@
     <Compile Include="GenericTestInformationComponent.xaml.cs">
       <DependentUpon>GenericTestInformationComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SeriesCollectionConfiguration.cs" />
     <Compile Include="SeriesCollectionManager.cs" />
     <Compile Include="SpecificTestInformation.cs" />
     <Compile Include="SpecificTestInformationComponent.xaml.cs">
