@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0">
 
-            <TextBlock Height="auto" Margin="10,35,0,0"><Underline><Run FontWeight="Bold" Text="Proefstuk 1"/></Underline></TextBlock>
+            <TextBlock Height="auto" Margin="10,35,0,0"><Underline><Run FontWeight="Bold" Text="Proefstuk x" x:Name="ProefstukTextBlock"/></Underline></TextBlock>
             <TextBlock Height="auto" Margin="10,30,0,0"><Run FontWeight="Bold" Text="Voor beproeving"/></TextBlock>
             <TextBlock Text="Boring:" Height="auto" Margin="10,10,0,0"/>
             <TextBlock Text="Monster:" Height="auto" Margin="10,10,0,0"/>

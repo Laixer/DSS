@@ -7,11 +7,8 @@
         mc:Ignorable="d"
         Title="TestInformationWindow" Height="600" Width="1300">
     <Grid>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel x:Name="InformationStackPanel" Orientation="Horizontal">
         <local:GenericTestInformationComponent x:Name="GenericInformationComponent"/>
-        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent1"/>
-        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent2"/>
-        <local:SpecificTestInformationComponent x:Name="SpecificInformationComponent3"/>
     </StackPanel>
     <Button Content="Verder" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="0,0,10,10" Click="Continue_Button_Click"/>
         <Button Content="Vul met voorbeelddata" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,60,10" Click="Example_Data_Click"/>

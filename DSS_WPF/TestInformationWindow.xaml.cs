@@ -20,23 +20,46 @@ namespace DSS_WPF
 	/// </summary>
 	public partial class TestInformationWindow : Window
 	{
-		String FileName;
+		String[] FileNames;
+		SpecificTestInformationComponent[] InformationComponents = new SpecificTestInformationComponent[3];
 
-		public TestInformationWindow(String FileName)
+
+		public TestInformationWindow(String[] FileNames)
 		{
-			this.FileName = FileName;
+			this.FileNames = FileNames;
 			InitializeComponent();
+			for (int i = 0; i < FileNames.Length; i++)
+			{
+				SpecificTestInformationComponent comp = new SpecificTestInformationComponent
+				{
+					Name = "SpecificInformationComponent" + (i + 1)
+				};
+				comp.ProefstukTextBlock.Text = "Proefstuk " + (i + 1);
+
+				InformationComponents[i] = comp;
+				InformationStackPanel.Children.Add(comp);
+
+			}
 		}
 
 		private void Continue_Button_Click(object sender, RoutedEventArgs e)
 		{
 			GenericTestInformation genericTestInformation = GenericInformationComponent.GetInformation();
-			SpecificTestInformation specificTestInformation1 = SpecificInformationComponent1.GetInformation();
-			SpecificTestInformation specificTestInformation2 = SpecificInformationComponent2.GetInformation();
-			SpecificTestInformation specificTestInformation3 = SpecificInformationComponent3.GetInformation();
-			Debug.Write(specificTestInformation1);
+			if (genericTestInformation == null)
+			{
+				return;
+			}
+			foreach (SpecificTestInformationComponent component in InformationComponents)
+			{
+				SpecificTestInformation info = component.GetInformation();
+				if (info == null)
+				{
+					return;
+				}
+			}
+			
 
-			ResultsWindow wind = new ResultsWindow(FileName);
+			ResultsWindow wind = new ResultsWindow(FileNames[0]);
 			wind.Show();
 		}
 
@@ -57,9 +80,8 @@ namespace DSS_WPF
 			component.CorrectieAField.Text = "0,037";
 			component.CorrectieBField.Text = "1,28";
 
-			SpecificTestInformationComponent[] informationComponents = new SpecificTestInformationComponent[] { SpecificInformationComponent1, SpecificInformationComponent2, SpecificInformationComponent3 };
 			Random random = new Random();
-			foreach (SpecificTestInformationComponent comp in informationComponents)
+			foreach (SpecificTestInformationComponent comp in InformationComponents)
 			{
 				comp.BoringField.Text = "B0" + random.Next(1, 9);
 				comp.MonsterField.Text = random.Next(1, 5).ToString();

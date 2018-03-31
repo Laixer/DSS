@@ -45,7 +45,7 @@ namespace DSS_WPF
 
 			if (picker.ShowDialog() == true)
 			{
-				TestInformationWindow window = new TestInformationWindow(picker.FileName);
+				TestInformationWindow window = new TestInformationWindow(picker.FileNames);
 				window.Show();
 				this.Close();
 			}
