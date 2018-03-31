@@ -51,6 +51,10 @@ namespace DSS_WPF
 			}
 			foreach (SpecificTestInformationComponent component in InformationComponents)
 			{
+				if (component == null)
+				{
+					continue;
+				}
 				SpecificTestInformation info = component.GetInformation();
 				if (info == null)
 				{
@@ -83,6 +87,10 @@ namespace DSS_WPF
 			Random random = new Random();
 			foreach (SpecificTestInformationComponent comp in InformationComponents)
 			{
+				if (comp == null)
+				{
+					continue;
+				}
 				comp.BoringField.Text = "B0" + random.Next(1, 9);
 				comp.MonsterField.Text = random.Next(1, 5).ToString();
 				comp.BusField.Text = random.Next(1, 5).ToString();
