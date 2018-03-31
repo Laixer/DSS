@@ -16,34 +16,36 @@ namespace DSS_WPF
 
 
 	static class SeriesCollectionManager
-	{
-		static public SeriesCollection SeriesCollectionForType(SeriesCollectionType type, DataPoint[] result, Boolean logarithmic)
+	{ 
+		static public SeriesCollection SeriesCollectionForConfiguration(SeriesCollectionConfiguration configuration)
 		{
-			return SeriesCollectionForTypes(new SeriesCollectionType[] { type }, result, logarithmic);
-		}
 
-		static public SeriesCollection SeriesCollectionForTypes(SeriesCollectionType[] types, DataPoint[] result, Boolean logarithmic)
-		{
-			LineSeries[] Series = new LineSeries[types.Length];
-			for (int i = 0; i < types.Length; i++)
+			LineSeries[] Series = new LineSeries[configuration.Types.Length];
+			for (int i = 0; i < configuration.Types.Length; i++)
 			{
-				Series[i] = LineSeriesForType(types[i], result);
+				Series[i] = LineSeriesForType(configuration.Types[i], configuration.DataPoints);
 			}
 
 			SeriesCollection Collection;
-			if (!logarithmic)
+			CartesianMapper<ObservablePoint> Mapper = Mappers.Xy<ObservablePoint>();
+			if (configuration.HasLogarithmicX)
 			{
-				Collection = new SeriesCollection();
+				Mapper.X(point => Math.Log(point.X + .000001, 10));
+			} else
+			{
+				Mapper.X(point => point.X);
+			}
+
+			if (configuration.HasLogarithmicY)
+			{
+				Mapper.Y(point => Math.Log(point.Y + .000001, 10));
 			}
 			else
 			{
-				var mapper = Mappers.Xy<ObservablePoint>()
-					.X(point => Math.Log(point.X + .0001, 10)) // a 10 base log scale in the X axis
-					.Y(point => point.Y);
-
-				Collection = new SeriesCollection(mapper);
+				Mapper.Y(point => point.Y);
 			}
 
+			Collection = new SeriesCollection(Mapper);
 			Collection.AddRange(Series);
 
 			return Collection;
@@ -115,6 +117,39 @@ namespace DSS_WPF
 					});
 					break;
 
+				case SeriesCollectionType.HorizontalStrainSecantGModulus:
+					Length = result.Length - StartOfStage2Index;
+					double StrainStartShear = 0.0;
+					double StressStartShear = 0.0;
+					bool Found = false;
+					//double Correction = 1.28;
+					foreach (DataPoint point in result)
+					{
+						if (point.stage_number == 2)
+						{
+							StrainStartShear = point.horizontal_strain;
+							StressStartShear = point.horizontal_stress;
+							Found = true;
+							break;
+						}
+					}
+					
+					if (!Found)
+					{
+						return null;
+					}
+
+					PointGenerationFunc = dataPoint => (new ObservablePoint
+					{
+						X = dataPoint.horizontal_strain,
+						Y = ((dataPoint.horizontal_stress - StressStartShear) / (dataPoint.horizontal_strain - StrainStartShear)) / 10.0
+					});
+
+
+
+
+					break;
+
 				default:
 					throw new System.ArgumentException("Unsupported type");
 			}
@@ -151,6 +186,13 @@ namespace DSS_WPF
 					for (int i = 0; i < result.Length; i++)
 					{
 						PointsToAdd[i] = PointGenerationFunc(result[i]);
+					}
+					break;
+
+				case SeriesCollectionType.HorizontalStrainSecantGModulus:
+					for (int i = StartOfStage2Index; i < result.Length; i++)
+					{
+						PointsToAdd[i - StartOfStage2Index] = PointGenerationFunc(result[i]);
 					}
 					break;
 
