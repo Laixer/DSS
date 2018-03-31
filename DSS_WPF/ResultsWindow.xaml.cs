@@ -29,7 +29,7 @@ namespace DSS_WPF
 
 		// Stopwatch stopwatch;
 
-		public ResultsWindow(string fileName)
+		public ResultsWindow(String fileName)
 		{
 			InitializeComponent();
 
