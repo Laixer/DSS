@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 
 namespace DSS_WPF
 {
@@ -25,7 +12,7 @@ namespace DSS_WPF
 		{
 			set
 			{
-				_model = model;
+				_model = value;
 				updateItemsSource();
 			}
 
@@ -39,7 +26,6 @@ namespace DSS_WPF
 		public ShearDataGrid()
 		{
 			InitializeComponent();
-			updateItemsSource();
 
 		}
 
@@ -52,14 +38,12 @@ namespace DSS_WPF
 			{
 				DataPoint point = new DataPoint();
 				point.horizontal_strain = shearStrainValues[i];
-				point.normal_stress = 0.132f * i;
-				point.horizontal_stress = 0.456f * i;
+				point.normal_stress = model.SigmaNForShearStrainPercentage(shearStrainValues[i]);
+				point.horizontal_stress = model.TauForShearStrainPercentage(shearStrainValues[i]);
 				itemsSource[i] = point;
 			}
 
-
 			DataGrid.ItemsSource = itemsSource;
-			//DataContext = this;
 		}
 	}
 }

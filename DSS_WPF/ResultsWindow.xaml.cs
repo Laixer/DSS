@@ -27,7 +27,9 @@ namespace DSS_WPF
 	public partial class ResultsWindow : Window
 	{
 
-		// Stopwatch stopwatch;
+		SpecificTestInformation[] specificTestInformation;
+		GenericTestInformation genericTestInformation;
+
 
 		public ResultsWindow(String fileName)
 		{
@@ -38,6 +40,9 @@ namespace DSS_WPF
 			// To Read Use:
 			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
 			var result = engine.ReadFile(fileName);
+
+			ShearViewModel model = new ShearViewModel(result, genericTestInformation);
+			ShearDataGrid.model = model;
 			//stopwatch.Stop();
 			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 			SeriesCollectionConfiguration configuration1 = new SeriesCollectionConfiguration
@@ -100,18 +105,5 @@ namespace DSS_WPF
 		public SeriesCollection SeriesCollection5 { get; set; }
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
-
-		private void Window_ContentRendered(object sender, EventArgs e)
-		{
-			//Debug.WriteLine("finished");
-			//stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-		}
-
-		private void CartesianChart_UpdaterTick(object sender)
-		{
-			//Debug.WriteLine("finished");
-			//stopwatch.Stop();
-			//Console.WriteLine("rendering chart took " + stopwatch.ElapsedMilliseconds + " milliseconds");
-		}
 	}
 }

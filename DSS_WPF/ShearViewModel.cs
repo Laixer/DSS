@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace DSS_WPF
 {
@@ -13,26 +14,39 @@ namespace DSS_WPF
 			float error = float.MaxValue;
 			int i = 0;
 			int bestIndex = 0;
-			float currentValue = dataPoints[i].horizontal_strain;
 			while (i < dataPoints.Length) 
 			{
-				if (Math.Abs(shearStrainPercentage - currentValue) < error)
+				float currentValue = dataPoints[i].horizontal_strain;
+				if (Math.Abs(currentValue - shearStrainPercentage) < error)
 				{
-					error = shearStrainPercentage;
+					error = shearStrainPercentage - currentValue;
+					//Debug.WriteLine("error is " + error);
 					bestIndex = i;
 				}
+				i++;
 			};
 
 			return dataPoints[bestIndex].normal_stress;
 		}
 		
-		/*public float TauN
+		public float TauForShearStrainPercentage(float shearStrainPercentage)
 		{
-			get
+			float error = float.MaxValue;
+			int i = 0;
+			int bestIndex = 0;
+			while (i < dataPoints.Length)
 			{
+				float currentValue = dataPoints[i].horizontal_strain;
+				if (Math.Abs(currentValue - shearStrainPercentage) < error)
+				{
+					error = shearStrainPercentage - currentValue;
+					bestIndex = i;
+				}
+				i++;
+			};
 
-			}
-		}*/
+			return dataPoints[bestIndex].horizontal_stress;
+		}
 		private DataPoint[] dataPoints;
 		private GenericTestInformation testInformation;
 
