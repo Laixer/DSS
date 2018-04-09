@@ -36,7 +36,7 @@ namespace DSS_WPF
 			int bestIndex = 0;
 			while (i < dataPoints.Length)
 			{
-				float currentValue = dataPoints[i].horizontal_strain;
+				float currentValue = dataPoints[i].horizontal_strain - (float)testInformation.CorrectieWaardeB - ((float)testInformation.CorrectieWaardeA * shearStrainPercentage);
 				if (Math.Abs(currentValue - shearStrainPercentage) < error)
 				{
 					error = shearStrainPercentage - currentValue;
