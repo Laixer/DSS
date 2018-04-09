@@ -7,12 +7,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid x:Name="DataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+        <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="240" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="ShearStrainDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding horizontal_strain}"/>
                 <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding normal_stress}"/>
                 <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding horizontal_stress}" />
             </DataGrid.Columns>
         </DataGrid>
+        <DataGrid x:Name="MaxShearStrainDataGrid" Grid.Row="1" Grid.Column="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Max 𝜏"/>
+                <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding horizontal_strain}"/>
+                <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding normal_stress}"/>
+                <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding horizontal_stress}" />
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        
     </Grid>
 </UserControl>
