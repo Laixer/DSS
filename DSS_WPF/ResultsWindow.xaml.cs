@@ -31,7 +31,7 @@ namespace DSS_WPF
 		GenericTestInformation genericTestInformation;
 
 
-		public ResultsWindow(String fileName)
+		public ResultsWindow(String fileName, GenericTestInformation testInformation)
 		{
 			InitializeComponent();
 
@@ -41,6 +41,7 @@ namespace DSS_WPF
 			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
 			var result = engine.ReadFile(fileName);
 
+			genericTestInformation = testInformation;
 			ShearViewModel model = new ShearViewModel(result, genericTestInformation);
 			ShearDataGrid.model = model;
 			//stopwatch.Stop();

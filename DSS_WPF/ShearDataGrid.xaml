@@ -12,7 +12,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="240" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" Grid.Column="0" x:Name="ShearStrainDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -21,7 +21,7 @@
                 <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding horizontal_stress}" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="MaxShearStrainDataGrid" Grid.Row="1" Grid.Column="0">
+        <DataGrid x:Name="MaxShearStrainDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Max 𝜏"/>
                 <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding horizontal_strain}"/>
