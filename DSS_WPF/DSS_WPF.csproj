@@ -83,6 +83,10 @@
     </Compile>
     <Compile Include="SeriesCollectionConfiguration.cs" />
     <Compile Include="SeriesCollectionManager.cs" />
+    <Compile Include="ShearDataGrid.xaml.cs">
+      <DependentUpon>ShearDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShearViewModel.cs" />
     <Compile Include="SpecificTestInformation.cs" />
     <Compile Include="SpecificTestInformationComponent.xaml.cs">
     </Compile>
@@ -113,6 +117,10 @@
       <DependentUpon>ResultsWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ShearDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SpecificTestInformationComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
