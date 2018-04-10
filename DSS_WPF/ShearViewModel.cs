@@ -14,7 +14,7 @@ namespace DSS_WPF
 			float error = float.MaxValue;
 			int i = 0;
 			int bestIndex = 0;
-			while (i < dataPoints.Length) 
+			while (i < dataPoints.Length)
 			{
 				float currentValue = dataPoints[i].horizontal_strain;
 				if (Math.Abs(currentValue - shearStrainPercentage) < error)
@@ -28,7 +28,7 @@ namespace DSS_WPF
 
 			return dataPoints[bestIndex].normal_stress;
 		}
-		
+
 		public float TauForShearStrainPercentage(float shearStrainPercentage)
 		{
 			float error = float.MaxValue;
@@ -47,12 +47,19 @@ namespace DSS_WPF
 
 			return dataPoints[bestIndex].horizontal_stress;
 		}
-		private DataPoint[] dataPoints;
+		private DataPoint[] _dataPoints;
+		public DataPoint[] dataPoints
+		{
+			get
+			{
+				return _dataPoints;
+			}
+		}
 		private GenericTestInformation testInformation;
 
 		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation)
 		{
-			this.dataPoints = dataPoints;
+			this._dataPoints = dataPoints;
 			this.testInformation = testInformation;
 		}
 
