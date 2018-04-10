@@ -77,6 +77,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GeneralDataEntry.cs" />
+    <Compile Include="GeneralDataGrid.xaml.cs">
+      <DependentUpon>GeneralDataGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GenericTestInformation.cs" />
     <Compile Include="GenericTestInformationComponent.xaml.cs">
       <DependentUpon>GenericTestInformationComponent.xaml</DependentUpon>
@@ -94,6 +98,10 @@
       <DependentUpon>TestInformationWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="FilePickerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GeneralDataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

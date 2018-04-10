@@ -55,6 +55,8 @@ namespace DSS_WPF
 				return _dataPoints;
 			}
 		}
+
+		public GenericTestInformation TestInformation { get => testInformation;}
 		private GenericTestInformation testInformation;
 
 		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation)
