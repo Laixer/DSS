@@ -36,7 +36,7 @@ namespace DSS_WPF
 			int bestIndex = 0;
 			while (i < dataPoints.Length)
 			{
-				float currentValue = dataPoints[i].horizontal_strain - (float)testInformation.CorrectieWaardeB - ((float)testInformation.CorrectieWaardeA * shearStrainPercentage);
+				float currentValue = dataPoints[i].horizontal_strain - (float)GenericTestInformation.CorrectieWaardeB - ((float)GenericTestInformation.CorrectieWaardeA * shearStrainPercentage);
 				if (Math.Abs(currentValue - shearStrainPercentage) < error)
 				{
 					error = shearStrainPercentage - currentValue;
@@ -56,15 +56,24 @@ namespace DSS_WPF
 			}
 		}
 
-		public GenericTestInformation TestInformation { get => testInformation;}
-		private GenericTestInformation testInformation;
+		public GenericTestInformation GenericTestInformation { get => _genericTestInformation;}
+		public SpecificTestInformation[] SpecificTestInformation { get => _specificTestInformation; }
+		private SpecificTestInformation[] _specificTestInformation;
+		private GenericTestInformation _genericTestInformation;
 
 		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation)
 		{
 			this._dataPoints = dataPoints;
-			this.testInformation = testInformation;
+			this._genericTestInformation = testInformation;
 		}
 
-		
+		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
+		{
+			this._dataPoints = dataPoints;
+			this._genericTestInformation = testInformation;
+			this._specificTestInformation = specificTestInformation;
+		}
+
+
 	}
 }
