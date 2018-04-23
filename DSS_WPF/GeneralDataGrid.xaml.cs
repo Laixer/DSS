@@ -26,7 +26,7 @@ namespace DSS_WPF
 			set
 			{
 				_model = value;
-				UpdateItemsSource();
+				UpdateItemsSources();
 			}
 
 			get
@@ -42,14 +42,45 @@ namespace DSS_WPF
 		
 		}
 
-		private void UpdateItemsSource()
+		private void UpdateItemsSources()
 		{
+			UpdateEigenschappenMonsterGrid();
+
+		}
+
+		private void UpdateEigenschappenMonsterGrid()
+		{
+			SpecificTestInformation specific = model.SpecificTestInformation[0];
+			GenericTestInformation generic = model.GenericTestInformation;
+
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
-			items.Add(new GeneralDataEntry("Initiële hoogte:", /*model.TestInformation.InitieleHoogte*/(30.0).ToString(), "mm"));
-			items.Add(new GeneralDataEntry("test", "test 2", "test 3"));
-			items.Add(new GeneralDataEntry("test ", "test 2", "test 3"));
-			
-			DataGrid.ItemsSource = items;
+			items.Add(new GeneralDataEntry("Initiële hoogte:", generic.InitieleHoogte.ToString(), "mm"));
+			items.Add(new GeneralDataEntry("Initiëel volumegewicht γ:", specific.InitieelVolumegewicht.ToString(), "kN/m3"));
+			items.Add(new GeneralDataEntry("Droog volumegewicht γ:", specific.DroogVolumegewicht.ToString(), "kN/m3"));
+			items.Add(new GeneralDataEntry("Watergehalte:", specific.WatergehalteVoor.ToString(), "%"));
+			EigenschappenMonsterGrid.ItemsSource = items;
+		}
+
+		private void UpdateConsolidatieGrid()
+		{
+			SpecificTestInformation specific = model.SpecificTestInformation[0];
+			GenericTestInformation generic = model.GenericTestInformation;
+
+			int duration = 0;
+			for (int i = 0; i < model.dataPoints.Length; i++)
+			{
+				if (model.dataPoints[i].stage_number == 2)
+				{
+					duration = (int)Math.Round((float)model.dataPoints[i - 1].time_since_start_stage / 3600);
+				}
+			}
+
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Δh:", generic.InitieleHoogte.ToString(), "mm"));
+			items.Add(new GeneralDataEntry("h na consolidatie:", specific.InitieelVolumegewicht.ToString(), "kN/m3"));
+			items.Add(new GeneralDataEntry("Normal stress:", specific.DroogVolumegewicht.ToString(), "kN/m3"));
+			items.Add(new GeneralDataEntry("Duur:", duration.ToString(), "uur"));
+			EigenschappenMonsterGrid.ItemsSource = items;
 		}
 	}
 }

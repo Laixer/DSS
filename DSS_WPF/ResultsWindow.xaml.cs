@@ -27,11 +27,11 @@ namespace DSS_WPF
 	public partial class ResultsWindow : Window
 	{
 
-		SpecificTestInformation[] specificTestInformation;
-		GenericTestInformation genericTestInformation;
+		SpecificTestInformation[] SpecificTestInformation;
+		GenericTestInformation GenericTestInformation;
 
 
-		public ResultsWindow(String fileName, GenericTestInformation testInformation)
+		public ResultsWindow(String fileName, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
 		{
 			InitializeComponent();
 
@@ -41,8 +41,9 @@ namespace DSS_WPF
 			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
 			var result = engine.ReadFile(fileName);
 
-			genericTestInformation = testInformation;
-			ShearViewModel model = new ShearViewModel(result, genericTestInformation);
+			GenericTestInformation = testInformation;
+			SpecificTestInformation = specificTestInformation;
+			ShearViewModel model = new ShearViewModel(result, GenericTestInformation, SpecificTestInformation);
 			ShearDataGrid.model = model;
 			GeneralDataGrid.model = model;
 
