@@ -49,6 +49,8 @@ namespace DSS_WPF
 			{
 				return;
 			}
+			SpecificTestInformation[] specific = new SpecificTestInformation[3];
+			int i = 0;
 			foreach (SpecificTestInformationComponent component in InformationComponents)
 			{
 				if (component == null)
@@ -59,11 +61,15 @@ namespace DSS_WPF
 				if (info == null)
 				{
 					return;
+				} else
+				{
+					specific[i] = info;
+					i++;
 				}
 			}
 			
 
-			ResultsWindow wind = new ResultsWindow(FileNames[0], genericTestInformation);
+			ResultsWindow wind = new ResultsWindow(FileNames[0], genericTestInformation, specific);
 			wind.Show();
 		}
 
