@@ -14,7 +14,7 @@
             <RowDefinition Height="240" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="DataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="DataGrid" ItemsSource="{Binding}"  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Eigenschappen monster" Binding="{Binding Property}"/>
                 <DataGridTextColumn Header="" Binding="{Binding Value}"/>

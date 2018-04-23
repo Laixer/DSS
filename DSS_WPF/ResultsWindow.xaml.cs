@@ -44,6 +44,8 @@ namespace DSS_WPF
 			genericTestInformation = testInformation;
 			ShearViewModel model = new ShearViewModel(result, genericTestInformation);
 			ShearDataGrid.model = model;
+			GeneralDataGrid.model = model;
+
 			//stopwatch.Stop();
 			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
 			SeriesCollectionConfiguration configuration1 = new SeriesCollectionConfiguration

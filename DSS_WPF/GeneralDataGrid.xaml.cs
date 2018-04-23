@@ -38,13 +38,17 @@ namespace DSS_WPF
 		public GeneralDataGrid()
 		{
 			InitializeComponent();
-			UpdateItemsSource();
+			//UpdateItemsSource();
+		
 		}
 
 		private void UpdateItemsSource()
 		{
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Initiële hoogte:", /*model.TestInformation.InitieleHoogte*/(30.0).ToString(), "mm"));
+			items.Add(new GeneralDataEntry("test", "test 2", "test 3"));
+			items.Add(new GeneralDataEntry("test ", "test 2", "test 3"));
+			
 			DataGrid.ItemsSource = items;
 		}
 	}
