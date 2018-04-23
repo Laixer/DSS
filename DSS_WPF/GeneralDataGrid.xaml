@@ -6,20 +6,20 @@
              xmlns:local="clr-namespace:DSS_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="240" />
-            <RowDefinition Height="70" />
-        </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Grid.Column="0" x:Name="DataGrid" ItemsSource="{Binding}"  AutoGenerateColumns="False">
+    <StackPanel Orientation="Horizontal">
+        <DataGrid x:Name="EigenschappenMonsterGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Eigenschappen monster" Binding="{Binding Property}"/>
                 <DataGridTextColumn Header="" Binding="{Binding Value}"/>
                 <DataGridTextColumn Header="" Binding="{Binding Unit}" />
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+        <DataGrid x:Name="ConsolidatieGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Consolidatie" Binding="{Binding Property}"/>
+                <DataGridTextColumn Header="" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="" Binding="{Binding Unit}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </UserControl>
