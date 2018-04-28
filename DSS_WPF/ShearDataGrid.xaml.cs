@@ -62,7 +62,7 @@ namespace DSS_WPF
 				point.horizontal_strain = shearStrainValues[i];
 				point.normal_stress = model.SigmaNForShearStrainPercentage(shearStrainValues[i]);
 				point.horizontal_stress = model.TauForShearStrainPercentage(shearStrainValues[i]);
-				if (i == 0 || (i > 0 && itemsSource[i-1].horizontal_strain + 10 <= RoundTo(maxStrain, -1)))
+				if (i == 0 || (i > 0 && itemsSource[i-1].horizontal_strain + 10 <= Utilities.RoundTo(maxStrain, -1)))
 				{
 					itemsSource.Add(point);
 				} else
@@ -76,18 +76,6 @@ namespace DSS_WPF
 			MaxShearStrainDataGrid.ItemsSource = new DataPoint[] { model.dataPoints[maxTauIndex] };
 
 
-		}
-
-		public float RoundTo(float number, int roundTo)
-		{
-			if (System.Math.Abs(roundTo) > 28)
-				throw new System.ArgumentOutOfRangeException("roundTo", "Maximum rounding allowed before or after the decimal is 28 places.");
-
-			if (roundTo >= 0)
-				return (float)Math.Round(number, roundTo);
-
-			float roundFactor = (float)System.Math.Pow(10, -roundTo);
-			return (float)Math.Round(number / roundFactor, 0) * roundFactor;
 		}
 	}
 
