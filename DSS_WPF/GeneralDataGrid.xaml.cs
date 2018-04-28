@@ -37,15 +37,14 @@ namespace DSS_WPF
 
 		public GeneralDataGrid()
 		{
-			InitializeComponent();
-			//UpdateItemsSource();
-		
+			InitializeComponent();		
 		}
 
 		private void UpdateItemsSources()
 		{
 			UpdateEigenschappenMonsterGrid();
-
+			UpdateConsolidatieGrid();
+			UpdateAfschuifGrid();
 		}
 
 		private void UpdateEigenschappenMonsterGrid()
@@ -67,20 +66,77 @@ namespace DSS_WPF
 			GenericTestInformation generic = model.GenericTestInformation;
 
 			int duration = 0;
+			float deltaH = 0;
+			float normal_stress = 0;
 			for (int i = 0; i < model.dataPoints.Length; i++)
 			{
 				if (model.dataPoints[i].stage_number == 2)
 				{
 					duration = (int)Math.Round((float)model.dataPoints[i - 1].time_since_start_stage / 3600);
+					normal_stress = (int)Math.Round((float)model.dataPoints[i].normal_stress);
+				}
+				if (model.dataPoints[i].axial_displacement > deltaH)
+				{
+					deltaH = model.dataPoints[i].axial_displacement;
 				}
 			}
 
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
-			items.Add(new GeneralDataEntry("Δh:", generic.InitieleHoogte.ToString(), "mm"));
-			items.Add(new GeneralDataEntry("h na consolidatie:", specific.InitieelVolumegewicht.ToString(), "kN/m3"));
-			items.Add(new GeneralDataEntry("Normal stress:", specific.DroogVolumegewicht.ToString(), "kN/m3"));
+			items.Add(new GeneralDataEntry("Δh:", deltaH.ToString(), "mm"));
+			items.Add(new GeneralDataEntry("h na consolidatie:", (generic.InitieleHoogte - deltaH).ToString(), "mm"));
+			items.Add(new GeneralDataEntry("Normal stress:", Utilities.RoundTo(normal_stress, 1).ToString(), "kPa"));
 			items.Add(new GeneralDataEntry("Duur:", duration.ToString(), "uur"));
-			EigenschappenMonsterGrid.ItemsSource = items;
+			ConsolidatieGrid.ItemsSource = items;
+		}
+
+		private void UpdateAfschuifGrid()
+		{
+			SpecificTestInformation specific = model.SpecificTestInformation[0];
+			GenericTestInformation generic = model.GenericTestInformation;
+
+			float maximal_horizontal_strain = 0;
+			float max_stage_time = 0;
+			float max_horizontal_stress = 0;
+			int max_tau_index = 0;
+
+			for (int i = 0; i < model.dataPoints.Length; i++)
+			{				
+				if (model.dataPoints[i].horizontal_strain > maximal_horizontal_strain)
+				{
+					maximal_horizontal_strain = model.dataPoints[i].horizontal_strain;
+				}
+				if (model.dataPoints[i].stage_number == 2 && model.dataPoints[i].time_since_start_stage > max_stage_time)
+				{
+					max_stage_time = model.dataPoints[i].time_since_start_stage;
+				}
+				if (model.dataPoints[i].horizontal_stress > max_horizontal_stress)
+				{
+					max_horizontal_stress = model.dataPoints[i].horizontal_stress;
+					max_tau_index = i;
+				}
+			}
+
+			float max_tau = model.dataPoints[max_tau_index].horizontal_strain;
+		}
+
+		private float calculateMaxShear()
+		{
+			float max_horizontal_stress = 0;
+			float horizontal_strain = 0;
+			for (int i = 0; i < model.dataPoints.Length; i++)
+			{
+				if (model.dataPoints[i].horizontal_stress > max_horizontal_stress)
+				{
+					max_horizontal_stress = model.dataPoints[i].horizontal_stress;
+					horizontal_strain = model.dataPoints[i].horizontal_strain;
+				}
+			}
+
+			double a = model.GenericTestInformation.CorrectieWaardeA;
+			double b = model.GenericTestInformation.CorrectieWaardeB;
+			double max_shear = max_horizontal_stress - b - a * horizontal_strain;
+
+			return (float)max_shear;
 		}
 	}
 }
