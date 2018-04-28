@@ -97,6 +97,7 @@
     <Compile Include="TestInformationWindow.xaml.cs">
       <DependentUpon>TestInformationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities.cs" />
     <Page Include="FilePickerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
