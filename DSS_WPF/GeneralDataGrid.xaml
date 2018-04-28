@@ -21,5 +21,12 @@
                 <DataGridTextColumn Header="" Binding="{Binding Unit}" />
             </DataGrid.Columns>
         </DataGrid>
+        <DataGrid x:Name="AfschuifGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Afschuiffase" Binding="{Binding Property}"/>
+                <DataGridTextColumn Header="" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="" Binding="{Binding Unit}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </StackPanel>
 </UserControl>
