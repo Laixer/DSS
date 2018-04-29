@@ -46,6 +46,9 @@ namespace DSS_WPF
 			UpdateConsolidatieGrid();
 			UpdateAfschuifGrid();
 			UpdateNaBeproevingGrid();
+
+			UpdatePersonnelGrid();
+			UpdateBoringGrid();
 		}
 
 		private void UpdateEigenschappenMonsterGrid()
@@ -167,6 +170,31 @@ namespace DSS_WPF
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Watergehalte W:", model.SpecificTestInformation[0].WatergehalteNa.ToString(), "%"));
 			NaBeproevingGrid.ItemsSource = items;
+		}
+
+		private void UpdatePersonnelGrid()
+		{
+			GenericTestInformation generic = model.GenericTestInformation;
+
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Laborant:", generic.Laborant, ""));
+			items.Add(new GeneralDataEntry("Adviseur:", generic.Adviseur, ""));
+			items.Add(new GeneralDataEntry("Teamleider:", generic.Teamleider, ""));
+			PersonnelGrid.ItemsSource = items;
+		}
+
+		private void UpdateBoringGrid()
+		{
+			GenericTestInformation generic = model.GenericTestInformation;
+			SpecificTestInformation specific = model.SpecificTestInformation[0];
+
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Boring:", specific.Boring, ""));
+			items.Add(new GeneralDataEntry("Monsterdiepte:", "MV " + specific.MonsterDiepteMaaiveld + " m", ""));
+			items.Add(new GeneralDataEntry("Grondsoort:", generic.GrondSoort, ""));
+			items.Add(new GeneralDataEntry("Monsterklasse:", specific.MonsterKlasse.ToString(), ""));
+			items.Add(new GeneralDataEntry("Datum proef:", specific.DatumProef, ""));
+			PersonnelGrid.ItemsSource = items;
 		}
 	}
 }
