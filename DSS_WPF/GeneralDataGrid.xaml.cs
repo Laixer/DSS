@@ -94,16 +94,16 @@ namespace DSS_WPF
 			SpecificTestInformation specific = model.SpecificTestInformation[0];
 			GenericTestInformation generic = model.GenericTestInformation;
 
-			float maximal_horizontal_strain = 0;
+			float max_horizontal_strain = 0;
 			float max_stage_time = 0;
 			float max_horizontal_stress = 0;
 			int max_tau_index = 0;
 
 			for (int i = 0; i < model.dataPoints.Length; i++)
 			{				
-				if (model.dataPoints[i].horizontal_strain > maximal_horizontal_strain)
+				if (model.dataPoints[i].horizontal_strain > max_horizontal_strain)
 				{
-					maximal_horizontal_strain = model.dataPoints[i].horizontal_strain;
+					max_horizontal_strain = model.dataPoints[i].horizontal_strain;
 				}
 				if (model.dataPoints[i].stage_number == 2 && model.dataPoints[i].time_since_start_stage > max_stage_time)
 				{
@@ -116,7 +116,29 @@ namespace DSS_WPF
 				}
 			}
 
+			float afschuifsnelheid = max_horizontal_strain / max_stage_time * 3600;
 			float max_tau = model.dataPoints[max_tau_index].horizontal_strain;
+			float max_shear = calculateMaxShear();
+			float best_error = float.MaxValue;
+			float target = max_shear / 2;
+			float horizontal_strain_at_target = 0;
+			for (int i = 0; i < model.dataPoints.Length; i++)
+			{
+				float current_error = Math.Abs(target - model.dataPoints[i].horizontal_stress);
+				if (current_error < best_error)
+				{
+					best_error = current_error;
+					horizontal_strain_at_target = model.dataPoints[i].horizontal_strain;
+				}
+			}
+			float g50 = max_shear / 2 / horizontal_strain_at_target / 10;
+
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Afschuifsnelheid:", Utilities.RoundTo(afschuifsnelheid, 1).ToString(), "%/h"));
+			items.Add(new GeneralDataEntry("Max. shear stress:", Utilities.RoundTo(max_horizontal_stress, 1).ToString(), "kPa"));
+			items.Add(new GeneralDataEntry("Shear strain bij max.", Utilities.RoundTo(max_tau, 1).ToString(), "%"));
+			items.Add(new GeneralDataEntry("G" + '\u2085' + '\u2080' + ":", Utilities.RoundTo(g50, 3).ToString(), "Mpa"));
+			AfschuifGrid.ItemsSource = items;
 		}
 
 		private float calculateMaxShear()
