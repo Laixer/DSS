@@ -45,6 +45,7 @@ namespace DSS_WPF
 			UpdateEigenschappenMonsterGrid();
 			UpdateConsolidatieGrid();
 			UpdateAfschuifGrid();
+			UpdateNaBeproevingGrid();
 		}
 
 		private void UpdateEigenschappenMonsterGrid()
@@ -159,6 +160,13 @@ namespace DSS_WPF
 			double max_shear = max_horizontal_stress - b - a * horizontal_strain;
 
 			return (float)max_shear;
+		}
+
+		private void UpdateNaBeproevingGrid()
+		{
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Watergehalte W:", model.SpecificTestInformation[0].WatergehalteNa.ToString(), "%"));
+			NaBeproevingGrid.ItemsSource = items;
 		}
 	}
 }
