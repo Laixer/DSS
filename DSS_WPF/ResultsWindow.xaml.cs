@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
 using System.Globalization;
 using FileHelpers;
 using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
+using System.IO;
 
 namespace DSS_WPF
 {
@@ -26,7 +14,6 @@ namespace DSS_WPF
 	/// </summary>
 	public partial class ResultsWindow : Window
 	{
-
 		SpecificTestInformation[] SpecificTestInformation;
 		GenericTestInformation GenericTestInformation;
 
@@ -95,11 +82,24 @@ namespace DSS_WPF
 			SeriesCollection4 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration4);
 			SeriesCollection5 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration5);
 
-
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
 			DataContext = this;
+		}
+
+		private void Export(object sender, RoutedEventArgs e)
+		{
+			RenderTargetBitmap renderTargetBitmap =
+			new RenderTargetBitmap((int)(this.Width * (300.0/96)), (int)(this.Height * (300.0/96)), 300, 300, PixelFormats.Pbgra32);
+			renderTargetBitmap.Render(this);
+			PngBitmapEncoder pngImage = new PngBitmapEncoder();
+
+			pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+			using (Stream fileStream = File.Create(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png"))
+			{
+				pngImage.Save(fileStream);
+			}
 		}
 
 		public SeriesCollection SeriesCollection1 { get; set; }
