@@ -1,17 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DSS_WPF
 {
@@ -49,6 +38,8 @@ namespace DSS_WPF
 
 			UpdatePersonnelGrid();
 			UpdateBoringGrid();
+			UpdateGemeenteGrid();
+			UpdateProjectGrid();
 		}
 
 		private void UpdateEigenschappenMonsterGrid()
@@ -191,10 +182,35 @@ namespace DSS_WPF
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Boring:", specific.Boring, ""));
 			items.Add(new GeneralDataEntry("Monsterdiepte:", "MV " + specific.MonsterDiepteMaaiveld + " m", ""));
+			items.Add(new GeneralDataEntry("", "MV NAP " + specific.MonsterDiepteNAP + " m", ""));
+			items.Add(new GeneralDataEntry("", "NAP " + specific.DiepteMaaiveld + " m", ""));
 			items.Add(new GeneralDataEntry("Grondsoort:", generic.GrondSoort, ""));
 			items.Add(new GeneralDataEntry("Monsterklasse:", specific.MonsterKlasse.ToString(), ""));
 			items.Add(new GeneralDataEntry("Datum proef:", specific.DatumProef, ""));
-			PersonnelGrid.ItemsSource = items;
+			BoringGrid.ItemsSource = items;
+		}
+
+		private void UpdateGemeenteGrid()
+		{
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Heeeee", "Gemeente Rotterdam", "Swag"));
+			items.Add(new GeneralDataEntry("", "Ingenieursbureau", ""));
+			items.Add(new GeneralDataEntry("", "Veldmeetdienst, Laboratorium en Geomonitoring", ""));
+			GemeenteGrid.ItemsSource = items;
+		}
+
+		private void UpdateProjectGrid()
+		{
+			GenericTestInformation generic = model.GenericTestInformation;
+			SpecificTestInformation specific = model.SpecificTestInformation[0];
+
+			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
+			items.Add(new GeneralDataEntry("Project:", generic.Project, ""));
+			items.Add(new GeneralDataEntry("", specific.Boring, ""));
+			items.Add(new GeneralDataEntry("", generic.Projectnummer, ""));
+			items.Add(new GeneralDataEntry("", "DIRECT SIMPLE SHEAR TEST", ""));
+
+			ProjectGrid.ItemsSource = items;
 		}
 	}
 }

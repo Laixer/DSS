@@ -5,9 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DSS_WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type DataGrid}">
+                    <Setter Property="Margin" Value="10,10,0,10"/>
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+                
+            </StackPanel.Resources>
             <DataGrid x:Name="EigenschappenMonsterGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Eigenschappen monster" Binding="{Binding Property}"/>
@@ -31,25 +38,52 @@
             </DataGrid>
             <DataGrid x:Name="NaBeproevingGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="" Binding="{Binding Property}"/>
+                    <DataGridTextColumn Header="Na de beproeving" Binding="{Binding Property}"/>
                     <DataGridTextColumn Header="" Binding="{Binding Value}"/>
                     <DataGridTextColumn Header="" Binding="{Binding Unit}" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <DataGrid x:Name="PersonnelGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type DataGrid}">
+                    <Setter Property="Margin" Value="10,10,0,10"/>
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+            </StackPanel.Resources>
+            <DataGrid x:Name="PersonnelGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="" Binding="{Binding Property}"/>
                     <DataGridTextColumn Header="" Binding="{Binding Value}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid x:Name="BoringGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid x:Name="BoringGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" HeadersVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="" Binding="{Binding Property}"/>
                     <DataGridTextColumn Header="" Binding="{Binding Value}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type DataGrid}">
+                    <Setter Property="Margin" Value="10,10,0,10"/>
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+            </StackPanel.Resources>
+            <DataGrid x:Name="GemeenteGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" HeadersVisibility="None">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="" Binding="{Binding Value}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="ProjectGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" HeadersVisibility="None">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="" Binding="{Binding Property}"/>
+                    <DataGridTextColumn Header="" Binding="{Binding Value}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Image Source="GemeenteRotterdam.png" Height="20" HorizontalAlignment="Left"/>
+
     </StackPanel>
 </UserControl>
