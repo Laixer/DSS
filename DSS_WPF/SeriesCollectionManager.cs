@@ -46,10 +46,12 @@ namespace DSS_WPF
 				Mapper.Y(point => point.Y);
 			}
 
-			Collection = new SeriesCollection(Mapper);
-			Collection.AddRange(Series);
+			collection = new SeriesCollection(Mapper);
+			collection.AddRange(Series);
 
-			return Collection;
+
+
+			return collection;
 		}
 
 		static public GLineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result)
