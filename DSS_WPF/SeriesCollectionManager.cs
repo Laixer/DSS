@@ -27,7 +27,7 @@ namespace DSS_WPF
 				Series[i] = LineSeriesForType(configuration.Types[i], configuration.DataPoints);
 			}
 
-			SeriesCollection Collection;
+			SeriesCollection collection;
 			CartesianMapper<ObservablePoint> Mapper = Mappers.Xy<ObservablePoint>();
 			if (configuration.HasLogarithmicX)
 			{
