@@ -11,7 +11,7 @@
         <local:GenericTestInformationComponent x:Name="GenericInformationComponent"/>
     </StackPanel>
     <Button Content="Verder" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="0,0,10,10" Click="Continue_Button_Click"/>
-        <Button Content="Vul met voorbeelddata" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,60,10" Click="Example_Data_Click"/>
+    <Button Content="Vul met voorbeelddata" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,60,10" Click="Example_Data_Click"/>
     </Grid>
 
 

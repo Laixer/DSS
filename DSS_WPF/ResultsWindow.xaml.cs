@@ -6,6 +6,9 @@ using System.Globalization;
 using FileHelpers;
 using LiveCharts;
 using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
 
 namespace DSS_WPF
 {
@@ -96,10 +99,28 @@ namespace DSS_WPF
 			PngBitmapEncoder pngImage = new PngBitmapEncoder();
 
 			pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-			using (Stream fileStream = File.Create(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png"))
+			String filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png";
+			using (Stream fileStream = File.Create(filePath))
 			{
 				pngImage.Save(fileStream);
 			}
+
+			Uri uri = new Uri(filePath);
+			Image image = Image.GetInstance(uri);
+			Debug.WriteLine("width " + image.Width + " height " + image.Height);
+
+			Document doc = new Document();
+			Rectangle pageSize = new Rectangle((float)renderTargetBitmap.Width, (float)renderTargetBitmap.Height);
+			doc.SetPageSize(pageSize);
+			PdfWriter.GetInstance(doc, new FileStream(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.pdf", FileMode.Create));
+			doc.Open();
+			image.SetAbsolutePosition(0, 0);
+			
+			doc.Add(image);
+			doc.Close();
+			
+
+
 		}
 
 		public SeriesCollection SeriesCollection1 { get; set; }

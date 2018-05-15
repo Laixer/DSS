@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
-using LiveCharts.Geared;
+//using LiveCharts.Geared;
 using LiveCharts.Configurations;
 using System.Diagnostics;
 using System.Windows.Media;
@@ -21,7 +21,7 @@ namespace DSS_WPF
 		static public SeriesCollection SeriesCollectionForConfiguration(SeriesCollectionConfiguration configuration)
 		{
 
-			GLineSeries[] Series = new GLineSeries[configuration.Types.Length];
+			LineSeries[] Series = new LineSeries[configuration.Types.Length];
 			for (int i = 0; i < configuration.Types.Length; i++)
 			{
 				Series[i] = LineSeriesForType(configuration.Types[i], configuration.DataPoints);
@@ -54,9 +54,8 @@ namespace DSS_WPF
 			return collection;
 		}
 
-		static public GLineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result)
+		static public LineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result)
 		{
-			GearedValues<ObservablePoint> Points = new GearedValues<ObservablePoint>();
 			int Length;
 			int Stage1Length = 0;
 			int StartOfStage2Index = 0;
@@ -204,10 +203,16 @@ namespace DSS_WPF
 
 			}
 
+			ChartValues<ObservablePoint> Points = new ChartValues<ObservablePoint>();
 			Points.AddRange(PointsToAdd);
 			//Points.Quality = Quality.Low;
+			foreach (var obj in PointsToAdd)
+			{
+				//Debug.WriteLine("(" + obj.X + " " + obj.Y + ")");
 
-			return new GLineSeries
+			}
+
+			return new LineSeries
 			{
 				Values = Points,
 				StrokeThickness = 1,
