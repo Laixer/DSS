@@ -28,6 +28,7 @@ namespace DSS_WPF
 		{
 			this.FileNames = FileNames;
 			InitializeComponent();
+			
 			for (int i = 0; i < FileNames.Length; i++)
 			{
 				SpecificTestInformationComponent comp = new SpecificTestInformationComponent
