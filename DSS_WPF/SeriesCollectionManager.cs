@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 //using LiveCharts.Geared;
 using LiveCharts.Configurations;
-using System.Diagnostics;
 using System.Windows.Media;
 
 namespace DSS_WPF

@@ -1,6 +1,5 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp;
 using System;
 using System.Diagnostics;
 using System.IO;
