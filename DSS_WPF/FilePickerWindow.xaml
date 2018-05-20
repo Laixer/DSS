@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DSS" Height="200" Width="500">
+        Title="DSS" Height="200" Width="400">
 
     <Grid>
         <Button Content="Kies CSV bestanden" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0, 40, 0, 0" Click="Pick_File_Click"/>
+        <TextBlock Text="DSS versie 0.1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
     </Grid>
 </Window>
