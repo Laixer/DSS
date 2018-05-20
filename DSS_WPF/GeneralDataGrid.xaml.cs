@@ -10,7 +10,7 @@ namespace DSS_WPF
 	public partial class GeneralDataGrid : UserControl
 	{
 		private ShearViewModel _model;
-		public ShearViewModel model
+		public ShearViewModel Model
 		{
 			set
 			{
@@ -44,8 +44,8 @@ namespace DSS_WPF
 
 		private void UpdateEigenschappenMonsterGrid()
 		{
-			SpecificTestInformation specific = model.SpecificTestInformation[0];
-			GenericTestInformation generic = model.GenericTestInformation;
+			SpecificTestInformation specific = Model.SpecificTestInformation[0];
+			GenericTestInformation generic = Model.GenericTestInformation;
 
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Initiële hoogte:", generic.InitieleHoogte.ToString(), "mm"));
@@ -57,22 +57,22 @@ namespace DSS_WPF
 
 		private void UpdateConsolidatieGrid()
 		{
-			SpecificTestInformation specific = model.SpecificTestInformation[0];
-			GenericTestInformation generic = model.GenericTestInformation;
+			SpecificTestInformation specific = Model.SpecificTestInformation[0];
+			GenericTestInformation generic = Model.GenericTestInformation;
 
 			int duration = 0;
 			float deltaH = 0;
 			float normal_stress = 0;
-			for (int i = 0; i < model.dataPoints.Length; i++)
+			for (int i = 0; i < Model.dataPoints.Length; i++)
 			{
-				if (model.dataPoints[i].stage_number == 2)
+				if (Model.dataPoints[i].stage_number == 2)
 				{
-					duration = (int)Math.Round((float)model.dataPoints[i - 1].time_since_start_stage / 3600);
-					normal_stress = (int)Math.Round((float)model.dataPoints[i].normal_stress);
+					duration = (int)Math.Round((float)Model.dataPoints[i - 1].time_since_start_stage / 3600);
+					normal_stress = (int)Math.Round((float)Model.dataPoints[i].normal_stress);
 				}
-				if (model.dataPoints[i].axial_displacement > deltaH)
+				if (Model.dataPoints[i].axial_displacement > deltaH)
 				{
-					deltaH = model.dataPoints[i].axial_displacement;
+					deltaH = Model.dataPoints[i].axial_displacement;
 				}
 			}
 
@@ -86,44 +86,44 @@ namespace DSS_WPF
 
 		private void UpdateAfschuifGrid()
 		{
-			SpecificTestInformation specific = model.SpecificTestInformation[0];
-			GenericTestInformation generic = model.GenericTestInformation;
+			SpecificTestInformation specific = Model.SpecificTestInformation[0];
+			GenericTestInformation generic = Model.GenericTestInformation;
 
 			float max_horizontal_strain = 0;
 			float max_stage_time = 0;
 			float max_horizontal_stress = 0;
 			int max_tau_index = 0;
 
-			for (int i = 0; i < model.dataPoints.Length; i++)
+			for (int i = 0; i < Model.dataPoints.Length; i++)
 			{				
-				if (model.dataPoints[i].horizontal_strain > max_horizontal_strain)
+				if (Model.dataPoints[i].horizontal_strain > max_horizontal_strain)
 				{
-					max_horizontal_strain = model.dataPoints[i].horizontal_strain;
+					max_horizontal_strain = Model.dataPoints[i].horizontal_strain;
 				}
-				if (model.dataPoints[i].stage_number == 2 && model.dataPoints[i].time_since_start_stage > max_stage_time)
+				if (Model.dataPoints[i].stage_number == 2 && Model.dataPoints[i].time_since_start_stage > max_stage_time)
 				{
-					max_stage_time = model.dataPoints[i].time_since_start_stage;
+					max_stage_time = Model.dataPoints[i].time_since_start_stage;
 				}
-				if (model.dataPoints[i].horizontal_stress > max_horizontal_stress)
+				if (Model.dataPoints[i].horizontal_stress > max_horizontal_stress)
 				{
-					max_horizontal_stress = model.dataPoints[i].horizontal_stress;
+					max_horizontal_stress = Model.dataPoints[i].horizontal_stress;
 					max_tau_index = i;
 				}
 			}
 
 			float afschuifsnelheid = max_horizontal_strain / max_stage_time * 3600;
-			float max_tau = model.dataPoints[max_tau_index].horizontal_strain;
+			float max_tau = Model.dataPoints[max_tau_index].horizontal_strain;
 			float max_shear = calculateMaxShear();
 			float best_error = float.MaxValue;
 			float target = max_shear / 2;
 			float horizontal_strain_at_target = 0;
-			for (int i = 0; i < model.dataPoints.Length; i++)
+			for (int i = 0; i < Model.dataPoints.Length; i++)
 			{
-				float current_error = Math.Abs(target - model.dataPoints[i].horizontal_stress);
+				float current_error = Math.Abs(target - Model.dataPoints[i].horizontal_stress);
 				if (current_error < best_error)
 				{
 					best_error = current_error;
-					horizontal_strain_at_target = model.dataPoints[i].horizontal_strain;
+					horizontal_strain_at_target = Model.dataPoints[i].horizontal_strain;
 				}
 			}
 			float g50 = max_shear / 2 / horizontal_strain_at_target / 10;
@@ -140,17 +140,17 @@ namespace DSS_WPF
 		{
 			float max_horizontal_stress = 0;
 			float horizontal_strain = 0;
-			for (int i = 0; i < model.dataPoints.Length; i++)
+			for (int i = 0; i < Model.dataPoints.Length; i++)
 			{
-				if (model.dataPoints[i].horizontal_stress > max_horizontal_stress)
+				if (Model.dataPoints[i].horizontal_stress > max_horizontal_stress)
 				{
-					max_horizontal_stress = model.dataPoints[i].horizontal_stress;
-					horizontal_strain = model.dataPoints[i].horizontal_strain;
+					max_horizontal_stress = Model.dataPoints[i].horizontal_stress;
+					horizontal_strain = Model.dataPoints[i].horizontal_strain;
 				}
 			}
 
-			double a = model.GenericTestInformation.CorrectieWaardeA;
-			double b = model.GenericTestInformation.CorrectieWaardeB;
+			double a = Model.GenericTestInformation.CorrectieWaardeA;
+			double b = Model.GenericTestInformation.CorrectieWaardeB;
 			double max_shear = max_horizontal_stress - b - a * horizontal_strain;
 
 			return (float)max_shear;
@@ -159,13 +159,13 @@ namespace DSS_WPF
 		private void UpdateNaBeproevingGrid()
 		{
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
-			items.Add(new GeneralDataEntry("Watergehalte W:", model.SpecificTestInformation[0].WatergehalteNa.ToString(), "%"));
+			items.Add(new GeneralDataEntry("Watergehalte W:", Model.SpecificTestInformation[0].WatergehalteNa.ToString(), "%"));
 			NaBeproevingGrid.ItemsSource = items;
 		}
 
 		private void UpdatePersonnelGrid()
 		{
-			GenericTestInformation generic = model.GenericTestInformation;
+			GenericTestInformation generic = Model.GenericTestInformation;
 
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Laborant:", generic.Laborant, ""));
@@ -176,8 +176,8 @@ namespace DSS_WPF
 
 		private void UpdateBoringGrid()
 		{
-			GenericTestInformation generic = model.GenericTestInformation;
-			SpecificTestInformation specific = model.SpecificTestInformation[0];
+			GenericTestInformation generic = Model.GenericTestInformation;
+			SpecificTestInformation specific = Model.SpecificTestInformation[0];
 
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Boring:", specific.Boring, ""));
@@ -201,8 +201,8 @@ namespace DSS_WPF
 
 		private void UpdateProjectGrid()
 		{
-			GenericTestInformation generic = model.GenericTestInformation;
-			SpecificTestInformation specific = model.SpecificTestInformation[0];
+			GenericTestInformation generic = Model.GenericTestInformation;
+			SpecificTestInformation specific = Model.SpecificTestInformation[0];
 
 			List<GeneralDataEntry> items = new List<GeneralDataEntry>();
 			items.Add(new GeneralDataEntry("Project:", generic.Project, ""));
