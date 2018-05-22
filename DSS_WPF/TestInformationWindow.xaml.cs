@@ -58,7 +58,7 @@ namespace DSS_WPF
 			}
 			
 
-			ResultsWindow wind = new ResultsWindow(FileNames[0], genericTestInformation, specific);
+			ResultsWindow wind = new ResultsWindow(FileNames, genericTestInformation, specific);
 			wind.Show();
 		}
 

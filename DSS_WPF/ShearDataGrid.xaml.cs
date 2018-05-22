@@ -9,7 +9,7 @@ namespace DSS_WPF
 	public partial class ShearDataGrid : UserControl
 	{
 		private ShearViewModel _model;
-		public ShearViewModel model
+		public ShearViewModel Model
 		{
 			set
 			{
@@ -39,16 +39,16 @@ namespace DSS_WPF
 			float maxTau = 0;
 			int maxTauIndex = -1;
 			float maxStrain = 0;
-			for (int i = 0; i < model.dataPoints.Length; i++)
+			for (int i = 0; i < Model.dataPoints.Length; i++)
 			{
-				float tau = model.dataPoints[i].horizontal_stress;
+				float tau = Model.dataPoints[i].horizontal_stress;
 				if (tau > maxTau)
 				{
 					maxTau = tau;
 					maxTauIndex = i;
 				}
 
-				float strain = model.dataPoints[i].horizontal_strain;
+				float strain = Model.dataPoints[i].horizontal_strain;
 				if (strain > maxStrain)
 				{
 					maxStrain = strain;
@@ -59,8 +59,8 @@ namespace DSS_WPF
 			{
 				DataPoint point = new DataPoint();
 				point.horizontal_strain = shearStrainValues[i];
-				point.normal_stress = model.SigmaNForShearStrainPercentage(shearStrainValues[i]);
-				point.horizontal_stress = model.TauForShearStrainPercentage(shearStrainValues[i]);
+				point.normal_stress = Model.SigmaNForShearStrainPercentage(shearStrainValues[i]);
+				point.horizontal_stress = Model.TauForShearStrainPercentage(shearStrainValues[i]);
 				if (i == 0 || (i > 0 && itemsSource[i-1].horizontal_strain + 10 <= Utilities.RoundTo(maxStrain, -1)))
 				{
 					itemsSource.Add(point);
@@ -72,7 +72,7 @@ namespace DSS_WPF
 
 			ShearStrainDataGrid.ItemsSource = itemsSource;
 
-			MaxShearStrainDataGrid.ItemsSource = new DataPoint[] { model.dataPoints[maxTauIndex] };
+			MaxShearStrainDataGrid.ItemsSource = new DataPoint[] { Model.dataPoints[maxTauIndex] };
 
 
 		}
