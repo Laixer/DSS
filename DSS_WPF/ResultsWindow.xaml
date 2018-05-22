@@ -6,6 +6,5 @@
         xmlns:local="clr-namespace:DSS_WPF"
         mc:Ignorable="d"
         Title="Resultaten" Height="900" SizeToContent="Width">
-    <local:ResultScrollViewer x:Name="ResultScrollViewer1"></local:ResultScrollViewer>
-
+    <TabControl x:Name="TabControl"/>
 </Window>

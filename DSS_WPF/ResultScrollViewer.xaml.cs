@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using LiveCharts;
 
 namespace DSS_WPF
 {
@@ -17,7 +18,14 @@ namespace DSS_WPF
 		public ResultScrollViewer()
 		{
 			InitializeComponent();
+			DataContext = this;
 		}
+
+		public SeriesCollection SeriesCollection1 { get; set; }
+		public SeriesCollection SeriesCollection2 { get; set; }
+		public SeriesCollection SeriesCollection3 { get; set; }
+		public SeriesCollection SeriesCollection4 { get; set; }
+		public SeriesCollection SeriesCollection5 { get; set; }
 
 		private void Export(object sender, RoutedEventArgs e)
 		{

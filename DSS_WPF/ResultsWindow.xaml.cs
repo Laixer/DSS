@@ -3,6 +3,7 @@ using System.Windows;
 using System.Globalization;
 using FileHelpers;
 using LiveCharts;
+using System.Windows.Controls;
 
 namespace DSS_WPF
 {
@@ -15,83 +16,95 @@ namespace DSS_WPF
 		GenericTestInformation GenericTestInformation;
 
 
-		public ResultsWindow(String fileName, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
+		public ResultsWindow(String[] fileNames, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
 		{
 			InitializeComponent();
 
 			var engine = new FileHelperEngine<DataPoint>();
-
-			// To Read Use:
-			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-			var result = engine.ReadFile(fileName);
+			var numberOfFiles = fileNames.Length;
 
 			GenericTestInformation = testInformation;
 			SpecificTestInformation = specificTestInformation;
-			ShearViewModel model = new ShearViewModel(result, GenericTestInformation, SpecificTestInformation);
-			ResultScrollViewer1.ShearDataGrid.model = model;
-			ResultScrollViewer1.GeneralDataGrid.Model = model;
 
-			//stopwatch.Stop();
-			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
-			SeriesCollectionConfiguration configuration1 = new SeriesCollectionConfiguration
+			DataPoint[][] resultArrays = new DataPoint[numberOfFiles][];
+			ShearViewModel[] models = new ShearViewModel[numberOfFiles];
+			for (int i = 0; i < fileNames.Length; i++)
 			{
-				Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress },
-				DataPoints = result,
-				HasLogarithmicX = false,
-				HasLogarithmicY = false
-			};
+				resultArrays[i] = engine.ReadFile(fileNames[i]);
+				models[i] = new ShearViewModel(resultArrays[i], GenericTestInformation, SpecificTestInformation);
+			}
 
-			SeriesCollectionConfiguration configuration2 = new SeriesCollectionConfiguration
+			GenericTestInformation = testInformation;
+			SpecificTestInformation = specificTestInformation;
+			
+			for (int i = 0; i < numberOfFiles; i++)
 			{
-				Types = new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress },
-				DataPoints = result,
-				HasLogarithmicX = false,
-				HasLogarithmicY = false
-			};
 
-			SeriesCollectionConfiguration configuration3 = new SeriesCollectionConfiguration
-			{
-				Types = new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain },
-				DataPoints = result,
-				HasLogarithmicX = true,
-				HasLogarithmicY = false
-			};
+				ResultScrollViewer resultScrollViewer = new ResultScrollViewer();
+				resultScrollViewer.ShearDataGrid.Model = models[i];
+				resultScrollViewer.GeneralDataGrid.Model = models[i];
+				TabItem tabItem = new TabItem
+				{
+					Header = "Resultaten " + (i + 1)
+				};
 
-			SeriesCollectionConfiguration configuration4 = new SeriesCollectionConfiguration
-			{
-				Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure },
-				DataPoints = result,
-				HasLogarithmicX = false,
-				HasLogarithmicY = false
-			};
+				SeriesCollectionConfiguration configuration1 = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
 
-			SeriesCollectionConfiguration configuration5 = new SeriesCollectionConfiguration
-			{
-				Types = new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus },
-				DataPoints = result,
-				HasLogarithmicX = true,
-				HasLogarithmicY = true
-			};
+				SeriesCollectionConfiguration configuration2 = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
 
-			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration1);
-			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration2);
-			SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration3);
-			SeriesCollection4 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration4);
-			SeriesCollection5 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration5);
+				SeriesCollectionConfiguration configuration3 = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = true,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration configuration4 = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration configuration5 = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = true,
+					HasLogarithmicY = true
+				};
+
+				resultScrollViewer.SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration1);
+				resultScrollViewer.SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration2);
+				resultScrollViewer.SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration3);
+				resultScrollViewer.SeriesCollection4 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration4);
+				resultScrollViewer.SeriesCollection5 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration5);
+
+				tabItem.Content = resultScrollViewer;
+
+				TabControl.Items.Add(tabItem);
+			}
 
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
 			DataContext = this;
 		}
-
-
-
-		public SeriesCollection SeriesCollection1 { get; set; }
-		public SeriesCollection SeriesCollection2 { get; set; }
-		public SeriesCollection SeriesCollection3 { get; set; }
-		public SeriesCollection SeriesCollection4 { get; set; }
-		public SeriesCollection SeriesCollection5 { get; set; }
+		
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
 	}
