@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:DSS_WPF"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="765.644" Width="1218.712">
-    <ScrollViewer x:Name="ScrollViewer" Margin="0,0,0.5,-372.5">
+             d:DesignHeight="1020" Width="1218.712">
+    <ScrollViewer x:Name="ScrollViewer">
         <Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -18,7 +18,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="300" />
                     <RowDefinition Height="300" />
-                    <RowDefinition Height="450" />
+                    <RowDefinition Height="420" />
                 </Grid.RowDefinitions>
 
                 <lvc:CartesianChart Grid.Row="0" Grid.Column="0" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding SeriesCollection1}">

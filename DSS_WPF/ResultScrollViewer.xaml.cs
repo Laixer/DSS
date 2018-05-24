@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using LiveCharts;
+using System.Globalization;
 
 namespace DSS_WPF
 {
@@ -18,8 +19,15 @@ namespace DSS_WPF
 		public ResultScrollViewer()
 		{
 			InitializeComponent();
+
+			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
+			Base = 10;
+
 			DataContext = this;
 		}
+
+		public Func<double, string> Formatter { get; set; }
+		public double Base { get; set; }
 
 		public SeriesCollection SeriesCollection1 { get; set; }
 		public SeriesCollection SeriesCollection2 { get; set; }
@@ -29,16 +37,34 @@ namespace DSS_WPF
 
 		private void Export(object sender, RoutedEventArgs e)
 		{
-			RenderTargetBitmap renderTargetBitmap =
-			new RenderTargetBitmap((int)(this.Width * (300.0 / 96)), (int)(this.Height * (300.0 / 96)), 300, 300, PixelFormats.Pbgra32);
-			renderTargetBitmap.Render(this);
-			PngBitmapEncoder pngImage = new PngBitmapEncoder();
+			System.Windows.Controls.ScrollViewer scrollViewer = (System.Windows.Controls.ScrollViewer)this.Content;
+			System.Windows.Controls.Grid content = (System.Windows.Controls.Grid)scrollViewer.Content;
+			double actualHeight = content.RenderSize.Height;
+			double actualWidth = content.RenderSize.Width;
+			double zoom = 4.0;
 
-			pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-			String filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png";
-			using (Stream fileStream = File.Create(filePath))
+			double renderHeight = actualHeight * zoom;
+			double renderWidth = actualWidth * zoom;
+
+			RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
+			VisualBrush sourceBrush = new VisualBrush(content);
+
+			DrawingVisual drawingVisual = new DrawingVisual();
+			DrawingContext drawingContext = drawingVisual.RenderOpen();
+
+			using (drawingContext)
 			{
-				pngImage.Save(fileStream);
+				drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
+				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
+			}
+			renderTarget.Render(drawingVisual);
+
+			PngBitmapEncoder encoder = new PngBitmapEncoder();
+			encoder.Frames.Add(BitmapFrame.Create(renderTarget));
+			String filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png";
+			using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+			{
+				encoder.Save(stream);
 			}
 
 			Uri uri = new Uri(filePath);
@@ -46,7 +72,7 @@ namespace DSS_WPF
 			Debug.WriteLine("width " + image.Width + " height " + image.Height);
 
 			Document doc = new Document();
-			Rectangle pageSize = new Rectangle((float)renderTargetBitmap.Width, (float)renderTargetBitmap.Height);
+			Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 			doc.SetPageSize(pageSize);
 			PdfWriter.GetInstance(doc, new FileStream(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.pdf", FileMode.Create));
 			doc.Open();
