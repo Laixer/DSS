@@ -29,11 +29,11 @@ namespace DSS_WPF
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
 
-		public SeriesCollection SeriesCollection1 { get; set; }
-		public SeriesCollection SeriesCollection2 { get; set; }
-		public SeriesCollection SeriesCollection3 { get; set; }
-		public SeriesCollection SeriesCollection4 { get; set; }
-		public SeriesCollection SeriesCollection5 { get; set; }
+		public SeriesCollection ShearStrainHorizontalStress { get; set; }
+		public SeriesCollection NormalStressShearStress { get; set; }
+		public SeriesCollection TimeAxialStrain { get; set; }
+		public SeriesCollection ShearStrainNormalStressAndShearStrainPorePressure { get; set; }
+		public SeriesCollection HorizontalStrainSecantGModulus { get; set; }
 
 		private void Export(object sender, RoutedEventArgs e)
 		{

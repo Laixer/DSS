@@ -119,7 +119,6 @@ namespace DSS_WPF
 				return null;
 			}
 
-			Debug.WriteLine(information);
 			return information;
 		}
 	}

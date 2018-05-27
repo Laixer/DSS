@@ -141,10 +141,7 @@ namespace DSS_WPF
 						X = dataPoint.horizontal_strain,
 						Y = ((dataPoint.horizontal_stress - StressStartShear) / (dataPoint.horizontal_strain - StrainStartShear)) / 10.0
 					});
-
-
-
-
+					
 					break;
 
 				default:

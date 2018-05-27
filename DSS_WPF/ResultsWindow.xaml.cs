@@ -48,7 +48,7 @@ namespace DSS_WPF
 					Header = "Resultaten " + (i + 1)
 				};
 
-				SeriesCollectionConfiguration configuration1 = new SeriesCollectionConfiguration
+				SeriesCollectionConfiguration shearStrainHorizontalStress = new SeriesCollectionConfiguration
 				{
 					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress },
 					DataPoints = resultArrays[i],
@@ -56,7 +56,7 @@ namespace DSS_WPF
 					HasLogarithmicY = false
 				};
 
-				SeriesCollectionConfiguration configuration2 = new SeriesCollectionConfiguration
+				SeriesCollectionConfiguration normalStressShearStress = new SeriesCollectionConfiguration
 				{
 					Types = new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress },
 					DataPoints = resultArrays[i],
@@ -64,7 +64,7 @@ namespace DSS_WPF
 					HasLogarithmicY = false
 				};
 
-				SeriesCollectionConfiguration configuration3 = new SeriesCollectionConfiguration
+				SeriesCollectionConfiguration timeAxialStrain = new SeriesCollectionConfiguration
 				{
 					Types = new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain },
 					DataPoints = resultArrays[i],
@@ -72,7 +72,7 @@ namespace DSS_WPF
 					HasLogarithmicY = false
 				};
 
-				SeriesCollectionConfiguration configuration4 = new SeriesCollectionConfiguration
+				SeriesCollectionConfiguration shearStrainNormalStressAndShearStrainPorePressure = new SeriesCollectionConfiguration
 				{
 					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure },
 					DataPoints = resultArrays[i],
@@ -80,7 +80,7 @@ namespace DSS_WPF
 					HasLogarithmicY = false
 				};
 
-				SeriesCollectionConfiguration configuration5 = new SeriesCollectionConfiguration
+				SeriesCollectionConfiguration horizontalStrainSecantGModulus = new SeriesCollectionConfiguration
 				{
 					Types = new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus },
 					DataPoints = resultArrays[i],
@@ -88,11 +88,11 @@ namespace DSS_WPF
 					HasLogarithmicY = true
 				};
 
-				resultScrollViewer.SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration1);
-				resultScrollViewer.SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration2);
-				resultScrollViewer.SeriesCollection3 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration3);
-				resultScrollViewer.SeriesCollection4 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration4);
-				resultScrollViewer.SeriesCollection5 = SeriesCollectionManager.SeriesCollectionForConfiguration(configuration5);
+				resultScrollViewer.ShearStrainHorizontalStress = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainHorizontalStress);
+				resultScrollViewer.NormalStressShearStress = SeriesCollectionManager.SeriesCollectionForConfiguration(normalStressShearStress);
+				resultScrollViewer.TimeAxialStrain = SeriesCollectionManager.SeriesCollectionForConfiguration(timeAxialStrain);
+				resultScrollViewer.ShearStrainNormalStressAndShearStrainPorePressure = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainNormalStressAndShearStrainPorePressure);
+				resultScrollViewer.HorizontalStrainSecantGModulus = SeriesCollectionManager.SeriesCollectionForConfiguration(horizontalStrainSecantGModulus);
 
 				tabItem.Content = resultScrollViewer;
 
