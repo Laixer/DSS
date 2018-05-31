@@ -73,6 +73,11 @@ namespace DSS_WPF
 			Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 			doc.SetPageSize(pageSize);
 
+			showSaveFileDialog(doc, image);
+		}
+
+		private void showSaveFileDialog(Document document, Image image)
+		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			dialog.OverwritePrompt = true;
 			dialog.FileName = "Proefstuk " + ResultNumber;
@@ -81,18 +86,17 @@ namespace DSS_WPF
 			if (dialog.ShowDialog() == true)
 			{
 				FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
-				PdfWriter.GetInstance(doc, stream);
-				doc.Open();
+				PdfWriter.GetInstance(document, stream);
+				document.Open();
 				image.SetAbsolutePosition(0, 0);
 
-				doc.Add(image);
-				doc.Close();
-			} else
+				document.Add(image);
+				document.Close();
+			}
+			else
 			{
 				return;
 			}
-
-			
 		}
 	}
 }
