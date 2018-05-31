@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using LiveCharts;
 using System.Globalization;
+using Microsoft.Win32;
 
 namespace DSS_WPF
 {
@@ -16,16 +17,18 @@ namespace DSS_WPF
 	/// </summary>
 	public partial class ResultScrollViewer : System.Windows.Controls.UserControl
 	{
-		public ResultScrollViewer()
+		public ResultScrollViewer(int resultNumber)
 		{
 			InitializeComponent();
 
+			ResultNumber = resultNumber;
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
 			DataContext = this;
 		}
 
+		private int ResultNumber;
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
 
@@ -69,12 +72,27 @@ namespace DSS_WPF
 			Document doc = new Document();
 			Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 			doc.SetPageSize(pageSize);
-			PdfWriter.GetInstance(doc, new FileStream(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.pdf", FileMode.Create));
-			doc.Open();
-			image.SetAbsolutePosition(0, 0);
 
-			doc.Add(image);
-			doc.Close();
+			SaveFileDialog dialog = new SaveFileDialog();
+			dialog.OverwritePrompt = true;
+			dialog.FileName = "Proefstuk " + ResultNumber;
+			dialog.AddExtension = true;
+			dialog.Filter = "PDF file (*.pdf)|*.pdf";
+			if (dialog.ShowDialog() == true)
+			{
+				FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
+				PdfWriter.GetInstance(doc, stream);
+				doc.Open();
+				image.SetAbsolutePosition(0, 0);
+
+				doc.Add(image);
+				doc.Close();
+			} else
+			{
+				return;
+			}
+
+			
 		}
 	}
 }

@@ -40,7 +40,7 @@ namespace DSS_WPF
 			for (int i = 0; i < numberOfFiles; i++)
 			{
 
-				ResultScrollViewer resultScrollViewer = new ResultScrollViewer();
+				ResultScrollViewer resultScrollViewer = new ResultScrollViewer(i + 1);
 				resultScrollViewer.ShearDataGrid.Model = models[i];
 				resultScrollViewer.GeneralDataGrid.Model = models[i];
 				TabItem tabItem = new TabItem
