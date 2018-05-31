@@ -61,16 +61,11 @@ namespace DSS_WPF
 
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(renderTarget));
-			String filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\file.png";
-			using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-			{
-				encoder.Save(stream);
-			}
+			MemoryStream fs = new MemoryStream();
+			encoder.Save(fs);
 
-			Uri uri = new Uri(filePath);
-			Image image = Image.GetInstance(uri);
-			Debug.WriteLine("width " + image.Width + " height " + image.Height);
-
+			Image image = Image.GetInstance(fs.ToArray()); // this is an iTextSharp image, not a wpf image or something
+			
 			Document doc = new Document();
 			Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 			doc.SetPageSize(pageSize);
