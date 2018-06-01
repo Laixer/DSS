@@ -9,7 +9,7 @@ using System.Windows;
 namespace DSS_WPF
 {
 	/// <summary>
-	/// Interaction logic for App.xaml
+	/// Nothing to see here
 	/// </summary>
 	public partial class App : Application
 	{
