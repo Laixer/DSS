@@ -1,22 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
+using System.Globalization;
 using FileHelpers;
 using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
+using System.Windows.Controls;
 
 namespace DSS_WPF
 {
@@ -25,41 +12,100 @@ namespace DSS_WPF
 	/// </summary>
 	public partial class ResultsWindow : Window
 	{
+		SpecificTestInformation[] SpecificTestInformation;
+		GenericTestInformation GenericTestInformation;
 
-		Stopwatch stopwatch;
 
-		public ResultsWindow(string fileName)
+		public ResultsWindow(String[] fileNames, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
 		{
 			InitializeComponent();
 
 			var engine = new FileHelperEngine<DataPoint>();
+			var numberOfFiles = fileNames.Length;
 
-			// To Read Use:
-			//Stopwatch stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-			var result = engine.ReadFile(fileName);
-			//stopwatch.Stop();
-			//Console.WriteLine("reading and parsing csv took " + stopwatch.ElapsedMilliseconds + " milliseconds");
+			GenericTestInformation = testInformation;
+			SpecificTestInformation = specificTestInformation;
 
-			SeriesCollection1 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.ShearStrainHorizontalStress, result);
-			SeriesCollection2 = SeriesCollectionManager.SeriesCollectionForType(SeriesCollectionType.NormalStressShearStress, result);
+			DataPoint[][] resultArrays = new DataPoint[numberOfFiles][];
+			ShearViewModel[] models = new ShearViewModel[numberOfFiles];
+			for (int i = 0; i < fileNames.Length; i++)
+			{
+				resultArrays[i] = engine.ReadFile(fileNames[i]);
+				models[i] = new ShearViewModel(resultArrays[i], GenericTestInformation, SpecificTestInformation);
+			}
+
+			GenericTestInformation = testInformation;
+			SpecificTestInformation = specificTestInformation;
+			
+			for (int i = 0; i < numberOfFiles; i++)
+			{
+
+				ResultScrollViewer resultScrollViewer = new ResultScrollViewer(i + 1);
+				resultScrollViewer.ShearDataGrid.Model = models[i];
+				resultScrollViewer.GeneralDataGrid.Model = models[i];
+				TabItem tabItem = new TabItem
+				{
+					Header = "Resultaten " + (i + 1)
+				};
+
+				SeriesCollectionConfiguration shearStrainHorizontalStress = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration normalStressShearStress = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration timeAxialStrain = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = true,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration shearStrainNormalStressAndShearStrainPorePressure = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = false,
+					HasLogarithmicY = false
+				};
+
+				SeriesCollectionConfiguration horizontalStrainSecantGModulus = new SeriesCollectionConfiguration
+				{
+					Types = new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus },
+					DataPoints = resultArrays[i],
+					HasLogarithmicX = true,
+					HasLogarithmicY = true
+				};
+
+				resultScrollViewer.ShearStrainHorizontalStress = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainHorizontalStress);
+				resultScrollViewer.NormalStressShearStress = SeriesCollectionManager.SeriesCollectionForConfiguration(normalStressShearStress);
+				resultScrollViewer.TimeAxialStrain = SeriesCollectionManager.SeriesCollectionForConfiguration(timeAxialStrain);
+				resultScrollViewer.ShearStrainNormalStressAndShearStrainPorePressure = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainNormalStressAndShearStrainPorePressure);
+				resultScrollViewer.HorizontalStrainSecantGModulus = SeriesCollectionManager.SeriesCollectionForConfiguration(horizontalStrainSecantGModulus);
+
+				tabItem.Content = resultScrollViewer;
+
+				TabControl.Items.Add(tabItem);
+			}
+
+			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
+			Base = 10;
 
 			DataContext = this;
 		}
-
-		public SeriesCollection SeriesCollection1 { get; set; }
-		public SeriesCollection SeriesCollection2 { get; set; }
-
-		private void Window_ContentRendered(object sender, EventArgs e)
-		{
-			Debug.WriteLine("finished");
-			stopwatch = Stopwatch.StartNew(); //creates and start the instance of Stopwatch
-		}
-
-		private void CartesianChart_UpdaterTick(object sender)
-		{
-			Debug.WriteLine("finished");
-			stopwatch.Stop();
-			Console.WriteLine("rendering chart took " + stopwatch.ElapsedMilliseconds + " milliseconds");
-		}
+		
+		public Func<double, string> Formatter { get; set; }
+		public double Base { get; set; }
 	}
 }

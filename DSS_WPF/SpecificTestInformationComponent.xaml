@@ -1,0 +1,63 @@
+﻿      
+    <Grid x:Class="DSS_WPF.SpecificTestInformationComponent" 
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DSS_WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+       Margin="10,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="190" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="600" />
+            <RowDefinition Height="600" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="0" Grid.Column="0">
+
+            <TextBlock Height="auto" Margin="10,35,0,0"><Underline><Run FontWeight="Bold" Text="Proefstuk x" x:Name="ProefstukTextBlock"/></Underline></TextBlock>
+            <TextBlock Height="auto" Margin="10,30,0,0"><Run FontWeight="Bold" Text="Voor beproeving"/></TextBlock>
+            <TextBlock Text="Boring:" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Monster:" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Bus:" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Diepte maaiveld t.o.v. NAP:" TextWrapping="Wrap" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Monsterdiepte t.o.v. maaiveld(m):" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Monsterdiepte t.o.v. NAP(m):" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Monsterklasse:" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Datum proef:" Height="auto" Margin="10,10,0,0"/>
+
+
+            <TextBlock Height="auto" Margin="10,30,0,0">
+                        <Run FontWeight="Bold"  Text="Voor beproeving"></Run>
+            </TextBlock>
+            <TextBlock Text="Initiëel volumegewicht (kN/m3):" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Droog volumegewicht (kN/m3):" Height="auto" Margin="10,10,0,0"/>
+            <TextBlock Text="Watergehalte (%):" Height="auto" Margin="10,10,0,0"/>
+
+            <TextBlock Height="auto" Margin="10,30,0,0">
+                        <Run FontWeight="Bold"  Text="Na beproeving"></Run>
+            </TextBlock>
+            <TextBlock Text="Watergehalte (%):" Height="auto" Margin="10,10,0,0"/>
+        </StackPanel>
+
+        <StackPanel Margin="0,72,0,598" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+
+            <TextBox x:Name="BoringField" Text=""  Height="auto" Margin="10,35,0,0"/>
+            <TextBox x:Name="MonsterField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="BusField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="DiepteMaaiveldField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterdiepteMaaiveldField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterDiepteNAPField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="MonsterklasseField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="DatumProefField" Text=""  Height="auto" Margin="10,8,0,0"/>
+
+            <TextBox x:Name="InitieelVolumeGewichtField" Text=""  Height="auto" Margin="10,54,0,0"/>
+            <TextBox x:Name="DroogVolumeGewichtField" Text=""  Height="auto" Margin="10,8,0,0"/>
+            <TextBox x:Name="WatergehalteVoorField" Text=""  Height="auto" Margin="10,8,0,0"/>
+
+            <TextBox x:Name="WatergehalteNaField" Text=""  Height="auto" Margin="10,54,0,0"/>
+        </StackPanel>
+    </Grid>

@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.Win32;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 
 namespace DSS_WPF
@@ -31,20 +17,20 @@ namespace DSS_WPF
 
 		private void Pick_File_Click(object sender, RoutedEventArgs e)
 		{
-			Debug.WriteLine("swag");
 			OpenFilePicker();
 		}
 
 		private void OpenFilePicker()
 		{
-			var picker = new OpenFileDialog();
-			picker.Filter = "CSV files (*.csv)|*.csv";
+			var picker = new OpenFileDialog
+			{
+				Filter = "CSV files (*.csv)|*.csv"
+			};
+			picker.Multiselect = true;
 
 			if (picker.ShowDialog() == true)
 			{
-				TextBlock.Text = "Aan het lezen: " + picker.FileName;
-
-				ResultsWindow window = new ResultsWindow(picker.FileName);
+				TestInformationWindow window = new TestInformationWindow(picker.FileNames);
 				window.Show();
 				this.Close();
 			}
