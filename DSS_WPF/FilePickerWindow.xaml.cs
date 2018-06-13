@@ -2,8 +2,7 @@
 using Microsoft.Win32;
 using System.Diagnostics;
 
-
-namespace DSS_WPF
+namespace Dss
 {
 	/// <summary>
 	/// Interaction logic for FilePickerWindow.xaml
