@@ -7,7 +7,7 @@ using FileHelpers;
 
 
 
-namespace DSS_WPF
+namespace Dss
 {
 	// The csv files that this program is made for
 	// are delimeted by commas.
@@ -29,70 +29,70 @@ namespace DSS_WPF
 		/// The stage number, usually 1 or 2.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int stage_number { get; set; }
+		public int StageNumber { get; set; }
 
 
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
 		/// <summary>
 		/// The time in seconds that has elapsed since the start of the test.
 		/// </summary>
-		public int time_since_start_test { get; set; }
+		public int TimeSinceStartTest { get; set; }
 
 
 		/// <summary>
 		/// The time in seconds that has elapsed since the start of the test stage.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int time_since_start_stage { get; set; }
+		public int TimeSinceStartStage { get; set; }
 
 
 		/// <summary>
 		/// The axial displacement in millimeters.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float axial_displacement { get; set; }
+		public float AxialDisplacement { get; set; }
 
 
 		/// <summary>
 		/// The axial load in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float axial_load { get; set; }
+		public float AxialLoad { get; set; }
 
 
 		/// <summary>
 		/// The horizontal displacement in millimeters.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_displacement { get; set; }
+		public float HorizontalDisplacement { get; set; }
 
 
 		/// <summary>
 		/// The horizontal load in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_load { get; set; }
+		public float HorizontalLoad { get; set; }
 
 
 		/// <summary>
 		/// The pore water pressure in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int pore_water_pressure { get; set; }
+		public int PoreWaterPressure { get; set; }
 
 
 		/// <summary>
 		/// The back pressure in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int back_pressure { get; set; }
+		public int Backpressure { get; set; }
 
 
 		/// <summary>
 		/// The back volume, in cubic millimeters (mm^3).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int back_volume { get; set; }
+		public int BackVolume { get; set; }
 
 
 		/// <summary>
@@ -100,7 +100,7 @@ namespace DSS_WPF
 		/// (I don't know what this means)
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int undefined_transducer_1 { get; set; }
+		public int UndefinedTransducer1 { get; set; }
 
 
 		/// <summary>
@@ -108,161 +108,161 @@ namespace DSS_WPF
 		/// (I don't know what this means)
 		/// </summary>
 		[FieldQuoted] [FieldConverter(ConverterKind.Int32)]
-		public int undefined_transducer_2 { get; set; }
+		public int UndefinedTransducer2 { get; set; }
 
 
 		/// <summary>
 		/// Ring shear torque, in newton meter (Nm).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int ring_shear_torque { get; set; }
+		public int RingShearTorque { get; set; }
 
 
 		/// <summary>
 		/// Ring shear angle, in degrees.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int ring_shear_angle { get; set; }
+		public int RingShearAngle { get; set; }
 
 
 		/// <summary>
 		/// Lower chamber pressure, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int lower_chamber_pressure { get; set; }
+		public int LowerChamberPressure { get; set; }
 
 
 		/// <summary>
 		/// Lower chamber volume, in cubic millimeter (mm^3).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int lower_chamber_volume { get; set;} // in mm^3
+		public int LowerChamberVolume { get; set;} // in mm^3
 
 
 		/// <summary>
 		/// Second axial displacement measurement, in millimeter (mm).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float axial_displacement_2 { get; set;}
+		public float AxialDisplacement2 { get; set;}
 
 
 		/// <summary>
 		/// Second horizontal displacement measurement, in millimeter (mm).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_displacement_2 { get; set; }
+		public float HorizontalDisplacement2 { get; set; }
 
 
 		/// <summary>
 		/// Ring shear load, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int ring_shear_load_1 { get; set; }
+		public int RingShearLoad1 { get; set; }
 
 
 		/// <summary>
 		/// Second ring shear load measurement, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int ring_shear_load_2 { get; set; }
+		public int RingShearLoad2 { get; set; }
 
 
 		/// <summary>
 		/// Second axial load measurement, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int axial_load_2 { get; set; } // in kN
+		public int AxialLoad2 { get; set; } // in kN
 
 
 		/// <summary>
 		/// Second horizontal load measurement, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int horizontal_load_2 { get; set; }
+		public int HorizontalLoad2 { get; set; }
 
 
 		/// <summary>
 		/// Third horizontal load measurement, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int horizontal_load_3 { get; set; }
+		public int HorizontalLoad3 { get; set; }
 
 
 		/// <summary>
 		/// The axial stroke, in millimeter (mm).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int axial_stroke { get; set; } // in mm
+		public int AxialStroke { get; set; } // in mm
 
 
 		/// <summary>
 		/// The horizontal stroke, in millimeter (mm).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int horizontal_stroke { get; set; }
+		public int HorizontalStroke { get; set; }
 
 
 		/// <summary>
 		/// The pore air pressure, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int pore_air_pressure { get; set; }
+		public int PoreAirPressure { get; set; }
 
 
 		/// <summary>
 		/// The second pore air pressure measurement, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int pore_air_pressure_2 { get; set; } // in kPa
+		public int PoreAirPressure2 { get; set; } // in kPa
 
 
 		/// <summary>
 		/// The atmospheric pressure, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int atmospheric_pressure { get; set; } // in kPa
+		public int AtmosphericPressure { get; set; } // in kPa
 
 
 		/// <summary>
 		/// The back-to-air differential, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int back_to_air_differential { get; set; }
+		public int BackToAirDifferential { get; set; }
 
 
 		/// <summary>
 		/// The cell pressure, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int cell_pressure { get; set; } // in kPa
+		public int CellPressure { get; set; } // in kPa
 
 
 		/// <summary>
 		/// The cell volume, in cubic millimeters (mm^3).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int cell_volume { get; set; }
+		public int CellVolume { get; set; }
 
 
 		/// <summary>
 		/// The pore air volume, in cubic millimeters (mm^3).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int pore_air_volume { get; set; } // in mm^3
+		public int PoreAirVolume { get; set; } // in mm^3
 
 
 		/// <summary>
 		/// The axial strain as a percentage (0-100).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float axial_strain { get; set; }
+		public float AxialStrain { get; set; }
 
 
 		/// <summary>
 		/// The normal stress, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float normal_stress { get; set; }
+		public float NormalStress { get; set; }
 
 
 		/// <summary>
@@ -270,7 +270,7 @@ namespace DSS_WPF
 		/// equal to horizontal ring displacement for ring shear machine.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_strain { get; set; }
+		public float HorizontalStrain { get; set; }
 
 
 		/// <summary>
@@ -278,34 +278,34 @@ namespace DSS_WPF
 		/// equal to shear stress for ring shear machine.
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_stress { get; set; }
+		public float HorizontalStress { get; set; }
 
 
 		/// <summary>
 		/// The horizontal effective stress, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float horizontal_eff_stress { get; set; }
+		public float HorizontalEffectiveStress { get; set; }
 
 
 		/// <summary>
 		/// The effective area, in squared millimeters (mm^2).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float effective_area { get; set; } // in mm^2
+		public float EffectiveArea { get; set; } // in mm^2
 
 
 		/// <summary>
 		/// The normal effective stress, in kilopascal (kPa).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Single, ",")]
-		public float normal_effective_stress { get; set; }
+		public float NormalEffectiveStress { get; set; }
 
 
 		/// <summary>
 		/// The average ring shear load, in kilonewton (kN).
 		/// </summary>
 		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
-		public int average_ring_shear_load { get; set; }
+		public int AverageRingShearLoad { get; set; }
 	}
 }
