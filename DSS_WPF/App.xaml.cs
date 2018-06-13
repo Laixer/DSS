@@ -6,7 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DSS_WPF
+[assembly: CLSCompliant(false)]
+namespace Dss
 {
 	/// <summary>
 	/// Nothing to see here
