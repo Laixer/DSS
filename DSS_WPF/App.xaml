@@ -1,7 +1,7 @@
-﻿<Application x:Class="DSS_WPF.App"
+﻿<Application x:Class="Dss.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DSS_WPF"
+             xmlns:local="clr-namespace:Dss"
              StartupUri="FilePickerWindow.xaml">
     <Application.Resources>
          
