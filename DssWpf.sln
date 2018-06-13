@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSS_WPF", "DSS_WPF\DSS_WPF.csproj", "{4ABFD5CF-F148-4759-8822-6526E4C03D45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DssWpf", "DSS_WPF\DssWpf.csproj", "{4ABFD5CF-F148-4759-8822-6526E4C03D45}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{09EB752D-621B-4268-AFEE-2D6BF7EEBF10}"
 EndProject
