@@ -1,4 +1,4 @@
-﻿<Window x:Class="DSS_WPF.FilePickerWindow"
+﻿<Window x:Class="Dss.FilePickerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,6 +8,6 @@
 
     <Grid>
         <Button Content="Kies CSV bestanden" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0, 40, 0, 0" Click="Pick_File_Click"/>
-        <TextBlock Text="DSS versie 0.1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+        <TextBlock Text="DSS versie 0.2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
     </Grid>
 </Window>
