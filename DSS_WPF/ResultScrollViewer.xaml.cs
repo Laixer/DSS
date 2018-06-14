@@ -10,7 +10,7 @@ using LiveCharts;
 using System.Globalization;
 using Microsoft.Win32;
 
-namespace DSS_WPF
+namespace Dss
 {
 	/// <summary>
 	/// Interaction logic for ResultScrollViewer.xaml
@@ -32,11 +32,11 @@ namespace DSS_WPF
 		public Func<double, string> Formatter { get; set; }
 		public double Base { get; set; }
 
-		public SeriesCollection ShearStrainHorizontalStress { get; set; }
-		public SeriesCollection NormalStressShearStress { get; set; }
-		public SeriesCollection TimeAxialStrain { get; set; }
-		public SeriesCollection ShearStrainNormalStressAndShearStrainPorePressure { get; set; }
-		public SeriesCollection HorizontalStrainSecantGModulus { get; set; }
+		public SeriesCollection ShearStrainHorizontalStress { get; }
+		public SeriesCollection NormalStressShearStress { get; }
+		public SeriesCollection TimeAxialStrain { get; }
+		public SeriesCollection ShearStrainNormalStressAndShearStrainPorePressure { get; }
+		public SeriesCollection HorizontalStrainSecantGModulus { get; }
 
 		private void Export(object sender, RoutedEventArgs e)
 		{
@@ -64,16 +64,19 @@ namespace DSS_WPF
 
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(renderTarget));
-			MemoryStream fs = new MemoryStream();
-			encoder.Save(fs);
+			using (MemoryStream fs = new MemoryStream())
+			{
+				encoder.Save(fs);
+				Image image = Image.GetInstance(fs.ToArray()); // this is an iTextSharp image, not a wpf image or something
 
-			Image image = Image.GetInstance(fs.ToArray()); // this is an iTextSharp image, not a wpf image or something
-			
-			Document doc = new Document();
-			Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
-			doc.SetPageSize(pageSize);
+				using (Document doc = new Document())
+				{
+					Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
+					doc.SetPageSize(pageSize);
 
-			showSaveFileDialog(doc, image);
+					showSaveFileDialog(doc, image);
+				}
+			}
 		}
 
 		private void showSaveFileDialog(Document document, Image image)
@@ -85,13 +88,15 @@ namespace DSS_WPF
 			dialog.Filter = "PDF file (*.pdf)|*.pdf";
 			if (dialog.ShowDialog() == true)
 			{
-				FileStream stream = new FileStream(dialog.FileName, FileMode.Create);
-				PdfWriter.GetInstance(document, stream);
-				document.Open();
-				image.SetAbsolutePosition(0, 0);
+				using (FileStream stream = new FileStream(dialog.FileName, FileMode.Create))
+				{
+					PdfWriter.GetInstance(document, stream);
+					document.Open();
+					image.SetAbsolutePosition(0, 0);
 
-				document.Add(image);
-				document.Close();
+					document.Add(image);
+					document.Close();
+				}	
 			}
 			else
 			{
