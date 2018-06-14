@@ -1,24 +1,37 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace DSS_WPF
+namespace Dss
 {
 	public class SpecificTestInformation
 	{
-		public String Boring;
-		public int Monster;
-		public int Bus;
-		public double DiepteMaaiveld;
-		public double MonsterDiepteMaaiveld;
-		public double MonsterDiepteNAP;
-		public int MonsterKlasse;
-		public String DatumProef;
-		public double InitieelVolumegewicht;
-		public double DroogVolumegewicht;
-		public double WatergehalteVoor;
-		public double WatergehalteNa;
+		private String boring;
+		private int monster;
+		private int bus;
+		private double diepteMaaiveld;
+		private double monsterDiepteMaaiveld;
+		private double monsterDiepteNAP;
+		private int monsterKlasse;
+		private String datumProef;
+		private double initieelVolumegewicht;
+		private double droogVolumegewicht;
+		private double watergehalteVoor;
+		private double watergehalteNa;
 
-		public String toString()
+		public string Boring { get => boring; set => boring = value; }
+		public int Monster { get => monster; set => monster = value; }
+		public int Bus { get => bus; set => bus = value; }
+		public double DiepteMaaiveld { get => diepteMaaiveld; set => diepteMaaiveld = value; }
+		public double MonsterDiepteMaaiveld { get => monsterDiepteMaaiveld; set => monsterDiepteMaaiveld = value; }
+		public double MonsterDiepteNap { get => monsterDiepteNAP; set => monsterDiepteNAP = value; }
+		public int MonsterKlasse { get => monsterKlasse; set => monsterKlasse = value; }
+		public string DatumProef { get => datumProef; set => datumProef = value; }
+		public double InitieelVolumegewicht { get => initieelVolumegewicht; set => initieelVolumegewicht = value; }
+		public double DroogVolumegewicht { get => droogVolumegewicht; set => droogVolumegewicht = value; }
+		public double WatergehalteVoor { get => watergehalteVoor; set => watergehalteVoor = value; }
+		public double WatergehalteNa { get => watergehalteNa; set => watergehalteNa = value; }
+
+		override public String ToString()
 		{
 			String description = "";
 			foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(this))
