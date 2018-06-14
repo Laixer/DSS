@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DSS_WPF
+namespace Dss
 {
 	public class ShearViewModel
 	{
@@ -9,9 +9,9 @@ namespace DSS_WPF
 			float error = float.MaxValue;
 			int i = 0;
 			int bestIndex = 0;
-			while (i < dataPoints.Length)
+			while (i < GetDataPoints().Length)
 			{
-				float currentValue = dataPoints[i].horizontal_strain;
+				float currentValue = GetDataPoints()[i].HorizontalStrain;
 				if (Math.Abs(currentValue - shearStrainPercentage) < error)
 				{
 					error = shearStrainPercentage - currentValue;
@@ -21,7 +21,7 @@ namespace DSS_WPF
 				i++;
 			};
 
-			return dataPoints[bestIndex].normal_stress;
+			return GetDataPoints()[bestIndex].NormalStress;
 		}
 
 		public float TauForShearStrainPercentage(float shearStrainPercentage)
@@ -29,9 +29,9 @@ namespace DSS_WPF
 			float error = float.MaxValue;
 			int i = 0;
 			int bestIndex = 0;
-			while (i < dataPoints.Length)
+			while (i < GetDataPoints().Length)
 			{
-				float currentValue = dataPoints[i].horizontal_strain - (float)GenericTestInformation.CorrectieWaardeB - ((float)GenericTestInformation.CorrectieWaardeA * shearStrainPercentage);
+				float currentValue = GetDataPoints()[i].HorizontalStrain - (float)GenericTestInformation.CorrectieWaardeB - ((float)GenericTestInformation.CorrectieWaardeA * shearStrainPercentage);
 				if (Math.Abs(currentValue - shearStrainPercentage) < error)
 				{
 					error = shearStrainPercentage - currentValue;
@@ -40,33 +40,34 @@ namespace DSS_WPF
 				i++;
 			};
 
-			return dataPoints[bestIndex].horizontal_stress;
+			return GetDataPoints()[bestIndex].HorizontalStress;
 		}
 		private DataPoint[] _dataPoints;
-		public DataPoint[] dataPoints
+		public DataPoint[] GetDataPoints()
 		{
-			get
-			{
-				return _dataPoints;
-			}
+			return _dataPoints;
 		}
 
-		public GenericTestInformation GenericTestInformation { get => _genericTestInformation;}
-		public SpecificTestInformation[] SpecificTestInformation { get => _specificTestInformation; }
-		private SpecificTestInformation[] _specificTestInformation;
-		private GenericTestInformation _genericTestInformation;
+		public GenericTestInformation GenericTestInformation { get; }
+
+		private readonly SpecificTestInformation[] specificTestInformation;
+
+		public SpecificTestInformation[] GetSpecificTestInformation()
+		{
+			return specificTestInformation;
+		}
 
 		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation)
 		{
 			this._dataPoints = dataPoints;
-			this._genericTestInformation = testInformation;
+			this.GenericTestInformation = testInformation;
 		}
 
 		public ShearViewModel(DataPoint[] dataPoints, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
 		{
 			this._dataPoints = dataPoints;
-			this._genericTestInformation = testInformation;
-			this._specificTestInformation = specificTestInformation;
+			this.GenericTestInformation = testInformation;
+			this.specificTestInformation = specificTestInformation;
 		}
 
 
