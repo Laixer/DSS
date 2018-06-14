@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Windows;
 
-namespace DSS_WPF
+namespace Dss
 {
 	/// <summary>
 	/// Interaction logic for TestInformationWindow.xaml
@@ -12,12 +14,17 @@ namespace DSS_WPF
 		SpecificTestInformationComponent[] InformationComponents = new SpecificTestInformationComponent[3];
 
 
-		public TestInformationWindow(String[] FileNames)
+		[SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Windows.Documents.Run.set_Text(System.String)", Justification = "This program has not been localized at this time")]
+		public TestInformationWindow(String[] fileNames)
 		{
-			this.FileNames = FileNames;
+			if (fileNames == null)
+			{
+				return;
+			}
+			this.FileNames = fileNames;
 			InitializeComponent();
 			
-			for (int i = 0; i < FileNames.Length; i++)
+			for (int i = 0; i < fileNames.Length; i++)
 			{
 				SpecificTestInformationComponent comp = new SpecificTestInformationComponent
 				{
@@ -62,6 +69,10 @@ namespace DSS_WPF
 			wind.Show();
 		}
 
+		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "sond")]
+		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Zandbergen")]
+		[SuppressMessage("Microsoft.Globalization", "CA1303:RetrieveLiteralsFromResourceTable")]
+		[SuppressMessage("Microsoft.Naming", "CA2204:SpellingErrors")]
 		private void Example_Data_Click(object sender, RoutedEventArgs e)
 		{
 			GenericTestInformationComponent component = GenericInformationComponent;
@@ -87,18 +98,18 @@ namespace DSS_WPF
 					continue;
 				}
 				comp.BoringField.Text = "B0" + random.Next(1, 9);
-				comp.MonsterField.Text = random.Next(1, 5).ToString();
-				comp.BusField.Text = random.Next(1, 5).ToString();
-				comp.DiepteMaaiveldField.Text = random.NextDouble().ToString();
-				comp.MonsterdiepteMaaiveldField.Text = random.NextDouble().ToString();
-				comp.MonsterDiepteNAPField.Text = random.NextDouble().ToString();
-				comp.MonsterklasseField.Text = random.Next(1, 5).ToString();
+				comp.MonsterField.Text = random.Next(1, 5).ToString(CultureInfo.CurrentCulture);
+				comp.BusField.Text = random.Next(1, 5).ToString(CultureInfo.CurrentCulture);
+				comp.DiepteMaaiveldField.Text = random.NextDouble().ToString(CultureInfo.CurrentCulture);
+				comp.MonsterdiepteMaaiveldField.Text = random.NextDouble().ToString(CultureInfo.CurrentCulture);
+				comp.MonsterDiepteNAPField.Text = random.NextDouble().ToString(CultureInfo.CurrentCulture);
+				comp.MonsterklasseField.Text = random.Next(1, 5).ToString(CultureInfo.CurrentCulture);
 				comp.DatumProefField.Text = random.Next(1, 28) + "/" + random.Next(1, 12) + "/" + "18";
 
-				comp.InitieelVolumeGewichtField.Text = "dit is geen getal";
-				comp.DroogVolumeGewichtField.Text = random.Next(1, 15).ToString();
-				comp.WatergehalteVoorField.Text = random.Next(200, 600).ToString();
-				comp.WatergehalteNaField.Text = random.Next(100, 200).ToString();
+				comp.InitieelVolumeGewichtField.Text = random.Next(11, 20).ToString(CultureInfo.CurrentCulture);
+				comp.DroogVolumeGewichtField.Text = random.Next(1, 10).ToString(CultureInfo.CurrentCulture);
+				comp.WatergehalteVoorField.Text = random.Next(200, 600).ToString(CultureInfo.CurrentCulture);
+				comp.WatergehalteNaField.Text = random.Next(100, 200).ToString(CultureInfo.CurrentCulture);
 
 			}
 		}
