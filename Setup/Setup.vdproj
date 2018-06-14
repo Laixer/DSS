@@ -140,6 +140,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -164,6 +172,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -412,7 +428,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_93CE0779F981464CB48838F7BAA8E127"
             {
             "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:ProgramMenuFolder"
@@ -436,15 +452,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DSS"
-        "ProductCode" = "8:{F3E41F82-A9C4-4440-9CB8-4E2FA8415EBD}"
-        "PackageCode" = "8:{ED23921C-C315-47B8-A597-C5D0C93DC9FD}"
+        "ProductCode" = "8:{A2BB42EA-F063-47C1-BA18-C18FC93B92C1}"
+        "PackageCode" = "8:{391E562B-46C5-4FAD-A682-753983AFD0DF}"
         "UpgradeCode" = "8:{762EE55F-8560-4F8D-AAA2-82B7C1CC87BC}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.1"
+        "ProductVersion" = "8:0.2"
         "Manufacturer" = "8:Gemeente Rotterdam"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -557,6 +573,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5F938189F93A4131975D1B86C4013F4A"
+            {
+            "Name" = "8:DSS"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_3FC73442D1374574B8FDC2059E290079"
+            "Folder" = "8:_93CE0779F981464CB48838F7BAA8E127"
+            "WorkingFolder" = "8:_08D9D2B0066F47B4A4143C3442B5D2CE"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
