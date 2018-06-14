@@ -5,7 +5,7 @@ using FileHelpers;
 using LiveCharts;
 using System.Windows.Controls;
 
-namespace DSS_WPF
+namespace Dss
 {
 	/// <summary>
 	/// Interaction logic for ResultsWindow.xaml
@@ -18,6 +18,11 @@ namespace DSS_WPF
 
 		public ResultsWindow(String[] fileNames, GenericTestInformation testInformation, SpecificTestInformation[] specificTestInformation)
 		{
+			if (fileNames == null)
+			{
+				return;
+			}
+
 			InitializeComponent();
 
 			var engine = new FileHelperEngine<DataPoint>();
@@ -50,49 +55,49 @@ namespace DSS_WPF
 
 				SeriesCollectionConfiguration shearStrainHorizontalStress = new SeriesCollectionConfiguration
 				{
-					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress },
-					DataPoints = resultArrays[i],
 					HasLogarithmicX = false,
 					HasLogarithmicY = false
 				};
+				shearStrainHorizontalStress.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.ShearStrainHorizontalStress });
+				shearStrainHorizontalStress.SetDataPoints(resultArrays[i]);
 
 				SeriesCollectionConfiguration normalStressShearStress = new SeriesCollectionConfiguration
 				{
-					Types = new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress },
-					DataPoints = resultArrays[i],
 					HasLogarithmicX = false,
 					HasLogarithmicY = false
 				};
+				normalStressShearStress.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.NormalStressShearStress });
+				normalStressShearStress.SetDataPoints(resultArrays[i]);
 
 				SeriesCollectionConfiguration timeAxialStrain = new SeriesCollectionConfiguration
 				{
-					Types = new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain },
-					DataPoints = resultArrays[i],
 					HasLogarithmicX = true,
 					HasLogarithmicY = false
 				};
+				timeAxialStrain.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.TimeAxialStrain });
+				timeAxialStrain.SetDataPoints(resultArrays[i]);
 
 				SeriesCollectionConfiguration shearStrainNormalStressAndShearStrainPorePressure = new SeriesCollectionConfiguration
 				{
-					Types = new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure },
-					DataPoints = resultArrays[i],
 					HasLogarithmicX = false,
 					HasLogarithmicY = false
 				};
+				shearStrainNormalStressAndShearStrainPorePressure.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.ShearStrainNormalStress, SeriesCollectionType.ShearStrainPorePressure });
+				shearStrainNormalStressAndShearStrainPorePressure.SetDataPoints(resultArrays[i]);
 
 				SeriesCollectionConfiguration horizontalStrainSecantGModulus = new SeriesCollectionConfiguration
 				{
-					Types = new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus },
-					DataPoints = resultArrays[i],
 					HasLogarithmicX = true,
 					HasLogarithmicY = true
 				};
+				horizontalStrainSecantGModulus.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus });
+				horizontalStrainSecantGModulus.SetDataPoints(resultArrays[i]);
 
-				resultScrollViewer.ShearStrainHorizontalStress = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainHorizontalStress);
-				resultScrollViewer.NormalStressShearStress = SeriesCollectionManager.SeriesCollectionForConfiguration(normalStressShearStress);
-				resultScrollViewer.TimeAxialStrain = SeriesCollectionManager.SeriesCollectionForConfiguration(timeAxialStrain);
-				resultScrollViewer.ShearStrainNormalStressAndShearStrainPorePressure = SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainNormalStressAndShearStrainPorePressure);
-				resultScrollViewer.HorizontalStrainSecantGModulus = SeriesCollectionManager.SeriesCollectionForConfiguration(horizontalStrainSecantGModulus);
+				resultScrollViewer.ShearStrainHorizontalStress.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainHorizontalStress));
+				resultScrollViewer.NormalStressShearStress.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(normalStressShearStress));
+				resultScrollViewer.TimeAxialStrain.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(timeAxialStrain));
+				resultScrollViewer.ShearStrainNormalStressAndShearStrainPorePressure.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainNormalStressAndShearStrainPorePressure));
+				resultScrollViewer.HorizontalStrainSecantGModulus.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(horizontalStrainSecantGModulus));
 
 				tabItem.Content = resultScrollViewer;
 
