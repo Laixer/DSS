@@ -16,17 +16,17 @@
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0" Grid.Column="0" x:Name="ShearStrainDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding horizontal_strain}"/>
-                <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding normal_stress}"/>
-                <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding horizontal_stress}" />
+                <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding HorizontalStrain}"/>
+                <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding NormalStress}"/>
+                <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding HorizontalStress}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="MaxShearStrainDataGrid" Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Max 𝜏"/>
-                <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding horizontal_strain}"/>
-                <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding normal_stress}"/>
-                <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding horizontal_stress}" />
+                <DataGridTextColumn Header="Shear strain (%)" Binding="{Binding HorizontalStrain}"/>
+                <DataGridTextColumn Header="σ'n (kPa)" Binding="{Binding NormalStress}"/>
+                <DataGridTextColumn Header="𝜏 (kPa)" Binding="{Binding HorizontalStress}" />
             </DataGrid.Columns>
             
         </DataGrid>

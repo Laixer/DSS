@@ -25,6 +25,13 @@ namespace Dss
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
+			ShearStrainHorizontalStress = new SeriesCollection();
+			NormalStressShearStress = new SeriesCollection();
+			TimeAxialStrain = new SeriesCollection();
+			ShearStrainNormalStressAndShearStrainPorePressure = new SeriesCollection();
+			HorizontalStrainSecantGModulus = new SeriesCollection();
+
+
 			DataContext = this;
 		}
 
