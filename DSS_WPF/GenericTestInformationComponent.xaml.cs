@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DSS_WPF
+namespace Dss
 {
 	/// <summary>
 	/// Interaction logic for GenericTestInformationComponent.xaml
@@ -13,6 +15,8 @@ namespace DSS_WPF
 		{
 			InitializeComponent();
 		}
+
+		[SuppressMessage("Microsoft.Design", "CA1024:ChangeToProperty")]
 
 		public GenericTestInformation GetInformation()
 		{
@@ -25,9 +29,14 @@ namespace DSS_WPF
 			information.Teamleider = TeamleiderField.Text;
 			try
 			{
-				information.InitieleHoogte = Convert.ToDouble(InitieleHoogteField.Text);
+				information.InitieleHoogte = Convert.ToDouble(InitieleHoogteField.Text, CultureInfo.CurrentCulture);
 			}
-			catch
+			catch (FormatException)
+			{
+				MessageBox.Show("Waarde Initiele hoogte (" + InitieleHoogteField.Text + ") is geen decimale waarde");
+				return null;
+			}
+			catch (OverflowException)
 			{
 				MessageBox.Show("Waarde Initiele hoogte (" + InitieleHoogteField.Text + ") is geen decimale waarde");
 				return null;
@@ -35,9 +44,14 @@ namespace DSS_WPF
 
 			try
 			{
-				information.Diameter = Convert.ToDouble(DiameterField.Text);
+				information.Diameter = Convert.ToDouble(DiameterField.Text, CultureInfo.CurrentCulture);
 			}
-			catch
+			catch (FormatException)
+			{
+				MessageBox.Show("Waarde diameter (" + DiameterField.Text + ") is geen decimale waarde");
+				return null;
+			}
+			catch (OverflowException)
 			{
 				MessageBox.Show("Waarde diameter (" + DiameterField.Text + ") is geen decimale waarde");
 				return null;
@@ -49,9 +63,14 @@ namespace DSS_WPF
 
 			try
 			{
-				information.CorrectieWaardeA = Convert.ToDouble(CorrectieAField.Text);
+				information.CorrectieWaardeA = Convert.ToDouble(CorrectieAField.Text, CultureInfo.CurrentCulture);
 			}
-			catch
+			catch (FormatException)
+			{
+				MessageBox.Show("Correctiewaarde a (" + CorrectieAField.Text + ") is geen decimale waarde");
+				return null;
+			}
+			catch (OverflowException)
 			{
 				MessageBox.Show("Correctiewaarde a (" + CorrectieAField.Text + ") is geen decimale waarde");
 				return null;
@@ -59,9 +78,14 @@ namespace DSS_WPF
 
 			try
 			{
-				information.CorrectieWaardeB = Convert.ToDouble(CorrectieBField.Text);
+				information.CorrectieWaardeB = Convert.ToDouble(CorrectieBField.Text, CultureInfo.CurrentCulture);
 			}
-			catch
+			catch (FormatException)
+			{
+				MessageBox.Show("Correctiewaarde b (" + CorrectieBField.Text + ") is geen decimale waarde");
+				return null;
+			}
+			catch (OverflowException)
 			{
 				MessageBox.Show("Correctiewaarde b (" + CorrectieBField.Text + ") is geen decimale waarde");
 				return null;
