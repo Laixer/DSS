@@ -12,11 +12,14 @@ using Microsoft.Win32;
 
 namespace Dss
 {
+
 	/// <summary>
 	/// Interaction logic for ResultScrollViewer.xaml
 	/// </summary>
 	public partial class ResultScrollViewer : System.Windows.Controls.UserControl
 	{
+		private const double zoomFactor = 4.0;
+
 		public ResultScrollViewer(int resultNumber)
 		{
 			InitializeComponent();
@@ -47,16 +50,11 @@ namespace Dss
 
 		private void Export(object sender, RoutedEventArgs e)
 		{
+			ExportButton.Visibility = Visibility.Hidden;
+
 			System.Windows.Controls.ScrollViewer scrollViewer = (System.Windows.Controls.ScrollViewer)this.Content;
 			System.Windows.Controls.Grid content = (System.Windows.Controls.Grid)scrollViewer.Content;
-			double actualHeight = content.RenderSize.Height;
-			double actualWidth = content.RenderSize.Width;
-			double zoom = 4.0;
-
-			double renderHeight = actualHeight * zoom;
-			double renderWidth = actualWidth * zoom;
-
-			RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
+			RenderTargetBitmap renderTarget = GetBitmap(content, zoomFactor);
 			VisualBrush sourceBrush = new VisualBrush(content);
 
 			DrawingVisual drawingVisual = new DrawingVisual();
@@ -64,11 +62,27 @@ namespace Dss
 
 			using (drawingContext)
 			{
-				drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
-				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
+				drawingContext.PushTransform(new ScaleTransform(zoomFactor, zoomFactor));
+				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(content.RenderSize.Height, content.RenderSize.Width)));
 			}
 			renderTarget.Render(drawingVisual);
 
+			SaveBitmap(renderTarget);
+		}
+
+		private RenderTargetBitmap GetBitmap(UIElement content, double zoomFactor)
+		{
+			double actualHeight = content.RenderSize.Height;
+			double actualWidth = content.RenderSize.Width;
+
+			double renderHeight = actualHeight * zoomFactor;
+			double renderWidth = actualWidth * zoomFactor;
+
+			return new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
+		}
+
+		private void SaveBitmap(RenderTargetBitmap renderTarget)
+		{
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(renderTarget));
 			using (MemoryStream fs = new MemoryStream())
