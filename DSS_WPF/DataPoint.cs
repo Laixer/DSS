@@ -32,10 +32,10 @@ namespace Dss
 		public int StageNumber { get; set; }
 
 
-		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
 		/// <summary>
 		/// The time in seconds that has elapsed since the start of the test.
 		/// </summary>
+		[FieldQuoted][FieldConverter(ConverterKind.Int32)]
 		public int TimeSinceStartTest { get; set; }
 
 
