@@ -17,9 +17,10 @@ namespace Dss
 		[SuppressMessage("Microsoft.Design", "CA1024:ChangeToProperty")]
 		public SpecificTestInformation GetInformation()
 		{
-			SpecificTestInformation information = new SpecificTestInformation();
-			
-			information.Boring = BoringField.Text;
+			SpecificTestInformation information = new SpecificTestInformation
+			{
+				Boring = BoringField.Text
+			};
 			try
 			{
 				information.Monster = Convert.ToInt32(MonsterField.Text, CultureInfo.CurrentCulture);

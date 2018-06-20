@@ -20,13 +20,14 @@ namespace Dss
 
 		public GenericTestInformation GetInformation()
 		{
-			GenericTestInformation information = new GenericTestInformation();
-
-			information.Project = ProjectField.Text;
-			information.Projectnummer = ProjectnummerField.Text;
-			information.Laborant = LaborantField.Text;
-			information.Adviseur = AdviseurField.Text;
-			information.Teamleider = TeamleiderField.Text;
+			GenericTestInformation information = new GenericTestInformation
+			{
+				Project = ProjectField.Text,
+				Projectnummer = ProjectnummerField.Text,
+				Laborant = LaborantField.Text,
+				Adviseur = AdviseurField.Text,
+				Teamleider = TeamleiderField.Text
+			};
 			try
 			{
 				information.InitieleHoogte = Convert.ToDouble(InitieleHoogteField.Text, CultureInfo.CurrentCulture);

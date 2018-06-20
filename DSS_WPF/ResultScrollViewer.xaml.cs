@@ -70,7 +70,7 @@ namespace Dss
 			SaveBitmap(renderTarget);
 		}
 
-		private RenderTargetBitmap GetBitmap(UIElement content, double zoomFactor)
+		private static RenderTargetBitmap GetBitmap(UIElement content, double zoomFactor)
 		{
 			double actualHeight = content.RenderSize.Height;
 			double actualWidth = content.RenderSize.Width;
@@ -95,18 +95,20 @@ namespace Dss
 					Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 					doc.SetPageSize(pageSize);
 
-					showSaveFileDialog(doc, image);
+					ShowSaveFileDialog(doc, image);
 				}
 			}
 		}
 
-		private void showSaveFileDialog(Document document, Image image)
+		private void ShowSaveFileDialog(Document document, Image image)
 		{
-			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.OverwritePrompt = true;
-			dialog.FileName = "Proefstuk " + ResultNumber;
-			dialog.AddExtension = true;
-			dialog.Filter = "PDF file (*.pdf)|*.pdf";
+			SaveFileDialog dialog = new SaveFileDialog
+			{
+				OverwritePrompt = true,
+				FileName = "Proefstuk " + ResultNumber,
+				AddExtension = true,
+				Filter = "PDF file (*.pdf)|*.pdf"
+			};
 			if (dialog.ShowDialog() == true)
 			{
 				using (FileStream stream = new FileStream(dialog.FileName, FileMode.Create))
