@@ -12,9 +12,12 @@ using Microsoft.Win32;
 
 namespace Dss
 {
-
 	/// <summary>
-	/// Interaction logic for ResultScrollViewer.xaml
+	/// Interaction logic for ResultScrollViewer.xaml. This class is a scroll view which means
+	/// that the size of the window isn't much of a concern here. This class mainly passes the right
+	/// SeriesCollection objects to the CartesianCharts in the accompanying xaml file. However,
+	/// it is also responsible for generating and exporting screenshots of its contents as pdf files.
+	/// 
 	/// </summary>
 	public partial class ResultScrollViewer : System.Windows.Controls.UserControl
 	{
@@ -48,6 +51,11 @@ namespace Dss
 		public SeriesCollection ShearStrainNormalStressAndShearStrainPorePressure { get; }
 		public SeriesCollection HorizontalStrainSecantGModulus { get; }
 
+		/// <summary>
+		/// Event handler for the "Export" button in the lower right corner of the Scroll Viewer.
+		/// Gets a bitmap representation of the contents of this Scroll Viewer, renders them into
+		/// a context and saves the result to disk using a SaveFileDialog.
+		/// </summary>
 		private void Export(object sender, RoutedEventArgs e)
 		{
 			ExportButton.Visibility = Visibility.Hidden;
@@ -70,6 +78,12 @@ namespace Dss
 			SaveBitmap(renderTarget);
 		}
 
+		/// <summary>
+		/// Gets a bitmap represention a UIElement.
+		/// </summary>
+		/// <param name="content">The UIElement to get a bitmap representation of</param>
+		/// <param name="zoomFactor">The zoom (scaling) factor to render the content with</param>
+		/// <returns>The bitmap object set up with the right size.</returns>
 		private static RenderTargetBitmap GetBitmap(UIElement content, double zoomFactor)
 		{
 			double actualHeight = content.RenderSize.Height;
@@ -81,6 +95,13 @@ namespace Dss
 			return new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
 		}
 
+		/// <summary>
+		/// Since we can't save a bitmap directly as a pdf file,
+		/// we need to first encode it as a png file, then
+		/// convert that to a pdf file. Then, we open a save file dialog 
+		/// to actually save the new dialog.
+		/// </summary>
+		/// <param name="renderTarget">The bitmap with the contents of the Scroll Viewer</param>
 		private void SaveBitmap(RenderTargetBitmap renderTarget)
 		{
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
@@ -100,6 +121,11 @@ namespace Dss
 			}
 		}
 
+		/// <summary>
+		/// Shows a SaveFileDialog with a certain document and the image to add to it.
+		/// </summary>
+		/// <param name="document">The document to save</param>
+		/// <param name="image">The image to add to the document</param>
 		private void ShowSaveFileDialog(Document document, Image image)
 		{
 			SaveFileDialog dialog = new SaveFileDialog

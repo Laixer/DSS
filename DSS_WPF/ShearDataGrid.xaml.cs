@@ -57,10 +57,12 @@ namespace Dss
 
 			for (int i = 0; i < shearStrainValues.Length; i++)
 			{
-				DataPoint point = new DataPoint();
-				point.HorizontalStrain = shearStrainValues[i];
-				point.NormalStress = Model.SigmaNForShearStrainPercentage(shearStrainValues[i]);
-				point.HorizontalStress = Model.TauForShearStrainPercentage(shearStrainValues[i]);
+				DataPoint point = new DataPoint
+				{
+					HorizontalStrain = shearStrainValues[i],
+					NormalStress = Model.SigmaNForShearStrainPercentage(shearStrainValues[i]),
+					HorizontalStress = Model.TauForShearStrainPercentage(shearStrainValues[i])
+				};
 				if (i == 0 || (i > 0 && itemsSource[i-1].HorizontalStrain + 10 <= Utilities.RoundTo(maxStrain, -1)))
 				{
 					itemsSource.Add(point);

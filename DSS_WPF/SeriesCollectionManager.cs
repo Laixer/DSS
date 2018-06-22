@@ -8,11 +8,21 @@ using System.Windows.Media;
 
 namespace Dss
 {
+	/// <summary>
+	/// An enum of all the currently supported SeriesCollection types, in the naming format [property on x-axis][property on y-axis]
+	/// </summary>
 	public enum SeriesCollectionType { ShearStrainHorizontalStress, NormalStressShearStress, HorizontalStrainSecantGModulus, ShearStrainPorePressure, ShearStrainNormalStress, TimeAxialStrain }
 
-
+	/// <summary>
+	/// This class is responsible for doing the actual calculation of the values for the points in the graphs.
+	/// </summary>
 	static class SeriesCollectionManager
-	{ 
+	{
+		/// <summary>
+		/// Returns a SeriesCollection set up with the values of a certain configuration.
+		/// </summary>
+		/// <param name="configuration"></param>
+		/// <returns></returns>
 		static public SeriesCollection SeriesCollectionForConfiguration(SeriesCollectionConfiguration configuration)
 		{
 
@@ -49,6 +59,12 @@ namespace Dss
 			return collection;
 		}
 
+		/// <summary>
+		/// Generates a LineSeries given a type of series and an array of data points
+		/// </summary>
+		/// <param name="type">The type of SeriesCollection to get a LineSeries for</param>
+		/// <param name="result">The data points to use for building the LineSeries</param>
+		/// <returns>A LineSeries which can be added to a SeriesCollection</returns>
 		static public LineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result)
 		{
 			int Stage1Length = 0;
@@ -69,9 +85,8 @@ namespace Dss
 				
 			}
 
-			Func<DataPoint, ObservablePoint> PointGenerationFunc = getPointGenerationFunc(type, result);
-			int Length = GetLengthForType(type, result, Stage1Length, StartOfStage2Index);
-			ObservablePoint[] PointsToAdd = generatePoints(type, result, PointGenerationFunc, Length, Stage1Length, StartOfStage2Index);
+			Func<DataPoint, ObservablePoint> PointGenerationFunc = GetPointGenerationFunc(type, result);
+			ObservablePoint[] PointsToAdd = GeneratePoints(type, result, PointGenerationFunc, Stage1Length, StartOfStage2Index);
 
 			ChartValues<ObservablePoint> Points = new ChartValues<ObservablePoint>();
 			Points.AddRange(PointsToAdd);
@@ -86,9 +101,20 @@ namespace Dss
 			};
 		}
 
-		static private ObservablePoint[] generatePoints(SeriesCollectionType type, DataPoint[] result, Func<DataPoint, ObservablePoint> func, int length, int stage1Length, int startOfStage2Index)
+		/// <summary>
+		/// Generates the ObservablePoint objects which can be added to a LineSeries
+		/// </summary>
+		/// <param name="type">The type of SeriesCollection to calculate the points for</param>
+		/// <param name="result">The data points to use for calculating the points</param>
+		/// <param name="func">The function which turns a DataPoint into an ObservablePoint</param>
+		/// <param name="length">The number of points to generate</param>
+		/// <param name="stage1Length">The length of the first stage of the test</param>
+		/// <param name="startOfStage2Index">The first index of the second stage of the test</param>
+		/// <returns>An array of the ObservablePoints that were calculated from the parameters</returns>
+		static private ObservablePoint[] GeneratePoints(SeriesCollectionType type, DataPoint[] result, Func<DataPoint, ObservablePoint> func, int stage1Length, int startOfStage2Index)
 		{
-			ObservablePoint[] PointsToAdd = new ObservablePoint[length];
+			int Length = GetLengthForType(type, result, stage1Length, startOfStage2Index);
+			ObservablePoint[] PointsToAdd = new ObservablePoint[Length];
 			switch (type)
 			{
 				case SeriesCollectionType.ShearStrainHorizontalStress:
@@ -137,7 +163,13 @@ namespace Dss
 			return PointsToAdd;
 		}
 
-		public static Func<DataPoint, ObservablePoint> getPointGenerationFunc(SeriesCollectionType type, DataPoint[] result)
+		/// <summary>
+		/// Gets the function that turns a DataPoint into an ObservablePoint
+		/// </summary>
+		/// <param name="type">The type of SeriesCollection to get transformation functions for</param>
+		/// <param name="result">The array of data points, used for calculating graphs of horizontal strain against g modulus</param>
+		/// <returns>The function that transforms a DataPoint into an ObservablePoint given the parameters</returns>
+		public static Func<DataPoint, ObservablePoint> GetPointGenerationFunc(SeriesCollectionType type, DataPoint[] result)
 		{
 			Func<DataPoint, ObservablePoint> PointGenerationFunc;
 
@@ -215,7 +247,15 @@ namespace Dss
 			return PointGenerationFunc;
 		}
 
-		static int GetLengthForType(SeriesCollectionType type, DataPoint[] result, int Stage1Length, int StartOfStage2Index)
+		/// <summary>
+		/// Gets the number of points in a SeriesCollection taken into account the given parameters.
+		/// </summary>
+		/// <param name="type">The type of SeriesCollection</param>
+		/// <param name="result">The array of DataPoints for the SeriesCollection</param>
+		/// <param name="Stage1Length">The number of data points in the first stage </param>
+		/// <param name="StartOfStage2Index">The index of the first data point belonging to the second stage</param>
+		/// <returns></returns>
+		private static int GetLengthForType(SeriesCollectionType type, DataPoint[] result, int Stage1Length, int StartOfStage2Index)
 		{
 			int Length;
 			switch (type)

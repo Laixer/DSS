@@ -7,7 +7,9 @@ using System.Windows.Controls;
 namespace Dss
 {
 	/// <summary>
-	/// Interaction logic for GenericTestInformationComponent.xaml
+	/// Interaction logic for GenericTestInformationComponent.xaml. This component
+	/// allows the user to enter the generic information about a test
+	/// (the information that is equal for all tests in a set).
 	/// </summary>
 	public partial class GenericTestInformationComponent : UserControl
 	{
@@ -16,8 +18,23 @@ namespace Dss
 			InitializeComponent();
 		}
 
-		[SuppressMessage("Microsoft.Design", "CA1024:ChangeToProperty")]
 
+		// This method uses such a large number of try/catch blocks
+		// because it's the only way to be able to retrieve
+		// which input field was not able to be converted to a double.
+		// We want to know this because we can then show a specific error
+		// stating which field has invalid input.
+
+		/// <summary>
+		/// Parses the information the user entered, verifies that it's valid
+		/// (e.g. check that when decimal values are expected, the entered string
+		/// can be converted to a decimal value).
+		/// </summary>
+		/// <returns></returns>
+		/// 
+		//  Because this method converts the text the user has entered, which can fail,
+		//	this method shouldn't be a method (see https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1024-use-properties-where-appropriate)
+		[SuppressMessage("Microsoft.Design", "CA1024:ChangeToProperty")] // because this method does conversion of the
 		public GenericTestInformation GetInformation()
 		{
 			GenericTestInformation information = new GenericTestInformation

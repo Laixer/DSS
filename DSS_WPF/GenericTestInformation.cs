@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace Dss
 {
+	// These properties have Dutch names to preserve similarity with the 
+	// Excel sheet, so it's easier to verify that code using these fields
+	// is right when comparing it to the Excel sheet.
+
+	/// <summary>
+	/// Model for the generic test information of a set of tests:
+	/// this means that the information is the same for all tests in a set.
+	/// </summary>
 	public class GenericTestInformation
 	{
 		private String project;

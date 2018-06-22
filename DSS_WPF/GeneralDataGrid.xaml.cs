@@ -5,12 +5,22 @@ using System.Windows.Controls;
 
 namespace Dss
 {
+	// I chose to use Dutch words in this file because it makes later maintenance of
+	// this class easier since the translation between my code and
+	// the Excel formulas is clearer. However, it makes for strange names sometimes.
+
 	/// <summary>
-	/// Interaction logic for GeneralDataGrid.xaml
+	/// Interaction logic for GeneralDataGrid.xaml.
+	/// This class represents a collection of DataGrid objects that shows general information
+	/// about the test.
 	/// </summary>
 	public partial class GeneralDataGrid : UserControl
 	{
 		private ShearViewModel _model;
+		/// <summary>
+		/// The shear view model associated with the data grid.
+		/// This model is the data source for the data grid.
+		/// </summary>
 		public ShearViewModel Model
 		{
 			set
@@ -65,6 +75,9 @@ namespace Dss
 			int duration = 0;
 			float deltaH = 0;
 			float normal_stress = 0;
+
+			// This logic is a translation of the formula for this grid in the
+			/// excel sheet.
 			for (int i = 0; i < Model.GetDataPoints().Length; i++)
 			{
 				if (Model.GetDataPoints()[i].StageNumber == 2)
@@ -95,6 +108,8 @@ namespace Dss
 			float max_horizontal_stress = 0;
 			int max_tau_index = 0;
 
+			// This logic is a translation of the formula for this grid in the
+			/// excel sheet.
 			for (int i = 0; i < Model.GetDataPoints().Length; i++)
 			{				
 				if (Model.GetDataPoints()[i].HorizontalStrain > max_horizontal_strain)
@@ -134,11 +149,18 @@ namespace Dss
 				new GeneralDataEntry("Afschuifsnelheid:", Utilities.RoundTo(afschuifsnelheid, 1).ToString(CultureInfo.CurrentCulture), "%/h"),
 				new GeneralDataEntry("Max. shear stress:", Utilities.RoundTo(max_horizontal_stress, 1).ToString(CultureInfo.CurrentCulture), "kPa"),
 				new GeneralDataEntry("Shear strain bij max.", Utilities.RoundTo(max_tau, 1).ToString(CultureInfo.CurrentCulture), "%"),
+				// These unicode symbols are the superscript versions of 5 and 0 respectively
 				new GeneralDataEntry("G" + '\u2085' + '\u2080' + ":", Utilities.RoundTo(g50, 3).ToString(CultureInfo.CurrentCulture), "Mpa")
 			};
 			AfschuifGrid.ItemsSource = items;
 		}
 
+		/// <summary>
+		/// Helper method for calculating the maximal shear value
+		/// for this model: its calculation is a translation
+		/// of the formu.as in the Excel sheet.
+		/// </summary>
+		/// <returns></returns>
 		private float CalculateMaxShear()
 		{
 			float max_horizontal_stress = 0;
