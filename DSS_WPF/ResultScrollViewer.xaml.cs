@@ -31,6 +31,7 @@ namespace Dss
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
+            //TODO: why not initialize as member?
 			ShearStrainHorizontalStress = new SeriesCollection();
 			NormalStressShearStress = new SeriesCollection();
 			TimeAxialStrain = new SeriesCollection();

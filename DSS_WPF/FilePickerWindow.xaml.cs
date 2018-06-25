@@ -43,16 +43,18 @@ namespace Dss
 			};
 			picker.Multiselect = true;
 
-			if (picker.ShowDialog() == true)
+			if (picker.ShowDialog().Value)
 			{
 				TestInformationWindow window = new TestInformationWindow(picker.FileNames);
 				window.Show();
-				this.Close();
+				Close();
 			}
-			else
+#if DEBUG
+            else
 			{
 				Debug.Write("file is null");
 			}
-		}
+#endif
+        }
 	}
 }

@@ -16,6 +16,8 @@ namespace Dss
 	/// </summary>
 	public class GenericTestInformation
 	{
+        /// TODO: If you use shadow variables, it is common to use the variable prefixed by an _
+        /// thus: _Project.
 		private String project;
 		private String projectnummer;
 		private String laborant;

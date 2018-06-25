@@ -11,7 +11,7 @@ namespace Dss
 	/// </summary>
 	public partial class TestInformationWindow : Window
 	{
-		String[] FileNames;
+		readonly String[] FileNames;
 		SpecificTestInformationComponent[] InformationComponents = new SpecificTestInformationComponent[3];
 
 
@@ -20,9 +20,10 @@ namespace Dss
 		{
 			if (fileNames == null)
 			{
+                /// TODO: Why not throw? You cannot return from an ctor! I am surprised MSVS agrees with this.
 				return;
 			}
-			this.FileNames = fileNames;
+			FileNames = fileNames;
 			InitializeComponent();
 			
 			for (int i = 0; i < fileNames.Length; i++)
@@ -49,6 +50,9 @@ namespace Dss
 			GenericTestInformation genericTestInformation = GenericInformationComponent.GetInformation();
 			if (genericTestInformation == null)
 			{
+                /// NOTE: Early returns are considered bad practice in C#, thats more related to C/C++
+                /// where the performance win is a benefit over the readability.
+                /// NOTE: In this particular case, why not MessageBox.Show( <panic message> );
 				return;
 			}
 			SpecificTestInformation[] specific = new SpecificTestInformation[3];
