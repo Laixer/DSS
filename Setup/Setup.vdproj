@@ -452,15 +452,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DSS"
-        "ProductCode" = "8:{A2BB42EA-F063-47C1-BA18-C18FC93B92C1}"
-        "PackageCode" = "8:{391E562B-46C5-4FAD-A682-753983AFD0DF}"
+        "ProductCode" = "8:{D8A9C2E0-560F-4D94-A89D-0068CE02820A}"
+        "PackageCode" = "8:{A31A4BEA-7E40-40F4-8012-FC66189A3C8A}"
         "UpgradeCode" = "8:{762EE55F-8560-4F8D-AAA2-82B7C1CC87BC}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.2"
+        "ProductVersion" = "8:0.3"
         "Manufacturer" = "8:Gemeente Rotterdam"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -988,7 +988,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3FC73442D1374574B8FDC2059E290079"
             {
-            "SourcePath" = "8:..\\DSS_WPF\\obj\\Debug\\DSS_WPF.exe"
+            "SourcePath" = "8:..\\DSS_WPF\\obj\\Release\\DssWpf.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_08D9D2B0066F47B4A4143C3442B5D2CE"

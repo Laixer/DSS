@@ -7,6 +7,10 @@ using System.Globalization;
 
 namespace Dss
 {
+	/// <summary>
+	/// Interaction logic for the SpecificTestInformationComponent. This component
+	/// allows the user to enter the specific test information for a test
+	/// </summary>
 	public partial class SpecificTestInformationComponent: Grid
 	{
 		public SpecificTestInformationComponent()
@@ -14,6 +18,21 @@ namespace Dss
 			InitializeComponent();
 		}
 
+		// This method uses such a large number of try/catch blocks
+		// because it's the only way to be able to retrieve
+		// which input field was not able to be converted to a double.
+		// We want to know this because we can then show a specific error
+		// stating which field has invalid input.
+
+		/// <summary>
+		/// Parses the information the user entered, verifies that it's valid
+		/// (e.g. check that when decimal values are expected, the entered string
+		/// can be converted to a decimal value).
+		/// </summary>
+		/// <returns></returns>
+		/// 
+		//  Because this method converts the text the user has entered, which can fail,
+		//	this method shouldn't be a method (see https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1024-use-properties-where-appropriate)
 		[SuppressMessage("Microsoft.Design", "CA1024:ChangeToProperty")]
 		public SpecificTestInformation GetInformation()
 		{

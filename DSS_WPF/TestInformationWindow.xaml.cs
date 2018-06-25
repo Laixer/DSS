@@ -6,7 +6,8 @@ using System.Windows;
 namespace Dss
 {
 	/// <summary>
-	/// Interaction logic for TestInformationWindow.xaml
+	/// Interaction logic for TestInformationWindow.xaml. This window allows the user
+	/// to enter all the information about the tests that the user selected. 
 	/// </summary>
 	public partial class TestInformationWindow : Window
 	{
@@ -38,6 +39,11 @@ namespace Dss
 			}
 		}
 
+		/// <summary>
+		/// Gets the information the user has entered and passes it to a ResultsWindow object.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Continue_Button_Click(object sender, RoutedEventArgs e)
 		{
 			GenericTestInformation genericTestInformation = GenericInformationComponent.GetInformation();
@@ -69,6 +75,11 @@ namespace Dss
 			wind.Show();
 		}
 
+		/// <summary>
+		/// Fills the test information fields with example data which simplifies testing.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "sond")]
 		[SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Zandbergen")]
 		[SuppressMessage("Microsoft.Globalization", "CA1303:RetrieveLiteralsFromResourceTable")]

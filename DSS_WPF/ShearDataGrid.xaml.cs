@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace Dss
 {
 	/// <summary>
-	/// Interaction logic for ShearDataGrid.xaml
+	/// Interaction logic for ShearDataGrid.xaml. This is the table in the excel sheet
+	/// which shows the sigma and tau values for a bunch of shear strain values. 
 	/// </summary>
 	public partial class ShearDataGrid : UserControl
 	{
@@ -30,6 +31,10 @@ namespace Dss
 
 		}
 
+		/// <summary>
+		/// Updates the item source of the shear strain data grid with the calculated values of sigma and tau
+		/// for the predefined shear strain values.
+		/// </summary>
 		private void UpdateItemsSource()
 		{
 			float[] shearStrainValues = new float[] { 1.0f, 2.0f, 5.0f, 10.0f, 15.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 70.0f, 80.0f, 90.0f };
@@ -75,8 +80,6 @@ namespace Dss
 			ShearStrainDataGrid.ItemsSource = itemsSource;
 
 			MaxShearStrainDataGrid.ItemsSource = new DataPoint[] { Model.GetDataPoints()[maxTauIndex] };
-
-
 		}
 	}
 

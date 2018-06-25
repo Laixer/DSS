@@ -3,6 +3,14 @@ using System.ComponentModel;
 
 namespace Dss
 {
+	// These properties have Dutch names to preserve similarity with the 
+	// Excel sheet, so it's easier to verify that code using these fields
+	// is right when comparing it to the Excel sheet.
+
+	/// <summary>
+	/// Model for the specific test information of a test,
+	/// which is different for each test.
+	/// </summary>
 	public class SpecificTestInformation
 	{
 		private String boring;
@@ -43,6 +51,4 @@ namespace Dss
 			return description;
 		}
 	}
-
-
 }
