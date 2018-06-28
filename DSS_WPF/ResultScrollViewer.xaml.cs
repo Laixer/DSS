@@ -18,11 +18,8 @@ namespace Dss
 	/// SeriesCollection objects to the CartesianCharts in the accompanying xaml file. However,
 	/// it is also responsible for generating and exporting screenshots of its contents as pdf files.
 	/// 
-	/// </summary>
 	public partial class ResultScrollViewer : System.Windows.Controls.UserControl
 	{
-		private const double zoomFactor = 4.0;
-
 		public ResultScrollViewer(int resultNumber)
 		{
 			InitializeComponent();
@@ -31,7 +28,6 @@ namespace Dss
 			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
 			Base = 10;
 
-            //TODO: why not initialize as member?
 			ShearStrainHorizontalStress = new SeriesCollection();
 			NormalStressShearStress = new SeriesCollection();
 			TimeAxialStrain = new SeriesCollection();
@@ -59,11 +55,16 @@ namespace Dss
 		/// </summary>
 		private void Export(object sender, RoutedEventArgs e)
 		{
-			ExportButton.Visibility = Visibility.Hidden;
-
 			System.Windows.Controls.ScrollViewer scrollViewer = (System.Windows.Controls.ScrollViewer)this.Content;
 			System.Windows.Controls.Grid content = (System.Windows.Controls.Grid)scrollViewer.Content;
-			RenderTargetBitmap renderTarget = GetBitmap(content, zoomFactor);
+			double actualHeight = content.RenderSize.Height;
+			double actualWidth = content.RenderSize.Width;
+			double zoom = 4.0;
+
+			double renderHeight = actualHeight * zoom;
+			double renderWidth = actualWidth * zoom;
+
+			RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
 			VisualBrush sourceBrush = new VisualBrush(content);
 
 			DrawingVisual drawingVisual = new DrawingVisual();
@@ -71,40 +72,11 @@ namespace Dss
 
 			using (drawingContext)
 			{
-				drawingContext.PushTransform(new ScaleTransform(zoomFactor, zoomFactor));
-				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(content.RenderSize.Height, content.RenderSize.Width)));
+				drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
+				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
 			}
 			renderTarget.Render(drawingVisual);
 
-			SaveBitmap(renderTarget);
-		}
-
-		/// <summary>
-		/// Gets a bitmap represention a UIElement.
-		/// </summary>
-		/// <param name="content">The UIElement to get a bitmap representation of</param>
-		/// <param name="zoomFactor">The zoom (scaling) factor to render the content with</param>
-		/// <returns>The bitmap object set up with the right size.</returns>
-		private static RenderTargetBitmap GetBitmap(UIElement content, double zoomFactor)
-		{
-			double actualHeight = content.RenderSize.Height;
-			double actualWidth = content.RenderSize.Width;
-
-			double renderHeight = actualHeight * zoomFactor;
-			double renderWidth = actualWidth * zoomFactor;
-
-			return new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
-		}
-
-		/// <summary>
-		/// Since we can't save a bitmap directly as a pdf file,
-		/// we need to first encode it as a png file, then
-		/// convert that to a pdf file. Then, we open a save file dialog 
-		/// to actually save the new dialog.
-		/// </summary>
-		/// <param name="renderTarget">The bitmap with the contents of the Scroll Viewer</param>
-		private void SaveBitmap(RenderTargetBitmap renderTarget)
-		{
 			PngBitmapEncoder encoder = new PngBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(renderTarget));
 			using (MemoryStream fs = new MemoryStream())
@@ -117,7 +89,7 @@ namespace Dss
 					Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 					doc.SetPageSize(pageSize);
 
-					ShowSaveFileDialog(doc, image);
+					showSaveFileDialog(doc, image);
 				}
 			}
 		}
@@ -127,15 +99,14 @@ namespace Dss
 		/// </summary>
 		/// <param name="document">The document to save</param>
 		/// <param name="image">The image to add to the document</param>
-		private void ShowSaveFileDialog(Document document, Image image)
+
+		private void showSaveFileDialog(Document document, Image image)
 		{
-			SaveFileDialog dialog = new SaveFileDialog
-			{
-				OverwritePrompt = true,
-				FileName = "Proefstuk " + ResultNumber,
-				AddExtension = true,
-				Filter = "PDF file (*.pdf)|*.pdf"
-			};
+			SaveFileDialog dialog = new SaveFileDialog();
+			dialog.OverwritePrompt = true;
+			dialog.FileName = "Proefstuk " + ResultNumber;
+			dialog.AddExtension = true;
+			dialog.Filter = "PDF file (*.pdf)|*.pdf";
 			if (dialog.ShowDialog() == true)
 			{
 				using (FileStream stream = new FileStream(dialog.FileName, FileMode.Create))
@@ -146,7 +117,7 @@ namespace Dss
 
 					document.Add(image);
 					document.Close();
-				}	
+				}
 			}
 			else
 			{
