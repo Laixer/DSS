@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:Dss"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="1020" Width="1218.712">
+             d:DesignHeight="1020" Width="1442">
 
     <ScrollViewer x:Name="ScrollViewer">
         <Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="481" />
+                    <ColumnDefinition Width="481" />
+                    <ColumnDefinition Width="481" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="300" />
