@@ -89,7 +89,7 @@ namespace Dss
 					Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
 					doc.SetPageSize(pageSize);
 
-					showSaveFileDialog(doc, image);
+					ShowSaveFileDialog(doc, image);
 				}
 			}
 		}
@@ -100,7 +100,7 @@ namespace Dss
 		/// <param name="document">The document to save</param>
 		/// <param name="image">The image to add to the document</param>
 
-		private void showSaveFileDialog(Document document, Image image)
+		private void ShowSaveFileDialog(Document document, Image image)
 		{
 			SaveFileDialog dialog = new SaveFileDialog();
 			dialog.OverwritePrompt = true;
