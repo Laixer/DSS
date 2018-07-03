@@ -55,6 +55,8 @@ namespace Dss
 		/// </summary>
 		private void Export(object sender, RoutedEventArgs e)
 		{
+			ExportButton.Visibility = Visibility.Hidden;
+
 			System.Windows.Controls.ScrollViewer scrollViewer = (System.Windows.Controls.ScrollViewer)this.Content;
 			System.Windows.Controls.Grid content = (System.Windows.Controls.Grid)scrollViewer.Content;
 			double actualHeight = content.RenderSize.Height;
@@ -92,6 +94,8 @@ namespace Dss
 					ShowSaveFileDialog(doc, image);
 				}
 			}
+
+			ExportButton.Visibility = Visibility.Visible;
 		}
 
 		/// <summary>
@@ -102,11 +106,13 @@ namespace Dss
 
 		private void ShowSaveFileDialog(Document document, Image image)
 		{
-			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.OverwritePrompt = true;
-			dialog.FileName = "Proefstuk " + ResultNumber;
-			dialog.AddExtension = true;
-			dialog.Filter = "PDF file (*.pdf)|*.pdf";
+			SaveFileDialog dialog = new SaveFileDialog
+			{
+				OverwritePrompt = true,
+				FileName = "Proefstuk " + ResultNumber,
+				AddExtension = true,
+				Filter = "PDF file (*.pdf)|*.pdf"
+			};
 			if (dialog.ShowDialog() == true)
 			{
 				using (FileStream stream = new FileStream(dialog.FileName, FileMode.Create))
