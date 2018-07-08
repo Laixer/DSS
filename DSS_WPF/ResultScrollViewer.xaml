@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Dss"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="1020" Width="1442">
+             d:DesignHeight="1020" Width="1452">
 
     <ScrollViewer x:Name="ScrollViewer">
         <Grid>
@@ -39,41 +39,44 @@
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
 
-                <lvc:CartesianChart Grid.Row="0" Grid.Column="1" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding NormalStressShearStress}">
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Normal Stress σ'n (kPa)" MinValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="20"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Shear stress 𝜏 (kPa)" MinValue="-5" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="5"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
-                    </lvc:CartesianChart.AxisY> 
-                </lvc:CartesianChart>
                 <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Height="300" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding HorizontalStrainSecantGModulus}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:LogarithmicAxis Title="Horizontal Strain γ (%)" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" LabelFormatter="{Binding Formatter}" Base="10" >
+                        <lvc:LogarithmicAxis Title="Horizontal Strain γ (%)" MinValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" Base="10">
                             <lvc:LogarithmicAxis.Separator>
-                                <lvc:Separator Stroke="Black" Width="0.75pt"/>
+                                <lvc:Separator Stroke="Black" Width="0.1pt"/>
                             </lvc:LogarithmicAxis.Separator>
                         </lvc:LogarithmicAxis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:LogarithmicAxis Title="Secant G-Modulus (MPa)" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" LabelFormatter="{Binding Formatter}" Base="10" >
+                        <lvc:LogarithmicAxis Title="Secant G-Modulus (MPa)" MinValue="0" MaxValue="1" LabelFormatter="{Binding LogarithmicFormatter}" Base="10" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" >
                             <lvc:LogarithmicAxis.Separator>
                                 <lvc:Separator Stroke="Black" Width="0.75pt"/>
                             </lvc:LogarithmicAxis.Separator>
                         </lvc:LogarithmicAxis>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
+
+
+                <lvc:CartesianChart Grid.Row="0" Grid.Column="1" Height="300" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding NormalStressShearStress}">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Normal Stress σ'n (kPa)" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" MinValue="0">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="5"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Shear stress 𝜏 (kPa)" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="5"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+                
                 <lvc:CartesianChart Grid.Row="1" Grid.Column="1" Height="300" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding ShearStrainNormalStressAndShearStrainPorePressure}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Shear Strain γ (%)" MinValue="-10" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
+                        <lvc:Axis Title="Shear Strain γ (%)" MinValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
                             <lvc:Axis.Separator>
                                 <lvc:Separator Stroke="Black" Width="0.75pt" Step="10"/>
                             </lvc:Axis.Separator>
@@ -86,18 +89,18 @@
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
-
                 </lvc:CartesianChart>
-                    <lvc:CartesianChart Grid.Row="1" Grid.Column="2" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding TimeAxialStrain}">
+
+                <lvc:CartesianChart Grid.Row="1" Grid.Column="2" DisableAnimations="True" Hoverable="False" DataTooltip="{x:Null}" Series="{Binding TimeAxialStrain}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:LogarithmicAxis LabelFormatter="{Binding Formatter}" Base="10" Title="Tijd (s)" MinValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
+                        <lvc:LogarithmicAxis Title="Tijd (s)" Base="10" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
                             <lvc:LogarithmicAxis.Separator>
                                 <lvc:Separator Stroke="Black" Width="0.75pt"/>
                             </lvc:LogarithmicAxis.Separator>
                         </lvc:LogarithmicAxis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Axial Strain (%)" MinValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
+                        <lvc:Axis Title="Axial Strain (%)" MinValue="-20" MaxValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" LabelFormatter="{Binding InvertedAxisFormatter}">
                             <lvc:Axis.Separator>
                                 <lvc:Separator Stroke="Black" Width="0.75pt"/>
                             </lvc:Axis.Separator>

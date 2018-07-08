@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
-using System.Globalization;
 using FileHelpers;
-using LiveCharts;
 using System.Windows.Controls;
 
 namespace Dss
@@ -107,6 +105,7 @@ namespace Dss
 				};
 				horizontalStrainSecantGModulus.SetTypes(new SeriesCollectionType[] { SeriesCollectionType.HorizontalStrainSecantGModulus });
 				horizontalStrainSecantGModulus.SetDataPoints(resultArrays[i]);
+				horizontalStrainSecantGModulus.GenericTestInformation = GenericTestInformation;
 
 				resultScrollViewer.ShearStrainHorizontalStress.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(shearStrainHorizontalStress));
 				resultScrollViewer.NormalStressShearStress.AddRange(SeriesCollectionManager.SeriesCollectionForConfiguration(normalStressShearStress));
@@ -119,20 +118,7 @@ namespace Dss
 				TabControl.Items.Add(tabItem);
 			}
 
-			// This formatter is used by the logarithmic graphs to create axes.
-			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
-			Base = 10;
-
 			DataContext = this;
 		}
-		
-		/// <summary>
-		/// Used by logarithmic graphs to create axes.
-		/// </summary>
-		public Func<double, string> Formatter { get; set; }
-		/// <summary>
-		/// The base for the logarithmic axes, currently always 10.
-		/// </summary>
-		public double Base { get; set; }
 	}
 }

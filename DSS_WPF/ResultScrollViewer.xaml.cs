@@ -1,7 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -25,8 +24,9 @@ namespace Dss
 			InitializeComponent();
 
 			ResultNumber = resultNumber;
-			Formatter = value => Math.Pow(10, value).ToString("N", CultureInfo.CreateSpecificCulture("nl"));
+			LogarithmicFormatter = value => Math.Pow(10, value).ToString("N", CultureInfo.InvariantCulture);
 			Base = 10;
+			InvertedAxisFormatter = value => (-value).ToString("N", CultureInfo.InvariantCulture);
 
 			ShearStrainHorizontalStress = new SeriesCollection();
 			NormalStressShearStress = new SeriesCollection();
@@ -34,12 +34,12 @@ namespace Dss
 			ShearStrainNormalStressAndShearStrainPorePressure = new SeriesCollection();
 			HorizontalStrainSecantGModulus = new SeriesCollection();
 
-
 			DataContext = this;
 		}
 
 		private int ResultNumber;
-		public Func<double, string> Formatter { get; set; }
+		public Func<double, string> LogarithmicFormatter { get; set; }
+		public Func<double, string> InvertedAxisFormatter { get; set; }
 		public double Base { get; set; }
 
 		public SeriesCollection ShearStrainHorizontalStress { get; }

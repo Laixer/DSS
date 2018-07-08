@@ -28,7 +28,8 @@ namespace Dss
 			types = value;
 		}
 
-		public SpecificTestInformation TestInformation { get; set; }
+		public SpecificTestInformation SpecificTestInformation { get; set; }
+		public GenericTestInformation GenericTestInformation { get; set; }
 
 		public DataPoint[] GetDataPoints()
 		{

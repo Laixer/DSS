@@ -2,9 +2,10 @@
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
-//using LiveCharts.Geared;
+using LiveCharts.Geared;
 using LiveCharts.Configurations;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace Dss
 {
@@ -26,10 +27,10 @@ namespace Dss
 		static public SeriesCollection SeriesCollectionForConfiguration(SeriesCollectionConfiguration configuration)
 		{
 
-			LineSeries[] Series = new LineSeries[configuration.GetTypes().Length];
+			GLineSeries[] Series = new GLineSeries[configuration.GetTypes().Length];
 			for (int i = 0; i < configuration.GetTypes().Length; i++)
 			{
-				Series[i] = LineSeriesForType(configuration.GetTypes()[i], configuration.GetDataPoints());
+				Series[i] = LineSeriesForType(configuration.GetTypes()[i], configuration.GetDataPoints(), configuration);
 			}
 
 			SeriesCollection collection;
@@ -65,38 +66,15 @@ namespace Dss
 		/// <param name="type">The type of SeriesCollection to get a LineSeries for</param>
 		/// <param name="result">The data points to use for building the LineSeries</param>
 		/// <returns>A LineSeries which can be added to a SeriesCollection</returns>
-		static public LineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result)
+		static public GLineSeries LineSeriesForType(SeriesCollectionType type, DataPoint[] result, SeriesCollectionConfiguration configuration)
 		{
-			int Stage1Length = 0;
-			int StartOfStage2Index = 0;
-			for (int i = 0; i < result.Length; i++)
+			var Values = ValuesForType(type, result, configuration);
+
+			return new GLineSeries
 			{
-				if (result[i].StageNumber == 2)
-				{
-					Stage1Length = i - 1;
-					StartOfStage2Index = i;
-					break;
-				}
-			}
-
-			if (Stage1Length == 0 || StartOfStage2Index == 0)
-			{
-				throw new ArgumentException("There must be two stages in the input file");
-				
-			}
-
-			Func<DataPoint, ObservablePoint> PointGenerationFunc = GetPointGenerationFunc(type, result);
-			ObservablePoint[] PointsToAdd = GeneratePoints(type, result, PointGenerationFunc, Stage1Length, StartOfStage2Index);
-
-			ChartValues<ObservablePoint> Points = new ChartValues<ObservablePoint>();
-			Points.AddRange(PointsToAdd);
-			//Points.Quality = Quality.Low;
-
-			return new LineSeries
-			{
-				Values = Points,
+				Values = Values,
 				StrokeThickness = 1,
-				PointGeometrySize = 1,
+				PointGeometry = DefaultGeometries.None,
 				Fill = Brushes.Transparent
 			};
 		}
@@ -163,13 +141,54 @@ namespace Dss
 			return PointsToAdd;
 		}
 
+		static public GearedValues<ObservablePoint> ValuesForType(SeriesCollectionType type, DataPoint[] result, SeriesCollectionConfiguration configuration)
+		{
+			int Stage1Length = 0;
+			int StartOfStage2Index = 0;
+			for (int i = 0; i < result.Length; i++)
+			{
+				if (result[i].StageNumber == 2)
+				{
+					Stage1Length = i - 1;
+					StartOfStage2Index = i;
+					break;
+				}
+			}
+
+			if (Stage1Length == 0 || StartOfStage2Index == 0)
+			{
+				throw new ArgumentException("There must be two stages in the input file");
+
+			}
+
+			Func<DataPoint, ObservablePoint> PointGenerationFunc = GetPointGenerationFunc(type, result, configuration);
+			ObservablePoint[] PointsToAdd = GeneratePoints(type, result, PointGenerationFunc, Stage1Length, StartOfStage2Index);
+
+
+			GearedValues<ObservablePoint> Points = new GearedValues<ObservablePoint>();
+			using (Points)
+			{
+				Points.AddRange(PointsToAdd);
+				if (type == SeriesCollectionType.NormalStressShearStress)
+				{
+					Points.Quality = Quality.Low;
+				}
+				else
+				{
+					Points.Quality = Quality.Highest;
+				}
+			}
+			
+			return Points;
+		}
+
 		/// <summary>
 		/// Gets the function that turns a DataPoint into an ObservablePoint
 		/// </summary>
 		/// <param name="type">The type of SeriesCollection to get transformation functions for</param>
 		/// <param name="result">The array of data points, used for calculating graphs of horizontal strain against g modulus</param>
 		/// <returns>The function that transforms a DataPoint into an ObservablePoint given the parameters</returns>
-		public static Func<DataPoint, ObservablePoint> GetPointGenerationFunc(SeriesCollectionType type, DataPoint[] result)
+		public static Func<DataPoint, ObservablePoint> GetPointGenerationFunc(SeriesCollectionType type, DataPoint[] result, SeriesCollectionConfiguration configuration)
 		{
 			Func<DataPoint, ObservablePoint> PointGenerationFunc;
 
@@ -193,7 +212,7 @@ namespace Dss
 					PointGenerationFunc = dataPoint => (new ObservablePoint
 					{
 						X = dataPoint.TimeSinceStartTest,
-						Y = dataPoint.AxialStrain
+						Y = -dataPoint.AxialStrain
 					});
 					break;
 				case SeriesCollectionType.ShearStrainNormalStress:
@@ -215,12 +234,11 @@ namespace Dss
 					double StrainStartShear = 0.0;
 					double StressStartShear = 0.0;
 					bool Found = false;
-					//double Correction = 1.28;
 					foreach (DataPoint point in result)
 					{
 						if (point.StageNumber == 2)
 						{
-							StrainStartShear = point.HorizontalStrain;
+							StrainStartShear = point.HorizontalStrain - configuration.GenericTestInformation.CorrectieWaardeB;
 							StressStartShear = point.HorizontalStress;
 							Found = true;
 							break;
@@ -229,7 +247,7 @@ namespace Dss
 
 					if (!Found)
 					{
-						return null;
+						throw new ArgumentException("result doesn't contain data points in two stages");
 					}
 
 					PointGenerationFunc = dataPoint => (new ObservablePoint

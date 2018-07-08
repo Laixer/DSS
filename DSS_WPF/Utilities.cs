@@ -22,5 +22,7 @@ namespace Dss
             float roundFactor = (float)Math.Pow(10, -decimals);
             return (float)Math.Round(number / roundFactor, 0) * roundFactor;
         }
+
+		private Utilities() { }
     }
 }
