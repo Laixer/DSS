@@ -166,8 +166,7 @@ namespace Dss
 
 
 			GearedValues<ObservablePoint> Points = new GearedValues<ObservablePoint>();
-			using (Points)
-			{
+			
 				Points.AddRange(PointsToAdd);
 				if (type == SeriesCollectionType.NormalStressShearStress)
 				{
@@ -177,9 +176,7 @@ namespace Dss
 				{
 					Points.Quality = Quality.Highest;
 				}
-			}
-			
-			return Points;
+				return Points;
 		}
 
 		/// <summary>
