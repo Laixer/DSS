@@ -61,14 +61,14 @@
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="Normal Stress σ'n (kPa)" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" MinValue="0">
                             <lvc:Axis.Separator>
-                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="5"/>
+                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="20"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
                         <lvc:Axis Title="Shear stress 𝜏 (kPa)" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold">
                             <lvc:Axis.Separator>
-                                <lvc:Separator Stroke="Black" Width="0.75pt" Step="5"/>
+                                <lvc:Separator Stroke="Black" Width="0.75pt"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisY>
