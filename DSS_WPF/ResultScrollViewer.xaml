@@ -100,7 +100,7 @@
                         </lvc:LogarithmicAxis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Axial Strain (%)" MinValue="-20" MaxValue="0" Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" LabelFormatter="{Binding InvertedAxisFormatter}">
+                        <lvc:Axis Title="Axial Strain (%)"  Position="LeftBottom" Foreground="Black" FontFamily="Calibri" FontSize="12" FontWeight="Bold" LabelFormatter="{Binding InvertedAxisFormatter}">
                             <lvc:Axis.Separator>
                                 <lvc:Separator Stroke="Black" Width="0.75pt"/>
                             </lvc:Axis.Separator>
