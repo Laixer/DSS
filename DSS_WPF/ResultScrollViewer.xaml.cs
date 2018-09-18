@@ -61,12 +61,12 @@ namespace Dss
 			System.Windows.Controls.Grid content = (System.Windows.Controls.Grid)scrollViewer.Content;
 			double actualHeight = content.RenderSize.Height;
 			double actualWidth = content.RenderSize.Width;
-			double zoom = 4.0;
+														  
 
-			double renderHeight = actualHeight * zoom;
-			double renderWidth = actualWidth * zoom;
+			double renderHeight = 596;
+			double renderWidth = 842;
 
-			RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)renderWidth, (int)renderHeight, 96.0, 96.0, PixelFormats.Pbgra32);
+			RenderTargetBitmap renderTarget = new RenderTargetBitmap((int)actualWidth, (int)actualHeight, 300, 300, PixelFormats.Pbgra32);
 			VisualBrush sourceBrush = new VisualBrush(content);
 
 			DrawingVisual drawingVisual = new DrawingVisual();
@@ -74,7 +74,7 @@ namespace Dss
 
 			using (drawingContext)
 			{
-				drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
+				drawingContext.PushTransform(new ScaleTransform(renderHeight/2.0/actualHeight, renderWidth/2.0/actualWidth));
 				drawingContext.DrawRectangle(sourceBrush, null, new Rect(new Point(0, 0), new Point(actualWidth, actualHeight)));
 			}
 			renderTarget.Render(drawingVisual);
@@ -88,7 +88,7 @@ namespace Dss
 
 				using (Document doc = new Document())
 				{
-					Rectangle pageSize = new Rectangle((float)renderTarget.Width, (float)renderTarget.Height);
+					Rectangle pageSize = new Rectangle(842, 596);
 					doc.SetPageSize(pageSize);
 
 					ShowSaveFileDialog(doc, image);
@@ -119,9 +119,13 @@ namespace Dss
 				{
 					PdfWriter.GetInstance(document, stream);
 					document.Open();
-					image.SetAbsolutePosition(0, 0);
 
+					image.ScaleToFit(PageSize.A4.Rotate());
+					image.SetDpi(300, 300);
+
+					document.SetMargins(100.0f, 100.0f, 100.0f, 100.0f);
 					document.Add(image);
+
 					document.Close();
 				}
 			}
