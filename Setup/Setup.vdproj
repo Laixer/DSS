@@ -22,13 +22,13 @@
         "Entry"
         {
         "MsmKey" = "8:_0316693571C729CCA696545E16C3F55B"
-        "OwnerKey" = "8:_DB0D2632FCC994526F4D3C9DC37805AC"
+        "OwnerKey" = "8:_2D42448EC05B65DB851A7AF6B68BBF4C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_0316693571C729CCA696545E16C3F55B"
-        "OwnerKey" = "8:_2D42448EC05B65DB851A7AF6B68BBF4C"
+        "OwnerKey" = "8:_DB0D2632FCC994526F4D3C9DC37805AC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,25 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8B5B81BC48C2801A976BD1C1C8F41A2D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E2B45A53A7AD54348545A14D4E7D1D02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5BAE6F2AECD8A2825851103296D1214E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0316693571C729CCA696545E16C3F55B"
+        "OwnerKey" = "8:_DB0D2632FCC994526F4D3C9DC37805AC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,7 +94,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DB0D2632FCC994526F4D3C9DC37805AC"
+        "OwnerKey" = "8:_0316693571C729CCA696545E16C3F55B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5BAE6F2AECD8A2825851103296D1214E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E2B45A53A7AD54348545A14D4E7D1D02"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8B5B81BC48C2801A976BD1C1C8F41A2D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -422,15 +422,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DSS"
-        "ProductCode" = "8:{675D1A1E-A793-4ED0-88F2-8EC343194132}"
-        "PackageCode" = "8:{8726159E-A795-45E6-808F-270A8EFD421C}"
+        "ProductCode" = "8:{D186A8C0-7FF0-4961-A3B7-F4974683B310}"
+        "PackageCode" = "8:{C3C193DF-BEE7-48DC-9A3F-DDB61B5348B6}"
         "UpgradeCode" = "8:{762EE55F-8560-4F8D-AAA2-82B7C1CC87BC}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.5"
+        "ProductVersion" = "8:0.6"
         "Manufacturer" = "8:Gemeente Rotterdam"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
